@@ -2,7 +2,7 @@ using GameStart.IdentityService.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContexts(builder.Configuration);
+builder.Services.AddDbContextsWithUsers(builder.Configuration);
 builder.Services.AddControllers();
 builder.Services.AddPreconfiguredIdentityServer();
 builder.Services.AddGoogleAuthentication(builder.Configuration);

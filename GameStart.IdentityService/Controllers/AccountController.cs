@@ -116,7 +116,7 @@ namespace GameStart.IdentityService.Controllers
             return (additionalLocalClaims, localSignInProps);
         }
 
-        private (string providerUserId, string provider, List<Claim> claims) GetUserClaims(AuthenticateResult result)
+        private static (string providerUserId, string provider, List<Claim> claims) GetUserClaims(AuthenticateResult result)
         {
             var externalUser = result.Principal;
 

@@ -1,6 +1,9 @@
+using GameStart.IdentityService.Data;
+using GameStart.IdentityService.Data.Models;
 using IdentityServer4;
 using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -9,16 +12,21 @@ namespace GameStart.IdentityService.Extensions
 {
     public static class ServiceCollectionExtension
     {
-        public static void AddDbContexts(this IServiceCollection services, IConfiguration configuration)
+        public static void AddDbContextsWithUsers(this IServiceCollection services, IConfiguration configuration)
         {
             static void ConfigureDbContext(DbContextOptionsBuilder x, string connectionString) =>
                 x.UseSqlServer(connectionString, o => o.MigrationsAssembly(typeof(Program).Assembly.FullName));
 
             var configurationConnectionString = configuration.GetConnectionString("ConfigurationDbConnection");
             var persistedGrantsConnectionString = configuration.GetConnectionString("PersistedGrantsDbConnection");
+            var accountsConnectionString = configuration.GetConnectionString("AccountsDbConnection");
 
             services.AddDbContext<ConfigurationDbContext>(options => ConfigureDbContext(options, configurationConnectionString));
             services.AddDbContext<PersistedGrantDbContext>(options => ConfigureDbContext(options, persistedGrantsConnectionString));
+            services.AddDbContext<AccountsDbContext>(options => ConfigureDbContext(options, accountsConnectionString));
+
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<AccountsDbContext>();
         }
 
         public static IServiceCollection AddCustomCorsPolicy(
