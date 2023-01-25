@@ -3,6 +3,7 @@ using GameStart.IdentityService.Data.Models;
 using IdentityServer4;
 using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.IdentityModel.Tokens.Jwt;
@@ -12,7 +13,7 @@ namespace GameStart.IdentityService.Extensions
 {
     public static class ServiceCollectionExtension
     {
-        public static void AddDbContextsWithUsers(this IServiceCollection services, IConfiguration configuration)
+        public static void AddDbContextsWithIdentity(this IServiceCollection services, IConfiguration configuration)
         {
             static void ConfigureDbContext(DbContextOptionsBuilder x, string connectionString) =>
                 x.UseSqlServer(connectionString, o => o.MigrationsAssembly(typeof(Program).Assembly.FullName));
@@ -26,7 +27,31 @@ namespace GameStart.IdentityService.Extensions
             services.AddDbContext<AccountsDbContext>(options => ConfigureDbContext(options, accountsConnectionString));
 
             services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<AccountsDbContext>();
+                .AddEntityFrameworkStores<AccountsDbContext>()
+                .AddDefaultTokenProviders();
+
+            // override default behavior
+            services.ConfigureApplicationCookie(o =>
+            {
+                o.Events.OnRedirectToLogin = (ctx) =>
+                {
+                    if (ctx.Request.Path.StartsWithSegments("/api") && ctx.Response.StatusCode < 400)
+                    {
+                        ctx.Response.StatusCode = 401;
+                    }
+
+                    return Task.CompletedTask;
+                };
+                o.Events.OnRedirectToAccessDenied = (ctx) =>
+                {
+                    if (ctx.Request.Path.StartsWithSegments("/api") && ctx.Response.StatusCode < 400)
+                    {
+                        ctx.Response.StatusCode = 403;
+                    }
+
+                    return Task.CompletedTask;
+                };
+            });
         }
 
         public static IServiceCollection AddCustomCorsPolicy(
@@ -38,7 +63,7 @@ namespace GameStart.IdentityService.Extensions
 
                 return new DefaultCorsPolicyService(logger)
                 {
-                    AllowAll = true
+                    AllowAll = true,
                 };
             });
         }
@@ -48,7 +73,7 @@ namespace GameStart.IdentityService.Extensions
             services.AddIdentityServer()
                 .AddConfigurationStore<ConfigurationDbContext>()
                 .AddOperationalStore<PersistedGrantDbContext>()
-                .AddTestUsers(new());
+                .AddAspNetIdentity<User>();
 
             return services;
         }
@@ -58,7 +83,7 @@ namespace GameStart.IdentityService.Extensions
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Add("sub", ClaimTypes.NameIdentifier);
 
-            services.AddAuthentication(o => o.DefaultSignOutScheme = IdentityServerConstants.DefaultCookieAuthenticationScheme)
+            services.AddAuthentication()
                 .AddGoogle(options =>
                 {
                     options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
