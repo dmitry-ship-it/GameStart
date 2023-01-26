@@ -27,5 +27,13 @@
                 public const string ExternalAuthenticationError = "External authentication error";
             }
         }
+
+        public struct CatalogService
+        {
+            public struct ConnectionStringNames
+            {
+                public const string CatalogDb = "CatalogDbConnection";
+            }
+        }
     }
 }

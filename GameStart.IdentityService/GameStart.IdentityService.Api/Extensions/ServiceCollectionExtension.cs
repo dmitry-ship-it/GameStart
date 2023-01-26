@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
-namespace GameStart.IdentityService.Extensions
+namespace GameStart.IdentityService.Api.Extensions
 {
     public static class ServiceCollectionExtension
     {

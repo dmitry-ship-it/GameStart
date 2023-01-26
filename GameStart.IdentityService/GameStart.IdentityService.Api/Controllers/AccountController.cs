@@ -3,7 +3,7 @@ using GameStart.IdentityService.Common.ViewModels;
 using GameStart.Shared;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GameStart.IdentityService.Controllers
+namespace GameStart.IdentityService.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

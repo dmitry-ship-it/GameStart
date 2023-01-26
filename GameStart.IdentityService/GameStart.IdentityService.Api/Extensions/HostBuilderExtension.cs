@@ -1,6 +1,6 @@
 ﻿using Serilog;
 
-namespace GameStart.IdentityService.Extensions
+namespace GameStart.IdentityService.Api.Extensions
 {
     public static class HostBuilderExtension
     {

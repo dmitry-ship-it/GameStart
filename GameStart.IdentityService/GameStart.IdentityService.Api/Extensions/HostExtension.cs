@@ -2,7 +2,7 @@
 using IdentityServer4.EntityFramework.Mappers;
 using Microsoft.EntityFrameworkCore;
 
-namespace GameStart.IdentityService.Extensions
+namespace GameStart.IdentityService.Api.Extensions
 {
     public static class HostExtension
     {

@@ -1,7 +1,7 @@
 ﻿using IdentityServer4;
 using IdentityServer4.Models;
 
-namespace GameStart.IdentityService
+namespace GameStart.IdentityService.Api
 {
     public class Config
     {

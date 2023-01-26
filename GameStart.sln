@@ -3,15 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityService", "IdentityService", "{862A5883-3F50-4FF7-842D-FD73F3866819}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GameStart.IdentityService", "GameStart.IdentityService", "{862A5883-3F50-4FF7-842D-FD73F3866819}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStart.IdentityService", "IdentityService\GameStart.IdentityService\GameStart.IdentityService.csproj", "{401D5E8D-64B1-4E62-85A0-90FACC86BF8B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStart.IdentityService.Api", "GameStart.IdentityService\GameStart.IdentityService.Api\GameStart.IdentityService.Api.csproj", "{401D5E8D-64B1-4E62-85A0-90FACC86BF8B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStart.IdentityService.Data", "IdentityService\GameStart.IdentityService.Data\GameStart.IdentityService.Data.csproj", "{F22BD3CB-36D2-4890-9C94-74D8EFF5D9DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStart.IdentityService.Data", "GameStart.IdentityService\GameStart.IdentityService.Data\GameStart.IdentityService.Data.csproj", "{F22BD3CB-36D2-4890-9C94-74D8EFF5D9DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStart.IdentityService.Common", "IdentityService\GameStart.IdentityService.Common\GameStart.IdentityService.Common.csproj", "{0D417CDA-908A-4632-9506-FCE88327E309}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStart.IdentityService.Common", "GameStart.IdentityService\GameStart.IdentityService.Common\GameStart.IdentityService.Common.csproj", "{0D417CDA-908A-4632-9506-FCE88327E309}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStart.Shared", "GameStart.Shared\GameStart.Shared.csproj", "{0EBF88DE-29E8-4A51-9A8A-537B5923BC81}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStart.Shared", "GameStart.Shared\GameStart.Shared.csproj", "{0EBF88DE-29E8-4A51-9A8A-537B5923BC81}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GameStart.CatalogService", "GameStart.CatalogService", "{EA2E0FF1-8C38-4D0A-8CB3-28E3AE59B700}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStart.CatalogService.Api", "GameStart.CatalogService\GameStart.CatalogService.Api\GameStart.CatalogService.Api.csproj", "{0D189834-6BD7-4C17-BBAD-CB9D6D9B6F4D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStart.CatalogService.Data", "GameStart.CatalogService\GameStart.CatalogService.Data\GameStart.CatalogService.Data.csproj", "{187F90BC-0C29-4062-AE00-332B0C166F02}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +41,14 @@ Global
 		{0EBF88DE-29E8-4A51-9A8A-537B5923BC81}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0EBF88DE-29E8-4A51-9A8A-537B5923BC81}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0EBF88DE-29E8-4A51-9A8A-537B5923BC81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D189834-6BD7-4C17-BBAD-CB9D6D9B6F4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D189834-6BD7-4C17-BBAD-CB9D6D9B6F4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D189834-6BD7-4C17-BBAD-CB9D6D9B6F4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D189834-6BD7-4C17-BBAD-CB9D6D9B6F4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{187F90BC-0C29-4062-AE00-332B0C166F02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{187F90BC-0C29-4062-AE00-332B0C166F02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{187F90BC-0C29-4062-AE00-332B0C166F02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{187F90BC-0C29-4062-AE00-332B0C166F02}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -43,6 +57,8 @@ Global
 		{401D5E8D-64B1-4E62-85A0-90FACC86BF8B} = {862A5883-3F50-4FF7-842D-FD73F3866819}
 		{F22BD3CB-36D2-4890-9C94-74D8EFF5D9DE} = {862A5883-3F50-4FF7-842D-FD73F3866819}
 		{0D417CDA-908A-4632-9506-FCE88327E309} = {862A5883-3F50-4FF7-842D-FD73F3866819}
+		{0D189834-6BD7-4C17-BBAD-CB9D6D9B6F4D} = {EA2E0FF1-8C38-4D0A-8CB3-28E3AE59B700}
+		{187F90BC-0C29-4062-AE00-332B0C166F02} = {EA2E0FF1-8C38-4D0A-8CB3-28E3AE59B700}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A95021B1-7C40-4506-BDBC-D03797A88526}
