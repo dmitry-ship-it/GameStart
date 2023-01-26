@@ -19,9 +19,9 @@ namespace GameStart.IdentityService.Extensions
             static void ConfigureDbContext(DbContextOptionsBuilder options, string connectionString) =>
                 options.UseSqlServer(connectionString, o => o.MigrationsAssembly(typeof(AccountsDbContext).Assembly.FullName));
 
-            var configurationConnectionString = configuration.GetConnectionString(Constants.IdentityServiceConnectionStringNames.ConfigurationDb);
-            var persistedGrantsConnectionString = configuration.GetConnectionString(Constants.IdentityServiceConnectionStringNames.PersistedGrantsDb);
-            var accountsConnectionString = configuration.GetConnectionString(Constants.IdentityServiceConnectionStringNames.AccountsDb);
+            var configurationConnectionString = configuration.GetConnectionString(Constants.IdentityService.ConnectionStringNames.ConfigurationDb);
+            var persistedGrantsConnectionString = configuration.GetConnectionString(Constants.IdentityService.ConnectionStringNames.PersistedGrantsDb);
+            var accountsConnectionString = configuration.GetConnectionString(Constants.IdentityService.ConnectionStringNames.AccountsDb);
 
             services.AddDbContext<ConfigurationDbContext>(options => ConfigureDbContext(options, configurationConnectionString));
             services.AddDbContext<PersistedGrantDbContext>(options => ConfigureDbContext(options, persistedGrantsConnectionString));

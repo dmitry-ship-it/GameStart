@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using GameStart.IdentityService.Data.Models;
+using GameStart.Shared;
 using IdentityServer4;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
@@ -29,14 +30,14 @@ namespace GameStart.IdentityService.Common
 
             if (user is null)
             {
-                throw new ArgumentException("User was not found");
+                throw new ArgumentException(Constants.IdentityService.ExceptionMessages.UserNotFound);
             }
 
             var checkResult = await signInManager.CheckPasswordSignInAsync(user, password, false);
 
             if (!checkResult.Succeeded)
             {
-                throw new ArgumentException("User was not found or password is incorrect", nameof(password));
+                throw new ArgumentException(Constants.IdentityService.ExceptionMessages.InvalidCredentials);
             }
 
             await signInManager.SignInAsync(user, true);
@@ -71,7 +72,7 @@ namespace GameStart.IdentityService.Common
             var result = await httpContext.AuthenticateAsync(IdentityServerConstants.ExternalCookieAuthenticationScheme);
             if (result?.Succeeded != true)
             {
-                throw new ArgumentException("External authentication error");
+                throw new ArgumentException(Constants.IdentityService.ExceptionMessages.ExternalAuthenticationError);
             }
 
             await CreateUserAndCookieAsync(result.Principal, httpContext);

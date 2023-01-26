@@ -16,21 +16,21 @@ namespace GameStart.IdentityService.Controllers
             this.accountManager = accountManager;
         }
 
-        [HttpPost(Constants.IdentityServiceEndpoints.LoginEndpointName)]
+        [HttpPost(Constants.IdentityService.Endpoints.LoginEndpointName)]
         public async Task<IActionResult> LoginAsync([FromBody] LoginViewModel loginViewModel)
         {
             await accountManager.LoginAsync(loginViewModel.Email, loginViewModel.Password);
             return Ok();
         }
 
-        [HttpPost(Constants.IdentityServiceEndpoints.RegisterEndpointName)]
+        [HttpPost(Constants.IdentityService.Endpoints.RegisterEndpointName)]
         public async Task<IActionResult> RegisterAsync([FromBody] RegisterViewModel registerViewModel)
         {
             await accountManager.RegisterAsync(registerViewModel.Username, registerViewModel.Email, registerViewModel.Password);
             return Ok();
         }
 
-        [HttpGet(Constants.IdentityServiceEndpoints.ChallengeEndpointName)]
+        [HttpGet(Constants.IdentityService.Endpoints.ChallengeEndpointName)]
         public IActionResult Challenge([FromQuery] string scheme, [FromQuery] string returnUrl)
         {
             // example: https://localhost:7153/api/account/challenge?scheme=Google&returnUrl=https://google.com
@@ -38,14 +38,14 @@ namespace GameStart.IdentityService.Controllers
             return Challenge(authenticationProperties, scheme);
         }
 
-        [HttpGet(Constants.IdentityServiceEndpoints.CallbackEndpointName)]
+        [HttpGet(Constants.IdentityService.Endpoints.CallbackEndpointName)]
         public async Task<IActionResult> CallbackAsync()
         {
             var returnUrl = await accountManager.AuthenticateAndCreateUserIfNotExistsAsync(HttpContext);
             return Redirect(returnUrl.ToString());
         }
 
-        [HttpGet(Constants.IdentityServiceEndpoints.LogoutEndpointName)]
+        [HttpGet(Constants.IdentityService.Endpoints.LogoutEndpointName)]
         public async Task<IActionResult> LogoutAsync()
         {
             await accountManager.LogoutAsync(HttpContext);

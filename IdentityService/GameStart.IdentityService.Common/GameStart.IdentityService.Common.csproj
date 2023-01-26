@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\GameStart.Shared\GameStart.Shared.csproj" />
     <ProjectReference Include="..\GameStart.IdentityService.Data\GameStart.IdentityService.Data.csproj" />
   </ItemGroup>
 
