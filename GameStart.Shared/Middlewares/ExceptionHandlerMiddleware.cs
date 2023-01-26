@@ -1,4 +1,7 @@
-﻿namespace GameStart.IdentityService.Middlewares
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
+
+namespace GameStart.Shared.Middlewares
 {
     public class ExceptionLoggerMiddleware
     {

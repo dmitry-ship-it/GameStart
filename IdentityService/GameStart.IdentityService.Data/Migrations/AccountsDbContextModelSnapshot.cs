@@ -4,18 +4,16 @@ using GameStart.IdentityService.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace GameStart.IdentityService.Migrations.AccountsDb
+namespace GameStart.IdentityService.Data.Migrations
 {
     [DbContext(typeof(AccountsDbContext))]
-    [Migration("20230125080532_AddUserStorage")]
-    partial class AddUserStorage
+    partial class AccountsDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,6 +80,8 @@ namespace GameStart.IdentityService.Migrations.AccountsDb
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ExternalProviderUserId");
+
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -118,6 +118,22 @@ namespace GameStart.IdentityService.Migrations.AccountsDb
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "50de9a7e-5f68-45d8-9267-8d9e3ef764f1",
+                            ConcurrencyStamp = "a0a189df-4fba-4031-acdb-9aaf80d99356",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        },
+                        new
+                        {
+                            Id = "b7c3a8d1-c6c9-4771-9977-bf2b1139d507",
+                            ConcurrencyStamp = "46cf687b-7449-40cd-87d4-123f5f890378",
+                            Name = "Manager",
+                            NormalizedName = "MANAGER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

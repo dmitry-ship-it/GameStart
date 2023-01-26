@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace GameStart.IdentityService.Migrations
+namespace GameStart.IdentityService.Data.Migrations.PersistedGrantDb
 {
     public partial class InitialCreate : Migration
     {

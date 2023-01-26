@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStart.IdentityService", "GameStart.IdentityService\GameStart.IdentityService.csproj", "{401D5E8D-64B1-4E62-85A0-90FACC86BF8B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityService", "IdentityService", "{862A5883-3F50-4FF7-842D-FD73F3866819}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStart.IdentityService", "IdentityService\GameStart.IdentityService\GameStart.IdentityService.csproj", "{401D5E8D-64B1-4E62-85A0-90FACC86BF8B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStart.IdentityService.Data", "IdentityService\GameStart.IdentityService.Data\GameStart.IdentityService.Data.csproj", "{F22BD3CB-36D2-4890-9C94-74D8EFF5D9DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStart.IdentityService.Common", "IdentityService\GameStart.IdentityService.Common\GameStart.IdentityService.Common.csproj", "{0D417CDA-908A-4632-9506-FCE88327E309}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStart.Shared", "GameStart.Shared\GameStart.Shared.csproj", "{0EBF88DE-29E8-4A51-9A8A-537B5923BC81}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +23,26 @@ Global
 		{401D5E8D-64B1-4E62-85A0-90FACC86BF8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{401D5E8D-64B1-4E62-85A0-90FACC86BF8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{401D5E8D-64B1-4E62-85A0-90FACC86BF8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F22BD3CB-36D2-4890-9C94-74D8EFF5D9DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F22BD3CB-36D2-4890-9C94-74D8EFF5D9DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F22BD3CB-36D2-4890-9C94-74D8EFF5D9DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F22BD3CB-36D2-4890-9C94-74D8EFF5D9DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D417CDA-908A-4632-9506-FCE88327E309}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D417CDA-908A-4632-9506-FCE88327E309}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D417CDA-908A-4632-9506-FCE88327E309}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D417CDA-908A-4632-9506-FCE88327E309}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EBF88DE-29E8-4A51-9A8A-537B5923BC81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EBF88DE-29E8-4A51-9A8A-537B5923BC81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EBF88DE-29E8-4A51-9A8A-537B5923BC81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EBF88DE-29E8-4A51-9A8A-537B5923BC81}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{401D5E8D-64B1-4E62-85A0-90FACC86BF8B} = {862A5883-3F50-4FF7-842D-FD73F3866819}
+		{F22BD3CB-36D2-4890-9C94-74D8EFF5D9DE} = {862A5883-3F50-4FF7-842D-FD73F3866819}
+		{0D417CDA-908A-4632-9506-FCE88327E309} = {862A5883-3F50-4FF7-842D-FD73F3866819}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A95021B1-7C40-4506-BDBC-D03797A88526}

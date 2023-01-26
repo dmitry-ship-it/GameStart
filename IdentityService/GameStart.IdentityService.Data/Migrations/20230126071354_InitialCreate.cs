@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace GameStart.IdentityService.Migrations.AccountsDb
+namespace GameStart.IdentityService.Data.Migrations
 {
-    public partial class AddUserStorage : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -155,6 +155,16 @@ namespace GameStart.IdentityService.Migrations.AccountsDb
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "50de9a7e-5f68-45d8-9267-8d9e3ef764f1", "a0a189df-4fba-4031-acdb-9aaf80d99356", "User", "USER" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "b7c3a8d1-c6c9-4771-9977-bf2b1139d507", "46cf687b-7449-40cd-87d4-123f5f890378", "Manager", "MANAGER" });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -186,6 +196,11 @@ namespace GameStart.IdentityService.Migrations.AccountsDb
                 name: "EmailIndex",
                 table: "AspNetUsers",
                 column: "NormalizedEmail");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_ExternalProviderUserId",
+                table: "AspNetUsers",
+                column: "ExternalProviderUserId");
 
             migrationBuilder.CreateIndex(
                 name: "UserNameIndex",

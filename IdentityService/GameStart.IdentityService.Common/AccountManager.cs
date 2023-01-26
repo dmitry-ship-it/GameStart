@@ -2,6 +2,7 @@
 using GameStart.IdentityService.Data.Models;
 using IdentityServer4;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 

@@ -1,7 +1,7 @@
 using GameStart.IdentityService.Common;
 using GameStart.IdentityService.Data.Mapping;
 using GameStart.IdentityService.Extensions;
-using GameStart.IdentityService.Middlewares;
+using GameStart.Shared.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 

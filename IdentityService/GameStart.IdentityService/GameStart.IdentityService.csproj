@@ -23,4 +23,10 @@
     <PackageReference Include="Serilog.AspNetCore" Version="6.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GameStart.IdentityService.Common\GameStart.IdentityService.Common.csproj" />
+    <ProjectReference Include="..\GameStart.IdentityService.Data\GameStart.IdentityService.Data.csproj" />
+    <ProjectReference Include="..\..\GameStart.Shared\GameStart.Shared.csproj" />
+  </ItemGroup>
+
 </Project>

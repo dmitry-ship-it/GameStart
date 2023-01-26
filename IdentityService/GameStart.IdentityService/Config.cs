@@ -18,10 +18,9 @@ namespace GameStart.IdentityService
                 new Client
                 {
                     ClientId = "web",
-                    //ClientName = configuration["ClientName"],
                     ClientSecrets = new[]
                     {
-                        new Secret("secret".Sha256())
+                        new Secret(configuration["ClientSecret"].Sha256())
                     },
                     AllowedGrantTypes = GrantTypes.Code,
                     AllowedScopes = new[]
@@ -47,14 +46,6 @@ namespace GameStart.IdentityService
             return scopesSection.Get<IEnumerable<string>>().Select(s => new ApiScope(s));
         }
 
-        //public IEnumerable<ApiResource> GetApiResources() =>
-        //    new[]
-        //    {
-        //        new ApiResource()
-        //        {
-        //            Name = configuration["ApiResourceName"],
-        //            Scopes = ApiScopesNames,
-        //        }
-        //    };
+        // FIXME: Add ApiResources later.
     }
 }
