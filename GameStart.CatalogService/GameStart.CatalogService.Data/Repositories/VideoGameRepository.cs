@@ -30,9 +30,7 @@ namespace GameStart.CatalogService.Data.Repositories
                 .Include(entity => entity.AudioLanguages)
                 .Include(entity => entity.SubtitlesLanguages)
                 .Include(entity => entity.Platforms)
-                    .ThenInclude(platform => platform.RecommendedSystemRequirements);
-            //.Include(entity => entity.Platforms)
-            //    .ThenInclude(platform => platform.MinimalSystemRequirements); // <-- throws NullReferenceException in any case
+                    .ThenInclude(platform => platform.SystemRequirements);
         }
     }
 }

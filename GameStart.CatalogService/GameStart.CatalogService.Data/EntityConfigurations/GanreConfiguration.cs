@@ -14,7 +14,8 @@ namespace GameStart.CatalogService.Data.EntityConfigurations
             builder.Property(ganre => ganre.Id)
                 .ValueGeneratedOnAdd();
 
-            builder.HasIndex(ganre => ganre.Name);
+            builder.HasIndex(ganre => ganre.Name)
+                .IsUnique(true);
 
             builder.Property(ganre => ganre.Name)
                 .HasMaxLength(256)

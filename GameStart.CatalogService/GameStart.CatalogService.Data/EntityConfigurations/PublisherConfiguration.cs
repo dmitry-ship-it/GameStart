@@ -14,7 +14,8 @@ namespace GameStart.CatalogService.Data.EntityConfigurations
             builder.Property(publisher => publisher.Id)
                 .ValueGeneratedOnAdd();
 
-            builder.HasIndex(publisher => publisher.Name);
+            builder.HasIndex(publisher => publisher.Name)
+                .IsUnique(true);
 
             builder.Property(publisher => publisher.Name)
                 .HasMaxLength(256)

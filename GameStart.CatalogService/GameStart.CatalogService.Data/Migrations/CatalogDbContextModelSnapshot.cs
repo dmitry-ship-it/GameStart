@@ -55,7 +55,8 @@ namespace GameStart.CatalogService.Data.Migrations
 
                     SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
 
-                    b.HasIndex("Name");
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Developers");
                 });
@@ -76,7 +77,8 @@ namespace GameStart.CatalogService.Data.Migrations
 
                     SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
 
-                    b.HasIndex("Name");
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Ganres");
                 });
@@ -97,7 +99,8 @@ namespace GameStart.CatalogService.Data.Migrations
 
                     SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
 
-                    b.HasIndex("Name");
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Languages");
                 });
@@ -118,7 +121,8 @@ namespace GameStart.CatalogService.Data.Migrations
 
                     SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
 
-                    b.HasIndex("Name");
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Platforms");
                 });
@@ -139,7 +143,8 @@ namespace GameStart.CatalogService.Data.Migrations
 
                     SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
 
-                    b.HasIndex("Name");
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Publishers");
                 });
@@ -241,34 +246,21 @@ namespace GameStart.CatalogService.Data.Migrations
                     b.ToTable("VideoGameGanre", (string)null);
                 });
 
-            modelBuilder.Entity("PlatformMinimalSystemRequirements", b =>
+            modelBuilder.Entity("PlatformSystemRequirements", b =>
                 {
-                    b.Property<Guid>("MinimalSystemRequirementsId")
+                    b.Property<Guid>("SystemRequirementsId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("PlatformId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("MinimalSystemRequirementsId", "PlatformId");
+                    b.HasKey("SystemRequirementsId", "PlatformId");
+
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("SystemRequirementsId", "PlatformId"));
 
                     b.HasIndex("PlatformId");
 
-                    b.ToTable("PlatformMinimalSystemRequirements");
-                });
-
-            modelBuilder.Entity("PlatformRecommendedSystemRequirements", b =>
-                {
-                    b.Property<Guid>("PlatformId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("RecommendedSystemRequirementsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("PlatformId", "RecommendedSystemRequirementsId");
-
-                    b.HasIndex("RecommendedSystemRequirementsId");
-
-                    b.ToTable("PlatformRecommendedSystemRequirements");
+                    b.ToTable("VideoGamePlatformSystemRequirements", (string)null);
                 });
 
             modelBuilder.Entity("PlatformVideoGame", b =>
@@ -372,22 +364,7 @@ namespace GameStart.CatalogService.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PlatformMinimalSystemRequirements", b =>
-                {
-                    b.HasOne("GameStart.CatalogService.Data.Models.SystemRequirements", null)
-                        .WithMany()
-                        .HasForeignKey("MinimalSystemRequirementsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GameStart.CatalogService.Data.Models.Platform", null)
-                        .WithMany()
-                        .HasForeignKey("PlatformId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("PlatformRecommendedSystemRequirements", b =>
+            modelBuilder.Entity("PlatformSystemRequirements", b =>
                 {
                     b.HasOne("GameStart.CatalogService.Data.Models.Platform", null)
                         .WithMany()
@@ -397,7 +374,7 @@ namespace GameStart.CatalogService.Data.Migrations
 
                     b.HasOne("GameStart.CatalogService.Data.Models.SystemRequirements", null)
                         .WithMany()
-                        .HasForeignKey("RecommendedSystemRequirementsId")
+                        .HasForeignKey("SystemRequirementsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

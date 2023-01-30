@@ -14,7 +14,8 @@ namespace GameStart.CatalogService.Data.EntityConfigurations
             builder.Property(platfrom => platfrom.Id)
                 .ValueGeneratedOnAdd();
 
-            builder.HasIndex(platfrom => platfrom.Name);
+            builder.HasIndex(platfrom => platfrom.Name)
+                .IsUnique(true);
 
             builder.Property(platfrom => platfrom.Name)
                 .HasMaxLength(256)
@@ -34,25 +35,18 @@ namespace GameStart.CatalogService.Data.EntityConfigurations
                         .HasKey("VideoGameId", "PlatformId")
                         .IsClustered(true));
 
-            builder.HasMany(platform => platform.MinimalSystemRequirements)
-                .WithMany(requirements => requirements.Platforms)
-                .UsingEntity<Dictionary<string, object>>("PlatformMinimalSystemRequirements",
+            builder.HasMany(entity => entity.SystemRequirements)
+                .WithMany(entity => entity.Platforms)
+                .UsingEntity<Dictionary<string, object>>(
                     right => right.HasOne<SystemRequirements>()
                         .WithMany()
-                        .HasForeignKey("MinimalSystemRequirementsId"),
+                        .HasForeignKey("SystemRequirementsId"),
                     left => left.HasOne<Platform>()
                         .WithMany()
-                        .HasForeignKey("PlatformId"));
-
-            builder.HasMany(platform => platform.RecommendedSystemRequirements)
-                .WithMany(requirements => requirements.Platforms)
-                .UsingEntity<Dictionary<string, object>>("PlatformRecommendedSystemRequirements",
-                    right => right.HasOne<SystemRequirements>()
-                        .WithMany()
-                        .HasForeignKey("RecommendedSystemRequirementsId"),
-                    left => left.HasOne<Platform>()
-                        .WithMany()
-                        .HasForeignKey("PlatformId"));
+                        .HasForeignKey("PlatformId"),
+                    joining => joining.ToTable("VideoGamePlatformSystemRequirements")
+                        .HasKey("SystemRequirementsId", "PlatformId")
+                        .IsClustered(true));
         }
     }
 }

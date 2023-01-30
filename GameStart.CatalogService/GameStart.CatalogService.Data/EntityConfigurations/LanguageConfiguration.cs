@@ -14,7 +14,8 @@ namespace GameStart.CatalogService.Data.EntityConfigurations
             builder.Property(language => language.Id)
                 .ValueGeneratedOnAdd();
 
-            builder.HasIndex(language => language.Name);
+            builder.HasIndex(language => language.Name)
+                .IsUnique(true);
 
             builder.Property(language => language.Name)
                 .HasMaxLength(256)
