@@ -1,11 +1,20 @@
+using GameStart.CatalogService.Api.Extensions;
 using GameStart.Shared.Extensions;
+using GameStart.Shared.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UsePreconfiguredSerilog(builder.Configuration);
 
-
+builder.Services.AddDbContextsWithRepositories(builder.Configuration);
+builder.Services.AddPreconfiguredAuthentication(builder.Configuration);
+builder.Services.AddControllersWithJsonOptions();
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionLoggerMiddleware>();
+app.UseAuthentication();
+app.UseAuthorization();
+app.MapControllers();
 
 app.Run();
