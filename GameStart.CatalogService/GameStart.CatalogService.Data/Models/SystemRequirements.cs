@@ -1,10 +1,10 @@
-﻿namespace GameStart.CatalogService.Data.Models
-{
-    public class SystemRequirements
-    {
-        public int Id { get; set; }
+﻿using System.Text.Json.Serialization;
 
-        public virtual Platform Platform { get; set; }
+namespace GameStart.CatalogService.Data.Models
+{
+    public class SystemRequirements : IEntity
+    {
+        public Guid Id { get; set; }
 
         public string OS { get; set; }
 
@@ -17,5 +17,8 @@
         public string Network { get; set; }
 
         public string Storage { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<Platform> Platforms { get; set; }
     }
 }

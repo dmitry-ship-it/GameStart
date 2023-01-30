@@ -1,9 +1,10 @@
-﻿namespace GameStart.CatalogService.Data.Models
-{
-    public class Language
-    {
-        public int Id { get; set; }
+﻿using System.Text.Json.Serialization;
 
-        public string Name { get; set; }
+namespace GameStart.CatalogService.Data.Models
+{
+    public class Language : BaseModel
+    {
+        [JsonIgnore]
+        public virtual ICollection<VideoGame> VideoGames { get; set; }
     }
 }

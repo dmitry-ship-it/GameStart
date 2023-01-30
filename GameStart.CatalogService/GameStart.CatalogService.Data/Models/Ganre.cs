@@ -1,9 +1,10 @@
-﻿namespace GameStart.CatalogService.Data.Models
-{
-    public class Ganre
-    {
-        public int Id { get; set; }
+﻿using System.Text.Json.Serialization;
 
-        public string Name { get; set; }
+namespace GameStart.CatalogService.Data.Models
+{
+    public class Ganre : BaseModel
+    {
+        [JsonIgnore]
+        public virtual ICollection<VideoGame> VideoGames { get; set; }
     }
 }
