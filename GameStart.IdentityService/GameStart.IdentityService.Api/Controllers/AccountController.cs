@@ -17,16 +17,20 @@ namespace GameStart.IdentityService.Api.Controllers
         }
 
         [HttpPost(Constants.IdentityService.Endpoints.LoginEndpointName)]
-        public async Task<IActionResult> LoginAsync([FromBody] LoginViewModel loginViewModel)
+        public async Task<IActionResult> LoginAsync([FromBody] LoginViewModel loginViewModel, CancellationToken cancellationToken = default)
         {
-            await accountManager.LoginAsync(loginViewModel.Email, loginViewModel.Password);
+            await accountManager.LoginAsync(loginViewModel.Email,
+                loginViewModel.Password, HttpContext, cancellationToken);
+
             return Ok();
         }
 
         [HttpPost(Constants.IdentityService.Endpoints.RegisterEndpointName)]
-        public async Task<IActionResult> RegisterAsync([FromBody] RegisterViewModel registerViewModel)
+        public async Task<IActionResult> RegisterAsync([FromBody] RegisterViewModel registerViewModel, CancellationToken cancellationToken = default)
         {
-            await accountManager.RegisterAsync(registerViewModel.Username, registerViewModel.Email, registerViewModel.Password);
+            await accountManager.RegisterAsync(registerViewModel.Username,
+                registerViewModel.Email, registerViewModel.Password, cancellationToken);
+
             return Ok();
         }
 
@@ -34,21 +38,27 @@ namespace GameStart.IdentityService.Api.Controllers
         public IActionResult Challenge([FromQuery] string scheme, [FromQuery] string returnUrl)
         {
             // example: https://localhost:7153/api/account/challenge?scheme=Google&returnUrl=https://google.com
-            var authenticationProperties = accountManager.CreateAuthenticationProperties(scheme, returnUrl, Url.Action("callback"));
+            var authenticationProperties = accountManager.CreateAuthenticationProperties(
+                scheme, returnUrl, Url.Action(Constants.IdentityService.Endpoints.CallbackEndpointName));
+
             return Challenge(authenticationProperties, scheme);
         }
 
         [HttpGet(Constants.IdentityService.Endpoints.CallbackEndpointName)]
-        public async Task<IActionResult> CallbackAsync()
+        public async Task<IActionResult> CallbackAsync(CancellationToken cancellationToken = default)
         {
-            var returnUrl = await accountManager.AuthenticateAndCreateUserIfNotExistsAsync(HttpContext);
+            var returnUrl = await accountManager.AuthenticateAndCreateUserIfNotExistsAsync(
+                HttpContext, cancellationToken);
+
             return Redirect(returnUrl.ToString());
         }
 
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         [HttpGet(Constants.IdentityService.Endpoints.LogoutEndpointName)]
-        public async Task<IActionResult> LogoutAsync()
+        public async Task<IActionResult> LogoutAsync(CancellationToken cancellationToken = default)
         {
-            await accountManager.LogoutAsync(HttpContext);
+            await accountManager.LogoutAsync(HttpContext, cancellationToken);
+
             return Ok();
         }
     }

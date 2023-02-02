@@ -17,19 +17,21 @@ namespace GameStart.IdentityService.Api
             {
                 new Client
                 {
-                    ClientId = "web",
+                    ClientId = configuration["ClientId"],
+                    ClientName = configuration["ClientName"],
                     ClientSecrets = new[]
                     {
                         new Secret(configuration["ClientSecret"].Sha256())
                     },
-                    AllowedGrantTypes = GrantTypes.Code,
+                    AllowedGrantTypes = GrantTypes.ResourceOwnerPasswordAndClientCredentials,
                     AllowedScopes = new[]
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                    },
-                    RedirectUris = { "https://localhost:7153/" },
-                    AllowAccessTokensViaBrowser = true
+                    }.Concat(GetApiScopes().Select(r => r.Name)).ToArray(),
+                    RedirectUris = { "https://localhost:7116/" },
+                    AllowAccessTokensViaBrowser = true,
+                    AllowOfflineAccess = true
                 }
             };
 
@@ -43,9 +45,15 @@ namespace GameStart.IdentityService.Api
         public IEnumerable<ApiScope> GetApiScopes()
         {
             var scopesSection = configuration.GetSection("ApiScopes");
+
             return scopesSection.Get<IEnumerable<string>>().Select(s => new ApiScope(s));
         }
 
-        // FIXME: Add ApiResources later.
+        public IEnumerable<ApiResource> GetApiResources()
+        {
+            var apiResourcesSection = configuration.GetSection("ApiResources");
+
+            return apiResourcesSection.Get<IEnumerable<string>>().Select(ar => new ApiResource(ar));
+        }
     }
 }

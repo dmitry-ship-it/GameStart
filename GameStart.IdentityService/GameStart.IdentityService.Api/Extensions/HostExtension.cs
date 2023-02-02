@@ -46,7 +46,15 @@ namespace GameStart.IdentityService.Api.Extensions
                 context.SaveChanges();
             }
 
-            // FIXME: Add ApiResources later.
+            if (!context.ApiResources.Any())
+            {
+                foreach (var apiResource in config.GetApiResources())
+                {
+                    context.ApiResources.Add(apiResource.ToEntity());
+                }
+
+                context.SaveChanges();
+            }
 
             return host;
         }

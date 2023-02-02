@@ -31,6 +31,9 @@ namespace GameStart.IdentityService.Api.Extensions
                 .AddEntityFrameworkStores<AccountsDbContext>()
                 .AddDefaultTokenProviders();
 
+            // email used as username if user signs in with Google for the first time
+            services.Configure<IdentityOptions>(options => options.User.RequireUniqueEmail = true);
+
             // override default behavior
             services.ConfigureApplicationCookie(o =>
             {
@@ -74,7 +77,8 @@ namespace GameStart.IdentityService.Api.Extensions
             services.AddIdentityServer()
                 .AddConfigurationStore<ConfigurationDbContext>()
                 .AddOperationalStore<PersistedGrantDbContext>()
-                .AddAspNetIdentity<User>();
+                .AddAspNetIdentity<User>()
+                .AddDeveloperSigningCredential();
 
             return services;
         }
@@ -87,6 +91,7 @@ namespace GameStart.IdentityService.Api.Extensions
             services.AddAuthentication()
                 .AddGoogle(options =>
                 {
+                    options.SaveTokens = true;
                     options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
                     options.ClientId = configuration["Authentication:Google:ClientId"];
                     options.ClientSecret = configuration["Authentication:Google:ClientSecret"];
