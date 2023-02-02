@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStart.CatalogService.Ap
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStart.CatalogService.Data", "GameStart.CatalogService\GameStart.CatalogService.Data\GameStart.CatalogService.Data.csproj", "{187F90BC-0C29-4062-AE00-332B0C166F02}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStart.CatalogService.Common", "GameStart.CatalogService\GameStart.CatalogService.Common\GameStart.CatalogService.Common.csproj", "{CA31599F-EDC5-4062-8133-E13D9FC45E32}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStart.CatalogService.Common", "GameStart.CatalogService\GameStart.CatalogService.Common\GameStart.CatalogService.Common.csproj", "{CA31599F-EDC5-4062-8133-E13D9FC45E32}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

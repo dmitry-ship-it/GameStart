@@ -36,7 +36,7 @@ namespace GameStart.Shared.Middlewares
 
         private void LogException(Exception ex)
         {
-            if (isProduction)
+            if (!isProduction)
             {
                 logger.LogWarning("{Exception}: {Message}, Source: {Source}, StackTrace: {StackTrace}, InnerException: {InnerException}, InnerExceptionMessage {InnerExceptionMessage}",
                 ex.GetType().Name, ex.Message, ex.Source, ex.StackTrace, ex.InnerException?.GetType().Name, ex.InnerException?.Message);

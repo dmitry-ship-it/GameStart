@@ -19,7 +19,7 @@ namespace GameStart.IdentityService.Api.Controllers
         [HttpPost(Constants.IdentityService.Endpoints.LoginEndpointName)]
         public async Task<IActionResult> LoginAsync([FromBody] LoginViewModel loginViewModel, CancellationToken cancellationToken = default)
         {
-            await accountManager.LoginAsync(loginViewModel.Email,
+            await accountManager.LoginAsync(loginViewModel.Username,
                 loginViewModel.Password, HttpContext, cancellationToken);
 
             return Ok();
@@ -37,7 +37,6 @@ namespace GameStart.IdentityService.Api.Controllers
         [HttpGet(Constants.IdentityService.Endpoints.ChallengeEndpointName)]
         public IActionResult Challenge([FromQuery] string scheme, [FromQuery] string returnUrl)
         {
-            // example: https://localhost:7153/api/account/challenge?scheme=Google&returnUrl=https://google.com
             var authenticationProperties = accountManager.CreateAuthenticationProperties(
                 scheme, returnUrl, Url.Action(Constants.IdentityService.Endpoints.CallbackEndpointName));
 
@@ -47,7 +46,7 @@ namespace GameStart.IdentityService.Api.Controllers
         [HttpGet(Constants.IdentityService.Endpoints.CallbackEndpointName)]
         public async Task<IActionResult> CallbackAsync(CancellationToken cancellationToken = default)
         {
-            var returnUrl = await accountManager.AuthenticateAndCreateUserIfNotExistsAsync(
+            var returnUrl = await accountManager.ExternalAuthenticateAsync(
                 HttpContext, cancellationToken);
 
             return Redirect(returnUrl.ToString());
@@ -57,7 +56,7 @@ namespace GameStart.IdentityService.Api.Controllers
         [HttpGet(Constants.IdentityService.Endpoints.LogoutEndpointName)]
         public async Task<IActionResult> LogoutAsync(CancellationToken cancellationToken = default)
         {
-            await accountManager.LogoutAsync(HttpContext, cancellationToken);
+            await accountManager.ClearCookiesAsync(HttpContext, cancellationToken);
 
             return Ok();
         }
