@@ -6,18 +6,22 @@ namespace GameStart.CatalogService.Data.Repositories
 {
     public class LanguageAvailabilityRepository : RepositoryBase<LanguageAvailability>
     {
-        public LanguageAvailabilityRepository(CatalogDbContext catalogDbContext) : base(catalogDbContext)
+        public LanguageAvailabilityRepository(CatalogDbContext catalogDbContext)
+            : base(catalogDbContext)
         {
         }
 
-        public override async Task<IEnumerable<LanguageAvailability>> FindAllAsync(CancellationToken cancellationToken = default)
+        public override async Task<IEnumerable<LanguageAvailability>> FindAllAsync(
+            CancellationToken cancellationToken = default)
         {
             return await GetLanguages()
                 .AsNoTracking()
                 .ToListAsync(cancellationToken);
         }
 
-        public override async Task<IEnumerable<LanguageAvailability>> FindByConditionAsync(Expression<Func<LanguageAvailability, bool>> expression, CancellationToken cancellationToken = default)
+        public override async Task<IEnumerable<LanguageAvailability>> FindByConditionAsync(
+            Expression<Func<LanguageAvailability, bool>> expression,
+            CancellationToken cancellationToken = default)
         {
             return await GetLanguages()
                 .Where(expression)
@@ -27,7 +31,8 @@ namespace GameStart.CatalogService.Data.Repositories
 
         private IQueryable<LanguageAvailability> GetLanguages()
         {
-            return CatalogDbContext.LanguageAvailabilities.Include(entity => entity.Language);
+            return CatalogDbContext.LanguageAvailabilities
+                .Include(entity => entity.Language);
         }
     }
 }

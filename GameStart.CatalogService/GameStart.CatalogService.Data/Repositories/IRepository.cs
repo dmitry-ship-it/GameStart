@@ -7,7 +7,8 @@ namespace GameStart.CatalogService.Data.Repositories
     {
         Task<IEnumerable<T>> FindAllAsync(CancellationToken cancellationToken = default);
 
-        Task<IEnumerable<T>> FindByConditionAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default);
+        Task<IEnumerable<T>> FindByConditionAsync(Expression<Func<T, bool>> expression,
+            CancellationToken cancellationToken = default);
 
         Task CreateAsync(T entity, CancellationToken cancellationToken = default);
 

@@ -4,7 +4,8 @@ namespace GameStart.CatalogService.Data.Repositories
 {
     public class PublisherRepository : RepositoryBase<Publisher>
     {
-        public PublisherRepository(CatalogDbContext catalogDbContext) : base(catalogDbContext)
+        public PublisherRepository(CatalogDbContext catalogDbContext)
+            : base(catalogDbContext)
         {
         }
     }

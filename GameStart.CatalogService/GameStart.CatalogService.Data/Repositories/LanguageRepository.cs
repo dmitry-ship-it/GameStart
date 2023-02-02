@@ -4,7 +4,8 @@ namespace GameStart.CatalogService.Data.Repositories
 {
     public class LanguageRepository : RepositoryBase<Language>
     {
-        public LanguageRepository(CatalogDbContext catalogDbContext) : base(catalogDbContext)
+        public LanguageRepository(CatalogDbContext catalogDbContext)
+            : base(catalogDbContext)
         {
         }
     }
