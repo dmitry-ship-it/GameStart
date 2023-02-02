@@ -4,11 +4,11 @@ using System.Linq.Expressions;
 
 namespace GameStart.CatalogService.Data.Repositories
 {
-    public abstract class Repository<T> : IRepository<T> where T : class, IEntity
+    public abstract class RepositoryBase<T> : IRepository<T> where T : class, IEntity
     {
         protected CatalogDbContext CatalogDbContext { get; set; }
 
-        protected Repository(CatalogDbContext catalogDbContext)
+        protected RepositoryBase(CatalogDbContext catalogDbContext)
         {
             CatalogDbContext = catalogDbContext;
         }

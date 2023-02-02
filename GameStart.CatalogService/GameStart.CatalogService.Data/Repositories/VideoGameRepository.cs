@@ -4,10 +4,16 @@ using System.Linq.Expressions;
 
 namespace GameStart.CatalogService.Data.Repositories
 {
-    public class VideoGameRepository : Repository<VideoGame>
+    public class VideoGameRepository : RepositoryBase<VideoGame>
     {
         public VideoGameRepository(CatalogDbContext catalogDbContext) : base(catalogDbContext)
         {
+        }
+
+        public override async Task CreateAsync(VideoGame entity, CancellationToken cancellationToken = default)
+        {
+            CatalogDbContext.Attach(entity).State = EntityState.Added;
+            await CatalogDbContext.SaveChangesAsync(cancellationToken);
         }
 
         public override async Task<IEnumerable<VideoGame>> FindAllAsync(CancellationToken cancellationToken = default)
@@ -20,17 +26,25 @@ namespace GameStart.CatalogService.Data.Repositories
             return await GetVideoGames().Where(expression).AsNoTracking().ToListAsync(cancellationToken);
         }
 
+        public override async Task DeleteAsync(VideoGame entity, CancellationToken cancellationToken = default)
+        {
+            CatalogDbContext.Remove(entity);
+            CatalogDbContext.RemoveRange(entity.LanguageAvailabilities);
+            CatalogDbContext.RemoveRange(entity.SystemRequirements);
+
+            await CatalogDbContext.SaveChangesAsync(cancellationToken);
+        }
+
         private IQueryable<VideoGame> GetVideoGames()
         {
             return CatalogDbContext.VideoGames
                 .Include(entity => entity.Ganres)
                 .Include(entity => entity.Developers)
                 .Include(entity => entity.Publisher)
-                .Include(entity => entity.InterfaceLanguages)
-                .Include(entity => entity.AudioLanguages)
-                .Include(entity => entity.SubtitlesLanguages)
-                .Include(entity => entity.Platforms)
-                    .ThenInclude(platform => platform.SystemRequirements);
+                .Include(entity => entity.LanguageAvailabilities)
+                    .ThenInclude(entity => entity.Language)
+                .Include(entity => entity.SystemRequirements)
+                    .ThenInclude(requirements => requirements.Platform);
         }
     }
 }

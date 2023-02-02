@@ -14,18 +14,14 @@
 
         public decimal Price { get; set; }
 
-        public virtual ICollection<Platform> Platforms { get; set; }
-
         public virtual Publisher Publisher { get; set; }
 
         public virtual ICollection<Developer> Developers { get; set; }
 
         public virtual ICollection<Ganre> Ganres { get; set; }
 
-        public virtual ICollection<Language> InterfaceLanguages { get; set; }
+        public virtual ICollection<LanguageAvailability> LanguageAvailabilities { get; set; }
 
-        public virtual ICollection<Language> AudioLanguages { get; set; }
-
-        public virtual ICollection<Language> SubtitlesLanguages { get; set; }
+        public virtual ICollection<SystemRequirements> SystemRequirements { get; set; }
     }
 }

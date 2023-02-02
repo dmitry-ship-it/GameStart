@@ -18,7 +18,9 @@ namespace GameStart.CatalogService.Data.Models
 
         public string Storage { get; set; }
 
+        public virtual Platform Platform { get; set; }
+
         [JsonIgnore]
-        public virtual ICollection<Platform> Platforms { get; set; }
+        public virtual VideoGame VideoGame { get; set; }
     }
 }

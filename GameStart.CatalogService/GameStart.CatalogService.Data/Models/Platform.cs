@@ -5,8 +5,6 @@ namespace GameStart.CatalogService.Data.Models
     public class Platform : BaseModel
     {
         [JsonIgnore]
-        public virtual ICollection<VideoGame> VideoGames { get; set; }
-
         public virtual ICollection<SystemRequirements> SystemRequirements { get; set; }
     }
 }

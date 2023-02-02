@@ -14,6 +14,8 @@ namespace GameStart.CatalogService.Data.Repositories
 
         IRepository<Language> Languages { get; }
 
+        IRepository<LanguageAvailability> LanguageAvailabilies { get; }
+
         IRepository<Ganre> Ganres { get; }
 
         IRepository<Developer> Developers { get; }

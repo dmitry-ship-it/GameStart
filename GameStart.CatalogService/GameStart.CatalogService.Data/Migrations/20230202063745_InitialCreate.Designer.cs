@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GameStart.CatalogService.Data.Migrations
 {
     [DbContext(typeof(CatalogDbContext))]
-    [Migration("20230130112440_InitialCreate")]
+    [Migration("20230202063745_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -107,6 +107,39 @@ namespace GameStart.CatalogService.Data.Migrations
                     b.ToTable("Languages");
                 });
 
+            modelBuilder.Entity("GameStart.CatalogService.Data.Models.LanguageAvailability", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("AvailableForAudio")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<bool>("AvailableForInterface")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<bool>("AvailableForSubtitles")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<Guid?>("LanguageId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
+
+                    b.HasIndex("LanguageId");
+
+                    b.ToTable("LanguageAvailabilities");
+                });
+
             modelBuilder.Entity("GameStart.CatalogService.Data.Models.Platform", b =>
                 {
                     b.Property<Guid>("Id")
@@ -158,7 +191,6 @@ namespace GameStart.CatalogService.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Graphics")
-                        .IsRequired()
                         .IsUnicode(true)
                         .HasColumnType("nvarchar(max)");
 
@@ -174,19 +206,29 @@ namespace GameStart.CatalogService.Data.Migrations
                         .IsUnicode(true)
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("PlatformId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Processor")
-                        .IsRequired()
                         .IsUnicode(true)
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Storage")
-                        .IsRequired()
                         .IsUnicode(true)
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("VideoGameId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
+
+                    b.HasIndex("PlatformId");
+
+                    b.HasIndex("VideoGameId", "PlatformId")
+                        .IsUnique()
+                        .HasFilter("[VideoGameId] IS NOT NULL AND [PlatformId] IS NOT NULL");
 
                     b.ToTable("SystemRequirements");
                 });
@@ -248,83 +290,19 @@ namespace GameStart.CatalogService.Data.Migrations
                     b.ToTable("VideoGameGanre", (string)null);
                 });
 
-            modelBuilder.Entity("PlatformSystemRequirements", b =>
+            modelBuilder.Entity("VideoGameLanguage", b =>
                 {
-                    b.Property<Guid>("SystemRequirementsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("PlatformId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("SystemRequirementsId", "PlatformId");
-
-                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("SystemRequirementsId", "PlatformId"));
-
-                    b.HasIndex("PlatformId");
-
-                    b.ToTable("VideoGamePlatformSystemRequirements", (string)null);
-                });
-
-            modelBuilder.Entity("PlatformVideoGame", b =>
-                {
-                    b.Property<Guid>("VideoGameId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("PlatformId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("VideoGameId", "PlatformId");
-
-                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("VideoGameId", "PlatformId"));
-
-                    b.HasIndex("PlatformId");
-
-                    b.ToTable("VideoGamePlatform", (string)null);
-                });
-
-            modelBuilder.Entity("VideoGameAudioLanguage", b =>
-                {
-                    b.Property<Guid>("LanguageId")
+                    b.Property<Guid>("LanguageAvailabilityId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("VideoGameId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("LanguageId", "VideoGameId");
+                    b.HasKey("LanguageAvailabilityId", "VideoGameId");
 
                     b.HasIndex("VideoGameId");
 
-                    b.ToTable("VideoGameAudioLanguage");
-                });
-
-            modelBuilder.Entity("VideoGameInterfaceLanguage", b =>
-                {
-                    b.Property<Guid>("LanguageId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("VideoGameId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("LanguageId", "VideoGameId");
-
-                    b.HasIndex("VideoGameId");
-
-                    b.ToTable("VideoGameInterfaceLanguage");
-                });
-
-            modelBuilder.Entity("VideoGameSubtitlesLanguage", b =>
-                {
-                    b.Property<Guid>("LanguageId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("VideoGameId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("LanguageId", "VideoGameId");
-
-                    b.HasIndex("VideoGameId");
-
-                    b.ToTable("VideoGameSubtitlesLanguage");
+                    b.ToTable("VideoGameLanguage");
                 });
 
             modelBuilder.Entity("DeveloperVideoGame", b =>
@@ -340,6 +318,30 @@ namespace GameStart.CatalogService.Data.Migrations
                         .HasForeignKey("VideoGameId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("GameStart.CatalogService.Data.Models.LanguageAvailability", b =>
+                {
+                    b.HasOne("GameStart.CatalogService.Data.Models.Language", "Language")
+                        .WithMany("LanguageAvailabilities")
+                        .HasForeignKey("LanguageId");
+
+                    b.Navigation("Language");
+                });
+
+            modelBuilder.Entity("GameStart.CatalogService.Data.Models.SystemRequirements", b =>
+                {
+                    b.HasOne("GameStart.CatalogService.Data.Models.Platform", "Platform")
+                        .WithMany("SystemRequirements")
+                        .HasForeignKey("PlatformId");
+
+                    b.HasOne("GameStart.CatalogService.Data.Models.VideoGame", "VideoGame")
+                        .WithMany("SystemRequirements")
+                        .HasForeignKey("VideoGameId");
+
+                    b.Navigation("Platform");
+
+                    b.Navigation("VideoGame");
                 });
 
             modelBuilder.Entity("GameStart.CatalogService.Data.Models.VideoGame", b =>
@@ -366,26 +368,11 @@ namespace GameStart.CatalogService.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PlatformSystemRequirements", b =>
+            modelBuilder.Entity("VideoGameLanguage", b =>
                 {
-                    b.HasOne("GameStart.CatalogService.Data.Models.Platform", null)
+                    b.HasOne("GameStart.CatalogService.Data.Models.LanguageAvailability", null)
                         .WithMany()
-                        .HasForeignKey("PlatformId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GameStart.CatalogService.Data.Models.SystemRequirements", null)
-                        .WithMany()
-                        .HasForeignKey("SystemRequirementsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("PlatformVideoGame", b =>
-                {
-                    b.HasOne("GameStart.CatalogService.Data.Models.Platform", null)
-                        .WithMany()
-                        .HasForeignKey("PlatformId")
+                        .HasForeignKey("LanguageAvailabilityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -396,54 +383,24 @@ namespace GameStart.CatalogService.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("VideoGameAudioLanguage", b =>
+            modelBuilder.Entity("GameStart.CatalogService.Data.Models.Language", b =>
                 {
-                    b.HasOne("GameStart.CatalogService.Data.Models.Language", null)
-                        .WithMany()
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GameStart.CatalogService.Data.Models.VideoGame", null)
-                        .WithMany()
-                        .HasForeignKey("VideoGameId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("LanguageAvailabilities");
                 });
 
-            modelBuilder.Entity("VideoGameInterfaceLanguage", b =>
+            modelBuilder.Entity("GameStart.CatalogService.Data.Models.Platform", b =>
                 {
-                    b.HasOne("GameStart.CatalogService.Data.Models.Language", null)
-                        .WithMany()
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GameStart.CatalogService.Data.Models.VideoGame", null)
-                        .WithMany()
-                        .HasForeignKey("VideoGameId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("VideoGameSubtitlesLanguage", b =>
-                {
-                    b.HasOne("GameStart.CatalogService.Data.Models.Language", null)
-                        .WithMany()
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GameStart.CatalogService.Data.Models.VideoGame", null)
-                        .WithMany()
-                        .HasForeignKey("VideoGameId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("SystemRequirements");
                 });
 
             modelBuilder.Entity("GameStart.CatalogService.Data.Models.Publisher", b =>
                 {
                     b.Navigation("VideoGames");
+                });
+
+            modelBuilder.Entity("GameStart.CatalogService.Data.Models.VideoGame", b =>
+                {
+                    b.Navigation("SystemRequirements");
                 });
 #pragma warning restore 612, 618
         }

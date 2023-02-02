@@ -5,6 +5,6 @@ namespace GameStart.CatalogService.Data.Models
     public class Language : BaseModel
     {
         [JsonIgnore]
-        public virtual ICollection<VideoGame> VideoGames { get; set; }
+        public virtual ICollection<LanguageAvailability> LanguageAvailabilities { get; set; }
     }
 }

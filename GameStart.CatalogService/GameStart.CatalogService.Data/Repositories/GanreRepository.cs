@@ -2,7 +2,7 @@
 
 namespace GameStart.CatalogService.Data.Repositories
 {
-    public class GanreRepository : Repository<Ganre>
+    public class GanreRepository : RepositoryBase<Ganre>
     {
         public GanreRepository(CatalogDbContext catalogDbContext) : base(catalogDbContext)
         {

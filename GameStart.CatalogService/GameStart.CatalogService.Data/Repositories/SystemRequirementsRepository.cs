@@ -2,7 +2,7 @@
 
 namespace GameStart.CatalogService.Data.Repositories
 {
-    public class SystemRequirementsRepository : Repository<SystemRequirements>
+    public class SystemRequirementsRepository : RepositoryBase<SystemRequirements>
     {
         public SystemRequirementsRepository(CatalogDbContext catalogDbContext) : base(catalogDbContext)
         {

@@ -75,21 +75,24 @@ namespace GameStart.CatalogService.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SystemRequirements",
+                name: "LanguageAvailabilities",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    OS = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Processor = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Memory = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Graphics = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Network = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Storage = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    AvailableForInterface = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
+                    AvailableForAudio = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
+                    AvailableForSubtitles = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
+                    LanguageId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SystemRequirements", x => x.Id)
+                    table.PrimaryKey("PK_LanguageAvailabilities", x => x.Id)
                         .Annotation("SqlServer:Clustered", true);
+                    table.ForeignKey(
+                        name: "FK_LanguageAvailabilities_Languages_LanguageId",
+                        column: x => x.LanguageId,
+                        principalTable: "Languages",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -116,52 +119,33 @@ namespace GameStart.CatalogService.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "VideoGamePlatformSystemRequirements",
+                name: "SystemRequirements",
                 columns: table => new
                 {
-                    SystemRequirementsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PlatformId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    OS = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Processor = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Memory = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Graphics = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Network = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Storage = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PlatformId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    VideoGameId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_VideoGamePlatformSystemRequirements", x => new { x.SystemRequirementsId, x.PlatformId })
+                    table.PrimaryKey("PK_SystemRequirements", x => x.Id)
                         .Annotation("SqlServer:Clustered", true);
                     table.ForeignKey(
-                        name: "FK_VideoGamePlatformSystemRequirements_Platforms_PlatformId",
+                        name: "FK_SystemRequirements_Platforms_PlatformId",
                         column: x => x.PlatformId,
                         principalTable: "Platforms",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_VideoGamePlatformSystemRequirements_SystemRequirements_SystemRequirementsId",
-                        column: x => x.SystemRequirementsId,
-                        principalTable: "SystemRequirements",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "VideoGameAudioLanguage",
-                columns: table => new
-                {
-                    LanguageId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    VideoGameId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_VideoGameAudioLanguage", x => new { x.LanguageId, x.VideoGameId });
-                    table.ForeignKey(
-                        name: "FK_VideoGameAudioLanguage_Languages_LanguageId",
-                        column: x => x.LanguageId,
-                        principalTable: "Languages",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_VideoGameAudioLanguage_VideoGames_VideoGameId",
+                        name: "FK_SystemRequirements_VideoGames_VideoGameId",
                         column: x => x.VideoGameId,
                         principalTable: "VideoGames",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -215,72 +199,23 @@ namespace GameStart.CatalogService.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "VideoGameInterfaceLanguage",
+                name: "VideoGameLanguage",
                 columns: table => new
                 {
-                    LanguageId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    LanguageAvailabilityId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     VideoGameId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_VideoGameInterfaceLanguage", x => new { x.LanguageId, x.VideoGameId });
+                    table.PrimaryKey("PK_VideoGameLanguage", x => new { x.LanguageAvailabilityId, x.VideoGameId });
                     table.ForeignKey(
-                        name: "FK_VideoGameInterfaceLanguage_Languages_LanguageId",
-                        column: x => x.LanguageId,
-                        principalTable: "Languages",
+                        name: "FK_VideoGameLanguage_LanguageAvailabilities_LanguageAvailabilityId",
+                        column: x => x.LanguageAvailabilityId,
+                        principalTable: "LanguageAvailabilities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_VideoGameInterfaceLanguage_VideoGames_VideoGameId",
-                        column: x => x.VideoGameId,
-                        principalTable: "VideoGames",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "VideoGamePlatform",
-                columns: table => new
-                {
-                    VideoGameId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PlatformId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_VideoGamePlatform", x => new { x.VideoGameId, x.PlatformId })
-                        .Annotation("SqlServer:Clustered", true);
-                    table.ForeignKey(
-                        name: "FK_VideoGamePlatform_Platforms_PlatformId",
-                        column: x => x.PlatformId,
-                        principalTable: "Platforms",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_VideoGamePlatform_VideoGames_VideoGameId",
-                        column: x => x.VideoGameId,
-                        principalTable: "VideoGames",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "VideoGameSubtitlesLanguage",
-                columns: table => new
-                {
-                    LanguageId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    VideoGameId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_VideoGameSubtitlesLanguage", x => new { x.LanguageId, x.VideoGameId });
-                    table.ForeignKey(
-                        name: "FK_VideoGameSubtitlesLanguage_Languages_LanguageId",
-                        column: x => x.LanguageId,
-                        principalTable: "Languages",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_VideoGameSubtitlesLanguage_VideoGames_VideoGameId",
+                        name: "FK_VideoGameLanguage_VideoGames_VideoGameId",
                         column: x => x.VideoGameId,
                         principalTable: "VideoGames",
                         principalColumn: "Id",
@@ -298,6 +233,11 @@ namespace GameStart.CatalogService.Data.Migrations
                 table: "Ganres",
                 column: "Name",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LanguageAvailabilities_LanguageId",
+                table: "LanguageAvailabilities",
+                column: "LanguageId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Languages_Name",
@@ -318,9 +258,16 @@ namespace GameStart.CatalogService.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_VideoGameAudioLanguage_VideoGameId",
-                table: "VideoGameAudioLanguage",
-                column: "VideoGameId");
+                name: "IX_SystemRequirements_PlatformId",
+                table: "SystemRequirements",
+                column: "PlatformId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SystemRequirements_VideoGameId_PlatformId",
+                table: "SystemRequirements",
+                columns: new[] { "VideoGameId", "PlatformId" },
+                unique: true,
+                filter: "[VideoGameId] IS NOT NULL AND [PlatformId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_VideoGameDeveloper_DeveloperId",
@@ -333,19 +280,9 @@ namespace GameStart.CatalogService.Data.Migrations
                 column: "GanreId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_VideoGameInterfaceLanguage_VideoGameId",
-                table: "VideoGameInterfaceLanguage",
+                name: "IX_VideoGameLanguage_VideoGameId",
+                table: "VideoGameLanguage",
                 column: "VideoGameId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_VideoGamePlatform_PlatformId",
-                table: "VideoGamePlatform",
-                column: "PlatformId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_VideoGamePlatformSystemRequirements_PlatformId",
-                table: "VideoGamePlatformSystemRequirements",
-                column: "PlatformId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_VideoGames_PublisherId",
@@ -356,17 +293,12 @@ namespace GameStart.CatalogService.Data.Migrations
                 name: "IX_VideoGames_Title",
                 table: "VideoGames",
                 column: "Title");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_VideoGameSubtitlesLanguage_VideoGameId",
-                table: "VideoGameSubtitlesLanguage",
-                column: "VideoGameId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "VideoGameAudioLanguage");
+                name: "SystemRequirements");
 
             migrationBuilder.DropTable(
                 name: "VideoGameDeveloper");
@@ -375,16 +307,10 @@ namespace GameStart.CatalogService.Data.Migrations
                 name: "VideoGameGanre");
 
             migrationBuilder.DropTable(
-                name: "VideoGameInterfaceLanguage");
+                name: "VideoGameLanguage");
 
             migrationBuilder.DropTable(
-                name: "VideoGamePlatform");
-
-            migrationBuilder.DropTable(
-                name: "VideoGamePlatformSystemRequirements");
-
-            migrationBuilder.DropTable(
-                name: "VideoGameSubtitlesLanguage");
+                name: "Platforms");
 
             migrationBuilder.DropTable(
                 name: "Developers");
@@ -393,16 +319,13 @@ namespace GameStart.CatalogService.Data.Migrations
                 name: "Ganres");
 
             migrationBuilder.DropTable(
-                name: "Platforms");
-
-            migrationBuilder.DropTable(
-                name: "SystemRequirements");
-
-            migrationBuilder.DropTable(
-                name: "Languages");
+                name: "LanguageAvailabilities");
 
             migrationBuilder.DropTable(
                 name: "VideoGames");
+
+            migrationBuilder.DropTable(
+                name: "Languages");
 
             migrationBuilder.DropTable(
                 name: "Publishers");

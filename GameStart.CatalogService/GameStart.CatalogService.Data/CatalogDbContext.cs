@@ -21,6 +21,8 @@ namespace GameStart.CatalogService.Data
 
         public DbSet<SystemRequirements> SystemRequirements { get; set; }
 
+        public DbSet<LanguageAvailability> LanguageAvailabilities { get; set; }
+
         public DbSet<Language> Languages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -11,6 +11,7 @@ namespace GameStart.CatalogService.Data.Repositories
             Publishers = new PublisherRepository(catalogDbContext);
             Platforms = new PlatformRepository(catalogDbContext);
             Languages = new LanguageRepository(catalogDbContext);
+            LanguageAvailabilies = new LanguageAvailabilityRepository(catalogDbContext);
             Ganres = new GanreRepository(catalogDbContext);
             Developers = new DeveloperRepository(catalogDbContext);
         }
@@ -24,6 +25,8 @@ namespace GameStart.CatalogService.Data.Repositories
         public IRepository<Platform> Platforms { get; }
 
         public IRepository<Language> Languages { get; }
+
+        public IRepository<LanguageAvailability> LanguageAvailabilies { get; }
 
         public IRepository<Ganre> Ganres { get; }
 

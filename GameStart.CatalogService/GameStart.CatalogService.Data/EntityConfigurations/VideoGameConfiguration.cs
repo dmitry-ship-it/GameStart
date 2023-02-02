@@ -39,36 +39,6 @@ namespace GameStart.CatalogService.Data.EntityConfigurations
             builder.Property(videoGame => videoGame.Price)
                 .HasColumnType("money")
                 .IsRequired(true);
-
-            builder.HasMany(videoGame => videoGame.InterfaceLanguages)
-                .WithMany(language => language.VideoGames)
-                .UsingEntity<Dictionary<string, object>>("VideoGameInterfaceLanguage",
-                    right => right.HasOne<Language>()
-                        .WithMany()
-                        .HasForeignKey("LanguageId"),
-                    left => left.HasOne<VideoGame>()
-                        .WithMany()
-                        .HasForeignKey("VideoGameId"));
-
-            builder.HasMany(videoGame => videoGame.AudioLanguages)
-                .WithMany(language => language.VideoGames)
-                .UsingEntity<Dictionary<string, object>>("VideoGameAudioLanguage",
-                    right => right.HasOne<Language>()
-                        .WithMany()
-                        .HasForeignKey("LanguageId"),
-                    left => left.HasOne<VideoGame>()
-                        .WithMany()
-                        .HasForeignKey("VideoGameId"));
-
-            builder.HasMany(videoGame => videoGame.SubtitlesLanguages)
-                .WithMany(language => language.VideoGames)
-                .UsingEntity<Dictionary<string, object>>("VideoGameSubtitlesLanguage",
-                    right => right.HasOne<Language>()
-                        .WithMany()
-                        .HasForeignKey("LanguageId"),
-                    left => left.HasOne<VideoGame>()
-                        .WithMany()
-                        .HasForeignKey("VideoGameId"));
         }
     }
 }

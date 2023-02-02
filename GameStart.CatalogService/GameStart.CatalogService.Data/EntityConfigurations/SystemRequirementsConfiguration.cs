@@ -20,7 +20,7 @@ namespace GameStart.CatalogService.Data.EntityConfigurations
 
             builder.Property(requirements => requirements.Processor)
                 .IsUnicode(true)
-                .IsRequired(true);
+                .IsRequired(false);
 
             builder.Property(requirements => requirements.Memory)
                 .IsUnicode(true)
@@ -28,7 +28,7 @@ namespace GameStart.CatalogService.Data.EntityConfigurations
 
             builder.Property(requirements => requirements.Graphics)
                 .IsUnicode(true)
-                .IsRequired(true);
+                .IsRequired(false);
 
             builder.Property(requirements => requirements.Network)
                 .IsUnicode(true)
@@ -36,7 +36,18 @@ namespace GameStart.CatalogService.Data.EntityConfigurations
 
             builder.Property(requirements => requirements.Storage)
                 .IsUnicode(true)
-                .IsRequired(true);
+                .IsRequired(false);
+
+            builder.HasOne(requirements => requirements.VideoGame)
+                .WithMany(videoGame => videoGame.SystemRequirements)
+                .HasForeignKey("VideoGameId");
+
+            builder.HasOne(requirements => requirements.Platform)
+                .WithMany(platform => platform.SystemRequirements)
+                .HasForeignKey("PlatformId");
+
+            builder.HasIndex("VideoGameId", "PlatformId")
+                .IsUnique(true);
         }
     }
 }
