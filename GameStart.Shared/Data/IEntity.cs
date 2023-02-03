@@ -1,4 +1,4 @@
-﻿namespace GameStart.CatalogService.Data.Models
+﻿namespace GameStart.Shared.Data
 {
     public interface IEntity
     {

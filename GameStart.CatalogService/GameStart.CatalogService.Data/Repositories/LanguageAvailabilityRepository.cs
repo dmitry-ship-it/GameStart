@@ -1,10 +1,11 @@
 ﻿using GameStart.CatalogService.Data.Models;
+using GameStart.Shared.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace GameStart.CatalogService.Data.Repositories
 {
-    public class LanguageAvailabilityRepository : RepositoryBase<LanguageAvailability>
+    public class LanguageAvailabilityRepository : RepositoryBase<LanguageAvailability, CatalogDbContext>
     {
         public LanguageAvailabilityRepository(CatalogDbContext catalogDbContext)
             : base(catalogDbContext)
@@ -31,7 +32,7 @@ namespace GameStart.CatalogService.Data.Repositories
 
         private IQueryable<LanguageAvailability> GetLanguages()
         {
-            return CatalogDbContext.LanguageAvailabilities
+            return Context.LanguageAvailabilities
                 .Include(entity => entity.Language);
         }
     }

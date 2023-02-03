@@ -1,4 +1,5 @@
 ﻿using GameStart.CatalogService.Data.Models;
+using GameStart.Shared.Data;
 
 namespace GameStart.CatalogService.Data.Repositories
 {

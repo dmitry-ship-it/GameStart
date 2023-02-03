@@ -1,10 +1,11 @@
 ﻿using GameStart.CatalogService.Data.Models;
+using GameStart.Shared.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace GameStart.CatalogService.Data.Repositories
 {
-    public class VideoGameRepository : RepositoryBase<VideoGame>
+    public class VideoGameRepository : RepositoryBase<VideoGame, CatalogDbContext>
     {
         public VideoGameRepository(CatalogDbContext catalogDbContext)
             : base(catalogDbContext)
@@ -13,8 +14,8 @@ namespace GameStart.CatalogService.Data.Repositories
 
         public override async Task CreateAsync(VideoGame entity, CancellationToken cancellationToken = default)
         {
-            CatalogDbContext.Attach(entity).State = EntityState.Added;
-            await CatalogDbContext.SaveChangesAsync(cancellationToken);
+            Context.Attach(entity).State = EntityState.Added;
+            await Context.SaveChangesAsync(cancellationToken);
         }
 
         public override async Task<IEnumerable<VideoGame>> FindAllAsync(CancellationToken cancellationToken = default)
@@ -32,22 +33,22 @@ namespace GameStart.CatalogService.Data.Repositories
 
         public override async Task DeleteAsync(VideoGame entity, CancellationToken cancellationToken = default)
         {
-            CatalogDbContext.Remove(entity);
-            CatalogDbContext.RemoveRange(entity.LanguageAvailabilities);
-            CatalogDbContext.RemoveRange(entity.SystemRequirements);
+            Context.Remove(entity);
+            Context.RemoveRange(entity.LanguageAvailabilities);
+            Context.RemoveRange(entity.SystemRequirements);
 
-            await CatalogDbContext.SaveChangesAsync(cancellationToken);
+            await Context.SaveChangesAsync(cancellationToken);
         }
 
         public override async Task UpdateAsync(VideoGame entity, CancellationToken cancellationToken = default)
         {
-            CatalogDbContext.Attach(entity).State = EntityState.Modified;
-            await CatalogDbContext.SaveChangesAsync(cancellationToken);
+            Context.Attach(entity).State = EntityState.Modified;
+            await Context.SaveChangesAsync(cancellationToken);
         }
 
         private IQueryable<VideoGame> GetVideoGames()
         {
-            return CatalogDbContext.VideoGames
+            return Context.VideoGames
                 .Include(entity => entity.Ganres)
                 .Include(entity => entity.Developers)
                 .Include(entity => entity.Publisher)

@@ -1,7 +1,6 @@
-﻿using GameStart.CatalogService.Data.Models;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 
-namespace GameStart.CatalogService.Data.Repositories
+namespace GameStart.Shared.Data
 {
     public interface IRepository<T> where T : class, IEntity
     {

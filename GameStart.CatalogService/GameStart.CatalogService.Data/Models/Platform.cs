@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using GameStart.Shared.Data;
+using System.Text.Json.Serialization;
 
 namespace GameStart.CatalogService.Data.Models
 {
