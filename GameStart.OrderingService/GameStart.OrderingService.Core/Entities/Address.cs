@@ -1,6 +1,6 @@
-﻿using GameStart.Shared.Data;
+﻿using GameStart.OrderingService.Core.Abstractions;
 
-namespace GameStart.OrderingService.Data.Models
+namespace GameStart.OrderingService.Core.Entities
 {
     public class Address : IEntity
     {

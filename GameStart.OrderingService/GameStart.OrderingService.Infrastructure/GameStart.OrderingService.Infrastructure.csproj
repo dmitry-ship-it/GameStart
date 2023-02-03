@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\GameStart.Shared\GameStart.Shared.csproj" />
+    <ProjectReference Include="..\GameStart.OrderingService.Core\GameStart.OrderingService.Core.csproj" />
   </ItemGroup>
 
 </Project>

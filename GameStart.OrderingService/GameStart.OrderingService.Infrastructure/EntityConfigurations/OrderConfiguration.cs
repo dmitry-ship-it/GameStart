@@ -1,8 +1,8 @@
-﻿using GameStart.OrderingService.Data.Models;
+﻿using GameStart.OrderingService.Infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace GameStart.OrderingService.Data.EntityConfigurations
+namespace GameStart.OrderingService.Infrastructure.EntityConfigurations
 {
     public class OrderConfiguration : IEntityTypeConfiguration<Order>
     {
