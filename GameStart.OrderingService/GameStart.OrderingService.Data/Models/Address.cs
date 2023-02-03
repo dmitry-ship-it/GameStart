@@ -18,6 +18,10 @@ namespace GameStart.OrderingService.Data.Models
 
         public string House { get; set; }
 
+        public string Flat { get; set; }
+
         public string PostCode { get; set; }
+
+        public virtual Order Order { get; set; }
     }
 }

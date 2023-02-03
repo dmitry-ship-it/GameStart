@@ -8,6 +8,8 @@ namespace GameStart.OrderingService.Data.Models
 
         public Guid UserId { get; set; }
 
+        public DateTime DateTime { get; set; }
+
         public virtual ICollection<Item> Items { get; set; }
 
         public virtual Address Address { get; set; }

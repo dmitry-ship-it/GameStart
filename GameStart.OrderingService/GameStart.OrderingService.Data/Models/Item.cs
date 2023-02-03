@@ -9,5 +9,7 @@ namespace GameStart.OrderingService.Data.Models
         public Guid GameId { get; set; }
 
         public bool IsPhysicalCopy { get; set; }
+
+        public virtual Order Order { get; set; }
     }
 }
