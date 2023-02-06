@@ -3,33 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GameStart.IdentityService", "GameStart.IdentityService", "{862A5883-3F50-4FF7-842D-FD73F3866819}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStart.IdentityService.Api", "GameStart.IdentityService\GameStart.IdentityService.Api\GameStart.IdentityService.Api.csproj", "{401D5E8D-64B1-4E62-85A0-90FACC86BF8B}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStart.IdentityService.Data", "GameStart.IdentityService\GameStart.IdentityService.Data\GameStart.IdentityService.Data.csproj", "{F22BD3CB-36D2-4890-9C94-74D8EFF5D9DE}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStart.IdentityService.Common", "GameStart.IdentityService\GameStart.IdentityService.Common\GameStart.IdentityService.Common.csproj", "{0D417CDA-908A-4632-9506-FCE88327E309}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStart.Shared", "GameStart.Shared\GameStart.Shared.csproj", "{0EBF88DE-29E8-4A51-9A8A-537B5923BC81}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GameStart.CatalogService", "GameStart.CatalogService", "{EA2E0FF1-8C38-4D0A-8CB3-28E3AE59B700}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStart.CatalogService.Api", "GameStart.CatalogService\GameStart.CatalogService.Api\GameStart.CatalogService.Api.csproj", "{0D189834-6BD7-4C17-BBAD-CB9D6D9B6F4D}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStart.CatalogService.Data", "GameStart.CatalogService\GameStart.CatalogService.Data\GameStart.CatalogService.Data.csproj", "{187F90BC-0C29-4062-AE00-332B0C166F02}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStart.CatalogService.Common", "GameStart.CatalogService\GameStart.CatalogService.Common\GameStart.CatalogService.Common.csproj", "{CA31599F-EDC5-4062-8133-E13D9FC45E32}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GameStart.OrderingService", "GameStart.OrderingService", "{C044D447-4089-4514-9C2F-5B9AD6B0CAAA}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStart.OrderingService.Infrastructure", "GameStart.OrderingService\GameStart.OrderingService.Infrastructure\GameStart.OrderingService.Infrastructure.csproj", "{F1694A38-56AB-4C97-AB01-A4896E98834D}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStart.OrderingService.Core", "GameStart.OrderingService\GameStart.OrderingService.Core\GameStart.OrderingService.Core.csproj", "{C871F243-03F9-4030-A720-400DA991EFCB}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStart.OrderingService.Api", "GameStart.OrderingService\GameStart.OrderingService.Api\GameStart.OrderingService.Api.csproj", "{7A99F2BB-C4A0-40DB-8E2A-EB2E6582FE57}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStart.OrderingService.Application", "GameStart.OrderingService\GameStart.OrderingService.Application\GameStart.OrderingService.Application.csproj", "{DEEB0AAE-4F94-426C-8D33-A215FE273BC6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStart.Identity", "GameStart.Identity\GameStart.Identity.csproj", "{401D5E8D-64B1-4E62-85A0-90FACC86BF8B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,61 +15,9 @@ Global
 		{401D5E8D-64B1-4E62-85A0-90FACC86BF8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{401D5E8D-64B1-4E62-85A0-90FACC86BF8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{401D5E8D-64B1-4E62-85A0-90FACC86BF8B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F22BD3CB-36D2-4890-9C94-74D8EFF5D9DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F22BD3CB-36D2-4890-9C94-74D8EFF5D9DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F22BD3CB-36D2-4890-9C94-74D8EFF5D9DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F22BD3CB-36D2-4890-9C94-74D8EFF5D9DE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0D417CDA-908A-4632-9506-FCE88327E309}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0D417CDA-908A-4632-9506-FCE88327E309}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0D417CDA-908A-4632-9506-FCE88327E309}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0D417CDA-908A-4632-9506-FCE88327E309}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0EBF88DE-29E8-4A51-9A8A-537B5923BC81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0EBF88DE-29E8-4A51-9A8A-537B5923BC81}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0EBF88DE-29E8-4A51-9A8A-537B5923BC81}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0EBF88DE-29E8-4A51-9A8A-537B5923BC81}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0D189834-6BD7-4C17-BBAD-CB9D6D9B6F4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0D189834-6BD7-4C17-BBAD-CB9D6D9B6F4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0D189834-6BD7-4C17-BBAD-CB9D6D9B6F4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0D189834-6BD7-4C17-BBAD-CB9D6D9B6F4D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{187F90BC-0C29-4062-AE00-332B0C166F02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{187F90BC-0C29-4062-AE00-332B0C166F02}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{187F90BC-0C29-4062-AE00-332B0C166F02}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{187F90BC-0C29-4062-AE00-332B0C166F02}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CA31599F-EDC5-4062-8133-E13D9FC45E32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CA31599F-EDC5-4062-8133-E13D9FC45E32}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CA31599F-EDC5-4062-8133-E13D9FC45E32}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CA31599F-EDC5-4062-8133-E13D9FC45E32}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F1694A38-56AB-4C97-AB01-A4896E98834D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F1694A38-56AB-4C97-AB01-A4896E98834D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F1694A38-56AB-4C97-AB01-A4896E98834D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F1694A38-56AB-4C97-AB01-A4896E98834D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C871F243-03F9-4030-A720-400DA991EFCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C871F243-03F9-4030-A720-400DA991EFCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C871F243-03F9-4030-A720-400DA991EFCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C871F243-03F9-4030-A720-400DA991EFCB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7A99F2BB-C4A0-40DB-8E2A-EB2E6582FE57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7A99F2BB-C4A0-40DB-8E2A-EB2E6582FE57}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7A99F2BB-C4A0-40DB-8E2A-EB2E6582FE57}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7A99F2BB-C4A0-40DB-8E2A-EB2E6582FE57}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DEEB0AAE-4F94-426C-8D33-A215FE273BC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DEEB0AAE-4F94-426C-8D33-A215FE273BC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DEEB0AAE-4F94-426C-8D33-A215FE273BC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DEEB0AAE-4F94-426C-8D33-A215FE273BC6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{401D5E8D-64B1-4E62-85A0-90FACC86BF8B} = {862A5883-3F50-4FF7-842D-FD73F3866819}
-		{F22BD3CB-36D2-4890-9C94-74D8EFF5D9DE} = {862A5883-3F50-4FF7-842D-FD73F3866819}
-		{0D417CDA-908A-4632-9506-FCE88327E309} = {862A5883-3F50-4FF7-842D-FD73F3866819}
-		{0D189834-6BD7-4C17-BBAD-CB9D6D9B6F4D} = {EA2E0FF1-8C38-4D0A-8CB3-28E3AE59B700}
-		{187F90BC-0C29-4062-AE00-332B0C166F02} = {EA2E0FF1-8C38-4D0A-8CB3-28E3AE59B700}
-		{CA31599F-EDC5-4062-8133-E13D9FC45E32} = {EA2E0FF1-8C38-4D0A-8CB3-28E3AE59B700}
-		{F1694A38-56AB-4C97-AB01-A4896E98834D} = {C044D447-4089-4514-9C2F-5B9AD6B0CAAA}
-		{C871F243-03F9-4030-A720-400DA991EFCB} = {C044D447-4089-4514-9C2F-5B9AD6B0CAAA}
-		{7A99F2BB-C4A0-40DB-8E2A-EB2E6582FE57} = {C044D447-4089-4514-9C2F-5B9AD6B0CAAA}
-		{DEEB0AAE-4F94-426C-8D33-A215FE273BC6} = {C044D447-4089-4514-9C2F-5B9AD6B0CAAA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A95021B1-7C40-4506-BDBC-D03797A88526}
