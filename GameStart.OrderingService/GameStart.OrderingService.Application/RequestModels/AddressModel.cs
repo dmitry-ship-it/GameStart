@@ -2,6 +2,8 @@
 {
     public class AddressModel
     {
+        public Guid Id { get; set; }
+
         public Guid UserId { get; set; }
 
         public string Country { get; set; }

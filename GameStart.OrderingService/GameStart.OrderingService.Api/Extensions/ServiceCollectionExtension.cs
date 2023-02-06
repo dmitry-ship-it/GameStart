@@ -1,4 +1,6 @@
-﻿using GameStart.OrderingService.Core.Abstractions;
+﻿using AutoMapper;
+using GameStart.OrderingService.Application.Mapping;
+using GameStart.OrderingService.Core.Abstractions;
 using GameStart.OrderingService.Infrastructure;
 using GameStart.OrderingService.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
