@@ -1,7 +1,9 @@
-﻿using GameStart.OrderingService.Core.Abstractions;
+﻿using GameStart.OrderingService.Application.Services;
+using GameStart.OrderingService.Core.Abstractions;
 using GameStart.OrderingService.Infrastructure;
 using GameStart.OrderingService.Infrastructure.Repositories;
 using GameStart.Shared;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
@@ -30,6 +32,26 @@ namespace GameStart.OrderingService.Api.Extensions
                 .AddJsonOptions(options => options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
             return services;
+        }
+
+        public static IServiceCollection AddCustomServices(this IServiceCollection services)
+        {
+            services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IAddressService, AddressService>();
+
+            return services;
+        }
+
+        public static IServiceCollection AddPreconfiguredJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+                {
+                    options.TokenValidationParameters.ValidateAudience = false;
+                    options.Authority = configuration["Auth:Authority"];
+                });
+
+            return services.AddAuthorization();
         }
     }
 }

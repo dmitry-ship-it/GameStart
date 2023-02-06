@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using GameStart.OrderingService.Application.DtoModels;
 using GameStart.OrderingService.Core.Abstractions;
 using GameStart.OrderingService.Core.Entities;
@@ -9,15 +10,18 @@ namespace GameStart.OrderingService.Application.Services
     {
         private readonly IAddressRepository repository;
         private readonly IMapper mapper;
+        private readonly IValidator<AddressDto> validator;
 
-        public AddressService(IAddressRepository repository, IMapper mapper)
+        public AddressService(IAddressRepository repository, IMapper mapper, IValidator<AddressDto> validator)
         {
             this.repository = repository;
             this.mapper = mapper;
+            this.validator = validator;
         }
 
         public async Task CreateAsync(AddressDto address)
         {
+            validator.ValidateAndThrow(address);
             await repository.CreateAsync(mapper.Map<Address>(address));
         }
 
@@ -41,6 +45,8 @@ namespace GameStart.OrderingService.Application.Services
 
         public async Task<bool> UpdateAsync(Guid id, AddressDto address)
         {
+            validator.ValidateAndThrow(address);
+
             var dbAddresses = await repository.GetByConditionAsync(entity => entity.Id == id);
 
             if (dbAddresses?.Any() != true)
