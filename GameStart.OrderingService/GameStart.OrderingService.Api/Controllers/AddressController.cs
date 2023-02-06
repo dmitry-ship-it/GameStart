@@ -1,4 +1,6 @@
-﻿using GameStart.OrderingService.Application.RequestModels;
+﻿using GameStart.OrderingService.Application.DtoModels;
+using GameStart.OrderingService.Application.Services;
+using GameStart.OrderingService.Core.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,28 +11,41 @@ namespace GameStart.OrderingService.Api.Controllers
     [Route("api/[controller]")]
     public class AddressController : ControllerBase
     {
-        [HttpGet("{id:Guid}")]
-        public async Task<IActionResult> GetAddress([FromRoute] Guid id)
+        private readonly IAddressService addressService;
+
+        public AddressController(IAddressService addressService)
         {
-            throw new NotImplementedException();
+            this.addressService = addressService;
         }
 
-        [HttpPost("{id:Guid}")]
-        public async Task<IActionResult> CreateAddress([FromRoute] Guid id, [FromBody] AddressModel address)
+        [HttpGet("{userId:Guid}")]
+        public async Task<IActionResult> GetAsync([FromRoute] Guid userId)
         {
-            throw new NotImplementedException();
+            return Ok(await addressService.GetByUserIdAsync(userId));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateAsync([FromBody] AddressDto address)
+        {
+            await addressService.CreateAsync(address);
+
+            return Ok();
         }
 
         [HttpPut("{id:Guid}")]
-        public async Task<IActionResult> UpdateAddress([FromRoute] Guid id, [FromBody] AddressModel address)
+        public async Task<IActionResult> UpdateAsync([FromRoute] Guid id, [FromBody] AddressDto address)
         {
-            throw new NotImplementedException();
+            var isUpdated = await addressService.UpdateAsync(id, address);
+
+            return isUpdated ? Ok() : NotFound();
         }
 
         [HttpDelete("{id:Guid}")]
-        public async Task<IActionResult> DeleteAddress([FromRoute] Guid id)
+        public async Task<IActionResult> DeleteAsync([FromRoute] Guid id)
         {
-            throw new NotImplementedException();
+            var isDeleted = await addressService.DeleteAsync(id);
+
+            return isDeleted ? NoContent() : NotFound();
         }
     }
 }

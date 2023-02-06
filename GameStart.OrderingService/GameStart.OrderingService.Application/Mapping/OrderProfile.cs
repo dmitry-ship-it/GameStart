@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
-using GameStart.OrderingService.Application.RequestModels;
-using GameStart.OrderingService.Core.Abstractions;
+using GameStart.OrderingService.Application.DtoModels;
 using GameStart.OrderingService.Core.Entities;
 
 namespace GameStart.OrderingService.Application.Mapping
@@ -9,7 +8,7 @@ namespace GameStart.OrderingService.Application.Mapping
     {
         public OrderProfile()
         {
-            CreateMap<CreateOrderRequest, Order>();
+            CreateMap<OrderDto, Order>();
         }
     }
 }

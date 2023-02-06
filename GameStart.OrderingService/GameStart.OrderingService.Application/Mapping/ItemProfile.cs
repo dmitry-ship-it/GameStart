@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using GameStart.OrderingService.Application.RequestModels;
+using GameStart.OrderingService.Application.DtoModels;
 using GameStart.OrderingService.Core.Entities;
 
 namespace GameStart.OrderingService.Application.Mapping
@@ -8,7 +8,7 @@ namespace GameStart.OrderingService.Application.Mapping
     {
         public ItemProfile()
         {
-            CreateMap<ItemModel, Item>();
+            CreateMap<ItemDto, Item>();
         }
     }
 }

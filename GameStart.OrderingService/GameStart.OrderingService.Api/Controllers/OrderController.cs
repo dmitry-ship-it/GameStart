@@ -1,4 +1,5 @@
-﻿using GameStart.OrderingService.Application.RequestModels;
+﻿using GameStart.OrderingService.Application.DtoModels;
+using GameStart.OrderingService.Application.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,22 +10,33 @@ namespace GameStart.OrderingService.Api.Controllers
     [Route("api/[controller]")]
     public class OrderController : ControllerBase
     {
-        [HttpGet("{id:Guid}")]
-        public async Task<IActionResult> GetOrder([FromRoute] Guid id)
+        private readonly IOrderService orderService;
+
+        public OrderController(IOrderService orderService)
         {
-            throw new NotImplementedException();
+            this.orderService = orderService;
         }
 
-        [HttpPost("{id:Guid}")]
-        public async Task<IActionResult> CreateOrder([FromRoute] Guid id, [FromBody] CreateOrderRequest request)
+        [HttpGet("{userId:Guid}")]
+        public async Task<IActionResult> GetAsync([FromRoute] Guid userId)
         {
-            throw new NotImplementedException();
+            return Ok(await orderService.GetByUserIdAsync(userId));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateAsync([FromBody] OrderDto order)
+        {
+            await orderService.CreateAsync(order);
+
+            return Ok();
         }
 
         [HttpDelete("{id:Guid}")]
-        public async Task<IActionResult> DeleteOrder([FromRoute] Guid id)
+        public async Task<IActionResult> DeleteAsync([FromRoute] Guid id)
         {
-            throw new NotImplementedException();
+            var isDeleted = await orderService.DeleteAsync(id);
+
+            return isDeleted ? NoContent() : NotFound();
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿namespace GameStart.OrderingService.Application.RequestModels
+﻿namespace GameStart.OrderingService.Application.DtoModels
 {
-    public class ItemModel
+    public class ItemDto
     {
         public Guid GameId { get; set; }
 

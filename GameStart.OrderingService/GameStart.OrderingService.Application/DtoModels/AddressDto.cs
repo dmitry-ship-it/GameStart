@@ -1,9 +1,7 @@
-﻿namespace GameStart.OrderingService.Application.RequestModels
+﻿namespace GameStart.OrderingService.Application.DtoModels
 {
-    public class AddressModel
+    public class AddressDto
     {
-        public Guid Id { get; set; }
-
         public Guid UserId { get; set; }
 
         public string Country { get; set; }

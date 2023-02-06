@@ -1,4 +1,4 @@
-﻿using GameStart.OrderingService.Infrastructure.Models;
+﻿using GameStart.OrderingService.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
