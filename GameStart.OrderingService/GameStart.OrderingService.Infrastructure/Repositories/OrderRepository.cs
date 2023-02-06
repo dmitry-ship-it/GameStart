@@ -1,10 +1,11 @@
-﻿using GameStart.OrderingService.Core.Entities;
+﻿using GameStart.OrderingService.Core.Abstractions;
+using GameStart.OrderingService.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace GameStart.OrderingService.Infrastructure.Repositories
 {
-    public class OrderRepository : Repository<Order>
+    public class OrderRepository : Repository<Order>, IOrderRepository
     {
         public OrderRepository(OrdersDbContext context) : base(context)
         {

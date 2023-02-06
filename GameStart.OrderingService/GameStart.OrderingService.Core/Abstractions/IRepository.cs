@@ -2,7 +2,7 @@
 
 namespace GameStart.OrderingService.Core.Abstractions
 {
-    public interface IRepository<T> where T : class, IEntity // TODO: ADD IOrderRepository, IItemRepository, and so on. Use them in API
+    public interface IRepository<T> where T : class, IEntity
     {
         Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken = default);
 

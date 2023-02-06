@@ -7,22 +7,28 @@ namespace GameStart.OrderingService.Api.Controllers
     [Authorize]
     [ApiController]
     [Route("api/[controller]")]
-    public class OrderController : ControllerBase
+    public class AddressController : ControllerBase
     {
         [HttpGet("{id:Guid}")]
-        public async Task<IActionResult> GetOrder([FromRoute] Guid id)
+        public async Task<IActionResult> GetAddress([FromRoute] Guid id)
         {
             throw new NotImplementedException();
         }
 
         [HttpPost("{id:Guid}")]
-        public async Task<IActionResult> CreateOrder([FromRoute] Guid id, [FromBody] CreateOrderRequest request)
+        public async Task<IActionResult> CreateAddress([FromRoute] Guid id, [FromBody] AddressModel address)
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpPut("{id:Guid}")]
+        public async Task<IActionResult> UpdateAddress([FromRoute] Guid id, [FromBody] AddressModel address)
         {
             throw new NotImplementedException();
         }
 
         [HttpDelete("{id:Guid}")]
-        public async Task<IActionResult> DeleteOrder([FromRoute] Guid id)
+        public async Task<IActionResult> DeleteAddress([FromRoute] Guid id)
         {
             throw new NotImplementedException();
         }

@@ -1,8 +1,8 @@
 ﻿using GameStart.OrderingService.Core.Abstractions;
-using GameStart.OrderingService.Core.Entities;
 using GameStart.OrderingService.Infrastructure;
 using GameStart.OrderingService.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 namespace GameStart.OrderingService.Api.Extensions
 {
@@ -16,9 +16,17 @@ namespace GameStart.OrderingService.Api.Extensions
                 options.UseMySQL(connectionString, config =>
                     config.MigrationsAssembly(typeof(OrdersDbContext).Assembly.FullName)));
 
-            services.AddScoped<IRepository<Order>, OrderRepository>();
-            services.AddScoped<IRepository<Address>, AddressRepository>();
-            services.AddScoped<IRepository<Item>, ItemRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IAddressRepository, AddressRepository>();
+            services.AddScoped<IItemRepository, ItemRepository>();
+
+            return services;
+        }
+
+        public static IServiceCollection AddControllersWithJsonConfiguration(this IServiceCollection services)
+        {
+            services.AddControllers()
+                .AddJsonOptions(options => options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
             return services;
         }

@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\GameStart.Shared\GameStart.Shared.csproj" />
+    <ProjectReference Include="..\GameStart.OrderingService.Application\GameStart.OrderingService.Application.csproj" />
     <ProjectReference Include="..\GameStart.OrderingService.Infrastructure\GameStart.OrderingService.Infrastructure.csproj" />
   </ItemGroup>
 
