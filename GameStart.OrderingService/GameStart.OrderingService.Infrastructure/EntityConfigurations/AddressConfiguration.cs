@@ -41,7 +41,7 @@ namespace GameStart.OrderingService.Infrastructure.EntityConfigurations
                 .IsRequired(false);
 
             builder.Property(address => address.PostCode)
-                .HasMaxLength(10)
+                .HasMaxLength(12)
                 .IsUnicode(true)
                 .IsRequired(true);
         }

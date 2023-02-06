@@ -35,5 +35,18 @@
                 public const string CatalogDb = "CatalogDbConnection";
             }
         }
+
+        public struct OrderingService
+        {
+            public struct ConnectionStringNames
+            {
+                public const string OrdersDb = "OrdersDbConnection";
+            }
+
+            public struct ValidationMessages
+            {
+                public const string OrderedPhysicalCopyButAddressIsNull = "You must provide your address";
+            }
+        }
     }
 }

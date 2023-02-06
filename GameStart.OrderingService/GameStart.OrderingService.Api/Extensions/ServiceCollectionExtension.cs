@@ -1,6 +1,7 @@
 ﻿using GameStart.OrderingService.Core.Abstractions;
 using GameStart.OrderingService.Infrastructure;
 using GameStart.OrderingService.Infrastructure.Repositories;
+using GameStart.Shared;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
@@ -10,7 +11,7 @@ namespace GameStart.OrderingService.Api.Extensions
     {
         public static IServiceCollection AddDbContextWithRepositories(this IServiceCollection services, IConfiguration configuration)
         {
-            var connectionString = configuration.GetConnectionString("OrdersDbConnection");
+            var connectionString = configuration.GetConnectionString(Constants.OrderingService.ConnectionStringNames.OrdersDb);
 
             services.AddDbContext<OrdersDbContext>(options =>
                 options.UseMySQL(connectionString, config =>
