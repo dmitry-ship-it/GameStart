@@ -1,6 +1,5 @@
 ﻿using GameStart.IdentityService.Common;
 using GameStart.IdentityService.Common.ViewModels;
-using GameStart.Shared;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameStart.IdentityService.Api.Controllers
@@ -16,7 +15,7 @@ namespace GameStart.IdentityService.Api.Controllers
             this.accountManager = accountManager;
         }
 
-        [HttpPost(Constants.IdentityService.Endpoints.LoginEndpointName)]
+        [HttpPost("login")]
         public async Task<IActionResult> LoginAsync([FromBody] LoginViewModel loginViewModel, CancellationToken cancellationToken = default)
         {
             await accountManager.LoginAsync(loginViewModel.Username,
@@ -25,7 +24,7 @@ namespace GameStart.IdentityService.Api.Controllers
             return Ok();
         }
 
-        [HttpPost(Constants.IdentityService.Endpoints.RegisterEndpointName)]
+        [HttpPost("register")]
         public async Task<IActionResult> RegisterAsync([FromBody] RegisterViewModel registerViewModel, CancellationToken cancellationToken = default)
         {
             await accountManager.RegisterAsync(registerViewModel.Username,
@@ -34,16 +33,16 @@ namespace GameStart.IdentityService.Api.Controllers
             return Ok();
         }
 
-        [HttpGet(Constants.IdentityService.Endpoints.ChallengeEndpointName)]
+        [HttpGet("challenge")]
         public IActionResult Challenge([FromQuery] string scheme, [FromQuery] string returnUrl)
         {
             var authenticationProperties = accountManager.CreateAuthenticationProperties(
-                scheme, returnUrl, Url.Action(Constants.IdentityService.Endpoints.CallbackEndpointName));
+                scheme, returnUrl, Url.Action(nameof(CallbackAsync)));
 
             return Challenge(authenticationProperties, scheme);
         }
 
-        [HttpGet(Constants.IdentityService.Endpoints.CallbackEndpointName)]
+        [HttpGet("callback")]
         public async Task<IActionResult> CallbackAsync(CancellationToken cancellationToken = default)
         {
             var returnUrl = await accountManager.ExternalAuthenticateAsync(
@@ -53,7 +52,7 @@ namespace GameStart.IdentityService.Api.Controllers
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        [HttpGet(Constants.IdentityService.Endpoints.LogoutEndpointName)]
+        [HttpGet("logout")]
         public async Task<IActionResult> LogoutAsync(CancellationToken cancellationToken = default)
         {
             await accountManager.ClearCookiesAsync(HttpContext, cancellationToken);

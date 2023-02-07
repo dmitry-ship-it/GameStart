@@ -1,0 +1,103 @@
+﻿{
+  "Routes": [
+    // Identity service
+    {
+      "UpstreamPathTemplate": "/api/account/{endpoint}",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7153
+        }
+      ],
+      "DownstreamPathTemplate": "/api/account/{endpoint}"
+    },
+
+    // Catalog service
+    {
+      "UpstreamPathTemplate": "/api/catalog",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7116
+        }
+      ],
+      "DownstreamPathTemplate": "/api/catalog"
+    },
+    {
+      "UpstreamPathTemplate": "/api/catalog/{id}",
+      "UpstreamHttpMethod": [ "Get", "Put", "Delete" ],
+
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7116
+        }
+      ],
+      "DownstreamPathTemplate": "/api/catalog/{id}"
+    },
+
+    // Ordering service
+    {
+      "UpstreamPathTemplate": "/api/order",
+      "UpstreamHttpMethod": [ "Post" ],
+
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7117
+        }
+      ],
+      "DownstreamPathTemplate": "/api/order"
+    },
+    {
+      "UpstreamPathTemplate": "/api/order/{id}",
+      "UpstreamHttpMethod": [ "Get", "Delete" ],
+
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7117
+        }
+      ],
+      "DownstreamPathTemplate": "/api/order/{id}"
+    },
+    {
+      "UpstreamPathTemplate": "/api/address",
+      "UpstreamHttpMethod": [ "Post" ],
+
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7117
+        }
+      ],
+      "DownstreamPathTemplate": "/api/address"
+    },
+    {
+      "UpstreamPathTemplate": "/api/address/{id}",
+      "UpstreamHttpMethod": [ "Get", "Put", "Delete" ],
+
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7117
+        }
+      ],
+      "DownstreamPathTemplate": "/api/address/{id}"
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:8001"
+  }
+}

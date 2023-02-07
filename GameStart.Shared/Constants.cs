@@ -4,15 +4,6 @@
     {
         public struct IdentityService
         {
-            public struct Endpoints
-            {
-                public const string LoginEndpointName = "login";
-                public const string RegisterEndpointName = "register";
-                public const string ChallengeEndpointName = "challenge";
-                public const string CallbackEndpointName = "callback";
-                public const string LogoutEndpointName = "logout";
-            }
-
             public struct ConnectionStringNames
             {
                 public const string ConfigurationDb = "ConfigurationDbConnection";
@@ -46,6 +37,14 @@
             public struct ValidationMessages
             {
                 public const string OrderedPhysicalCopyButAddressIsNull = "You must provide your address";
+            }
+        }
+
+        public struct Gateway
+        {
+            public struct ConfigurationFiles
+            {
+                public const string GatewayConfigurationFileName = "ocelot.json";
             }
         }
     }
