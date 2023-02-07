@@ -8,8 +8,7 @@ namespace GameStart.CatalogService.Data.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Ganre> builder)
         {
-            builder.HasKey(ganre => ganre.Id)
-                .IsClustered(true);
+            builder.HasKey(ganre => ganre.Id);
 
             builder.Property(ganre => ganre.Id)
                 .ValueGeneratedOnAdd();
@@ -32,8 +31,7 @@ namespace GameStart.CatalogService.Data.EntityConfigurations
                         .WithMany()
                         .HasForeignKey("GanreId"),
                     joining => joining.ToTable("VideoGameGanre")
-                        .HasKey("VideoGameId", "GanreId")
-                        .IsClustered(true));
+                        .HasKey("VideoGameId", "GanreId"));
         }
     }
 }

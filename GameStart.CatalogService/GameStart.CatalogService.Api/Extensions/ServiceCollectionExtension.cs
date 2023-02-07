@@ -18,7 +18,7 @@ namespace GameStart.CatalogService.Api.Extensions
             var catalogConnectionString = configuration.GetConnectionString(Constants.CatalogService.ConnectionStringNames.CatalogDb);
 
             services.AddDbContext<CatalogDbContext>(options =>
-                options.UseSqlServer(catalogConnectionString, cfg =>
+                options.UseNpgsql(catalogConnectionString, cfg =>
                     cfg.MigrationsAssembly(typeof(CatalogDbContext).Assembly.FullName)));
 
             services.AddScoped<IRepositoryWrapper, CatalogRepositoryWrapper>();

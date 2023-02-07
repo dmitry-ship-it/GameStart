@@ -8,8 +8,7 @@ namespace GameStart.CatalogService.Data.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<LanguageAvailability> builder)
         {
-            builder.HasKey(key => key.Id)
-                .IsClustered(true);
+            builder.HasKey(key => key.Id);
 
             builder.Property(entity => entity.AvailableForInterface)
                 .HasDefaultValue(false);
@@ -30,8 +29,7 @@ namespace GameStart.CatalogService.Data.EntityConfigurations
                         .WithMany()
                         .HasForeignKey("LanguageAvailabilityId"),
                     joining => joining.ToTable("VideoGameLanguage")
-                        .HasKey("VideoGameId", "LanguageAvailabilityId")
-                        .IsClustered(true));
+                        .HasKey("VideoGameId", "LanguageAvailabilityId"));
 
             builder.HasOne(entity => entity.Language)
                 .WithMany(entity => entity.LanguageAvailabilities)

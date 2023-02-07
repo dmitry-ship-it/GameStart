@@ -57,6 +57,7 @@ namespace GameStart.IdentityService.Api.Extensions
 
                     return Task.CompletedTask;
                 };
+
                 o.Events.OnRedirectToAccessDenied = (ctx) =>
                 {
                     if (ctx.Request.Path.StartsWithSegments("/api") && ctx.Response.StatusCode < 400)

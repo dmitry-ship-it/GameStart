@@ -8,8 +8,7 @@ namespace GameStart.CatalogService.Data.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<SystemRequirements> builder)
         {
-            builder.HasKey(key => key.Id)
-                .IsClustered(true);
+            builder.HasKey(key => key.Id);
 
             builder.Property(requirements => requirements.Id)
                 .ValueGeneratedOnAdd();

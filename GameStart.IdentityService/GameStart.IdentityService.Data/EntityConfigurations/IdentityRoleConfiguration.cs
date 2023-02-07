@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using GameStart.Shared;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -8,19 +9,11 @@ namespace GameStart.IdentityService.Data.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<IdentityRole> builder)
         {
-            builder.HasData(new IdentityRole[]
+            builder.HasData(Enum.GetNames<Roles>().Select(role => new IdentityRole
             {
-                new()
-                {
-                    Name = "User",
-                    NormalizedName = "USER"
-                },
-                new()
-                {
-                    Name = "Manager",
-                    NormalizedName = "MANAGER"
-                }
-            });
+                Name = role,
+                NormalizedName = role.ToUpper()
+            }));
         }
     }
 }

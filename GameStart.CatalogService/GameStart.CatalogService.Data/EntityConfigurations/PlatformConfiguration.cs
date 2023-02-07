@@ -8,8 +8,7 @@ namespace GameStart.CatalogService.Data.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Platform> builder)
         {
-            builder.HasKey(platfrom => platfrom.Id)
-                .IsClustered(true);
+            builder.HasKey(platfrom => platfrom.Id);
 
             builder.Property(platfrom => platfrom.Id)
                 .ValueGeneratedOnAdd();

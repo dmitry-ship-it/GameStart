@@ -11,9 +11,12 @@ namespace GameStart.OrderingService.Api.Extensions
 {
     public static class ServiceCollectionExtension
     {
-        public static IServiceCollection AddDbContextWithRepositories(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddDbContextWithRepositories(
+            this IServiceCollection services,
+            IConfiguration configuration)
         {
-            var connectionString = configuration.GetConnectionString(Constants.OrderingService.ConnectionStringNames.OrdersDb);
+            var connectionString = configuration.GetConnectionString(
+                Constants.OrderingService.ConnectionStringNames.OrdersDb);
 
             services.AddDbContext<OrdersDbContext>(options =>
                 options.UseMySQL(connectionString, config =>
@@ -29,7 +32,8 @@ namespace GameStart.OrderingService.Api.Extensions
         public static IServiceCollection AddControllersWithJsonConfiguration(this IServiceCollection services)
         {
             services.AddControllers()
-                .AddJsonOptions(options => options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+                .AddJsonOptions(options =>
+                    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
             return services;
         }
@@ -42,7 +46,9 @@ namespace GameStart.OrderingService.Api.Extensions
             return services;
         }
 
-        public static IServiceCollection AddPreconfiguredJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddPreconfiguredJwtAuthentication(
+            this IServiceCollection services,
+            IConfiguration configuration)
         {
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>

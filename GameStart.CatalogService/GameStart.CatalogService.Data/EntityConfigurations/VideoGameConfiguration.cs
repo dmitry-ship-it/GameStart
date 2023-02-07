@@ -9,8 +9,7 @@ namespace GameStart.CatalogService.Data.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<VideoGame> builder)
         {
-            builder.HasKey(key => key.Id)
-                .IsClustered(true);
+            builder.HasKey(key => key.Id);
 
             builder.Property(videoGame => videoGame.Id)
                 .ValueGeneratedOnAdd();

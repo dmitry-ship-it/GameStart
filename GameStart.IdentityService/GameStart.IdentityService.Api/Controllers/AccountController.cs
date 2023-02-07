@@ -16,7 +16,8 @@ namespace GameStart.IdentityService.Api.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> LoginAsync([FromBody] LoginViewModel loginViewModel, CancellationToken cancellationToken = default)
+        public async Task<IActionResult> LoginAsync([FromBody] LoginViewModel loginViewModel,
+            CancellationToken cancellationToken = default)
         {
             await accountManager.LoginAsync(loginViewModel.Username,
                 loginViewModel.Password, HttpContext, cancellationToken);
@@ -25,7 +26,8 @@ namespace GameStart.IdentityService.Api.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> RegisterAsync([FromBody] RegisterViewModel registerViewModel, CancellationToken cancellationToken = default)
+        public async Task<IActionResult> RegisterAsync([FromBody] RegisterViewModel registerViewModel,
+            CancellationToken cancellationToken = default)
         {
             await accountManager.RegisterAsync(registerViewModel.Username,
                 registerViewModel.Email, registerViewModel.Password, cancellationToken);

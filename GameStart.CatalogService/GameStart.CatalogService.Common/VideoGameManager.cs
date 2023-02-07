@@ -49,7 +49,8 @@ namespace GameStart.CatalogService.Common
             return true;
         }
 
-        public async Task<bool> UpdateAsync(Guid id, VideoGameViewModel model, CancellationToken cancellationToken = default)
+        public async Task<bool> UpdateAsync(Guid id, VideoGameViewModel model,
+            CancellationToken cancellationToken = default)
         {
             var videoGame = await GetByIdAsync(id, cancellationToken);
 

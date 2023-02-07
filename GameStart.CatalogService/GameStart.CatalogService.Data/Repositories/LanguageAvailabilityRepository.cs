@@ -16,7 +16,6 @@ namespace GameStart.CatalogService.Data.Repositories
             CancellationToken cancellationToken = default)
         {
             return await GetLanguages()
-                .AsNoTracking()
                 .ToListAsync(cancellationToken);
         }
 
@@ -26,14 +25,14 @@ namespace GameStart.CatalogService.Data.Repositories
         {
             return await GetLanguages()
                 .Where(expression)
-                .AsNoTracking()
                 .ToListAsync(cancellationToken);
         }
 
         private IQueryable<LanguageAvailability> GetLanguages()
         {
             return Context.LanguageAvailabilities
-                .Include(entity => entity.Language);
+                .Include(entity => entity.Language)
+                .AsNoTracking();
         }
     }
 }

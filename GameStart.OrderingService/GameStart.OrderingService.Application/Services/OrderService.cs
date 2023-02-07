@@ -3,7 +3,6 @@ using FluentValidation;
 using GameStart.OrderingService.Application.DtoModels;
 using GameStart.OrderingService.Core.Abstractions;
 using GameStart.OrderingService.Core.Entities;
-using System.ComponentModel.DataAnnotations;
 
 namespace GameStart.OrderingService.Application.Services
 {
@@ -13,35 +12,41 @@ namespace GameStart.OrderingService.Application.Services
         private readonly IMapper mapper;
         private readonly IValidator<OrderDto> validator;
 
-        public OrderService(IOrderRepository repository, IMapper mapper, IValidator<OrderDto> validator)
+        public OrderService(
+            IOrderRepository repository,
+            IMapper mapper,
+            IValidator<OrderDto> validator)
         {
             this.repository = repository;
             this.mapper = mapper;
             this.validator = validator;
         }
 
-        public async Task CreateAsync(OrderDto order)
+        public async Task CreateAsync(OrderDto order, CancellationToken cancellationToken = default)
         {
             validator.ValidateAndThrow(order);
-            await repository.CreateAsync(mapper.Map<Order>(order));
+            await repository.CreateAsync(mapper.Map<Order>(order), cancellationToken);
         }
 
-        public async Task<bool> DeleteAsync(Guid id)
+        public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            var orders = await repository.GetByConditionAsync(entity => entity.Id == id);
+            var orders = await repository.GetByConditionAsync(
+                entity => entity.Id == id, cancellationToken);
 
             if (orders.Any())
             {
-                await repository.DeleteAsync(orders.First());
+                await repository.DeleteAsync(orders.First(), cancellationToken);
                 return true;
             }
 
             return false;
         }
 
-        public async Task<IEnumerable<Order>> GetByUserIdAsync(Guid userId)
+        public async Task<IEnumerable<Order>> GetByUserIdAsync(Guid userId,
+            CancellationToken cancellationToken = default)
         {
-            return await repository.GetByConditionAsync(entity => entity.UserId == userId);
+            return await repository.GetByConditionAsync(
+                entity => entity.UserId == userId, cancellationToken);
         }
     }
 }

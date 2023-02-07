@@ -1,4 +1,5 @@
 ﻿using GameStart.OrderingService.Core.Abstractions;
+using System.Text.Json.Serialization;
 
 namespace GameStart.OrderingService.Core.Entities
 {
@@ -10,6 +11,7 @@ namespace GameStart.OrderingService.Core.Entities
 
         public bool IsPhysicalCopy { get; set; }
 
+        [JsonIgnore]
         public virtual Order Order { get; set; }
     }
 }

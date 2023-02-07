@@ -14,7 +14,10 @@ namespace GameStart.CatalogService.Common.Mapping
             this.repository = repository;
         }
 
-        public VideoGame Convert(VideoGameViewModel source, VideoGame destination, ResolutionContext context)
+        public VideoGame Convert(
+            VideoGameViewModel source,
+            VideoGame destination,
+            ResolutionContext context)
         {
             destination ??= new();
 
@@ -47,21 +50,27 @@ namespace GameStart.CatalogService.Common.Mapping
             return destination;
         }
 
-        private IEnumerable<SystemRequirements> MapSystemRequirements(IList<SystemRequirementsViewModel> systemRequirements, ResolutionContext context)
+        private IEnumerable<SystemRequirements> MapSystemRequirements(
+            IList<SystemRequirementsViewModel> systemRequirements,
+            ResolutionContext context)
         {
             var found = repository.Platforms.FindAllAsync().Result;
 
             return systemRequirements.Select(selector =>
             {
                 var result = context.Mapper.Map<SystemRequirementsViewModel, SystemRequirements>(selector);
-                result.Platform = found.FirstOrDefault(platform => platform.Name == result.Platform.Name, result.Platform);
+                result.Platform = found.FirstOrDefault(platform =>
+                    platform.Name == result.Platform.Name, result.Platform);
+
                 return result;
             });
         }
 
         private Publisher MapPublisher(string publisher)
         {
-            var found = repository.Publishers.FindByConditionAsync(dbPublisher => dbPublisher.Name == publisher).Result;
+            var found = repository.Publishers.FindByConditionAsync(
+                dbPublisher => dbPublisher.Name == publisher).Result;
+
             return found.FirstOrDefault() ?? new Publisher { Name = publisher };
         }
 
@@ -72,6 +81,7 @@ namespace GameStart.CatalogService.Common.Mapping
             return developers.Select(selector =>
             {
                 var result = context.Mapper.Map<Developer>(selector);
+
                 return found.FirstOrDefault(developer => developer.Name == result.Name, result);
             });
         }
@@ -83,6 +93,7 @@ namespace GameStart.CatalogService.Common.Mapping
             return ganres.Select(selector =>
             {
                 var result = context.Mapper.Map<Ganre>(selector);
+
                 return found.FirstOrDefault(ganre => ganre.Name == result.Name, result);
             });
         }
@@ -94,7 +105,9 @@ namespace GameStart.CatalogService.Common.Mapping
             return languages.Select(selector =>
             {
                 var result = context.Mapper.Map<LanguageAvailability>(selector);
-                result.Language = found.FirstOrDefault(entity => entity.Name == result.Language.Name, result.Language);
+                result.Language = found.FirstOrDefault(entity =>
+                    entity.Name == result.Language.Name, result.Language);
+
                 return result;
             });
         }

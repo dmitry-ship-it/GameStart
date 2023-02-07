@@ -9,8 +9,9 @@ namespace GameStart.Gateway.Extensions
             IWebHostEnvironment environment)
         {
             configuration.SetBasePath(environment.ContentRootPath)
-                .AddJsonFile(Constants.Gateway.ConfigurationFiles.GatewayConfigurationFileName, optional: false, reloadOnChange: true)
-                .AddEnvironmentVariables();
+                .AddEnvironmentVariables()
+                .AddJsonFile(Constants.Gateway.ConfigurationFiles.GatewayConfigurationFileName,
+                    optional: false, reloadOnChange: true);
 
             return configuration;
         }

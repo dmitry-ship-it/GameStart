@@ -13,29 +13,40 @@ namespace GameStart.OrderingService.Infrastructure.Repositories
             Context = context;
         }
 
-        public virtual async Task CreateAsync(T entity, CancellationToken cancellationToken = default)
+        public virtual async Task CreateAsync(T entity,
+            CancellationToken cancellationToken = default)
         {
             await Context.Set<T>().AddAsync(entity, cancellationToken);
             await Context.SaveChangesAsync(cancellationToken);
         }
 
-        public virtual async Task DeleteAsync(T entity, CancellationToken cancellationToken = default)
+        public virtual async Task DeleteAsync(T entity,
+            CancellationToken cancellationToken = default)
         {
             Context.Set<T>().Remove(entity);
             await Context.SaveChangesAsync(cancellationToken);
         }
 
-        public virtual async Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<IEnumerable<T>> GetAllAsync(
+            CancellationToken cancellationToken = default)
         {
-            return await Context.Set<T>().AsNoTracking().ToListAsync(cancellationToken);
+            return await Context.Set<T>()
+                .AsNoTracking()
+                .ToListAsync(cancellationToken);
         }
 
-        public virtual async Task<IEnumerable<T>> GetByConditionAsync(Expression<Func<T, bool>> expression, CancellationToken cancellationToken = default)
+        public virtual async Task<IEnumerable<T>> GetByConditionAsync(
+            Expression<Func<T, bool>> expression,
+            CancellationToken cancellationToken = default)
         {
-            return await Context.Set<T>().Where(expression).AsNoTracking().ToListAsync(cancellationToken);
+            return await Context.Set<T>()
+                .Where(expression)
+                .AsNoTracking()
+                .ToListAsync(cancellationToken);
         }
 
-        public virtual async Task UpdateAsync(T entity, CancellationToken cancellationToken = default)
+        public virtual async Task UpdateAsync(T entity,
+            CancellationToken cancellationToken = default)
         {
             Context.Set<T>().Update(entity);
             await Context.SaveChangesAsync(cancellationToken);

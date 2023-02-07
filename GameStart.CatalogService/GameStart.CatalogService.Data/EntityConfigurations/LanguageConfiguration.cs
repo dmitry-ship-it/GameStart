@@ -8,8 +8,7 @@ namespace GameStart.CatalogService.Data.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Language> builder)
         {
-            builder.HasKey(language => language.Id)
-                .IsClustered(true);
+            builder.HasKey(language => language.Id);
 
             builder.Property(language => language.Id)
                 .ValueGeneratedOnAdd();

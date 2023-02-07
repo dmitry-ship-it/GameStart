@@ -1,4 +1,5 @@
 ﻿using GameStart.OrderingService.Core.Abstractions;
+using System.Text.Json.Serialization;
 
 namespace GameStart.OrderingService.Core.Entities
 {
@@ -22,6 +23,7 @@ namespace GameStart.OrderingService.Core.Entities
 
         public string PostCode { get; set; }
 
+        [JsonIgnore]
         public virtual Order Order { get; set; }
     }
 }

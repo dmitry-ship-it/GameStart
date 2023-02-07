@@ -30,7 +30,11 @@ namespace GameStart.IdentityService.Common
             this.tools = tools;
         }
 
-        public virtual async Task LoginAsync(string username, string password, HttpContext httpContext, CancellationToken cancellationToken = default)
+        public virtual async Task LoginAsync(
+            string username,
+            string password,
+            HttpContext httpContext,
+            CancellationToken cancellationToken = default)
         {
             var user = await userManager.FindByNameAsync(username);
 
@@ -50,20 +54,26 @@ namespace GameStart.IdentityService.Common
             await GenerateJwtAsync(httpContext, cancellationToken);
         }
 
-        public virtual async Task RegisterAsync(string username, string email, string password, CancellationToken cancellationToken = default)
+        public virtual async Task RegisterAsync(
+            string username,
+            string email,
+            string password,
+            CancellationToken cancellationToken = default)
         {
             var user = new User
             {
                 UserName = username,
-                Email = email,
+                Email = email
             };
 
             cancellationToken.ThrowIfCancellationRequested();
 
             await userManager.CreateAsync(user, password);
+            await userManager.AddToRoleAsync(user, nameof(Roles.User));
         }
 
-        public virtual AuthenticationProperties CreateAuthenticationProperties(string scheme, string returnUrl, string callbackUrl)
+        public virtual AuthenticationProperties CreateAuthenticationProperties(
+            string scheme, string returnUrl, string callbackUrl)
         {
             return new AuthenticationProperties
             {
@@ -76,11 +86,14 @@ namespace GameStart.IdentityService.Common
             };
         }
 
-        public virtual async Task<Uri> ExternalAuthenticateAsync(HttpContext httpContext, CancellationToken cancellationToken = default)
+        public virtual async Task<Uri> ExternalAuthenticateAsync(
+            HttpContext httpContext, CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            var result = await httpContext.AuthenticateAsync(IdentityServerConstants.ExternalCookieAuthenticationScheme);
+            var result = await httpContext.AuthenticateAsync(
+                IdentityServerConstants.ExternalCookieAuthenticationScheme);
+
             if (result?.Succeeded != true)
             {
                 throw new ArgumentException(Constants.IdentityService.ExceptionMessages.ExternalAuthenticationError);
@@ -91,7 +104,8 @@ namespace GameStart.IdentityService.Common
             return new Uri(result.Properties?.Items["returnUrl"]);
         }
 
-        public virtual async Task ClearCookiesAsync(HttpContext httpContext, CancellationToken cancellationToken = default)
+        public virtual async Task ClearCookiesAsync(HttpContext httpContext,
+            CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -105,7 +119,10 @@ namespace GameStart.IdentityService.Common
         ///     If user with given email does not exist then will be created new user
         ///     without password, and with email as username.
         /// </summary>
-        private async Task CreateUserAsync(ClaimsPrincipal principal, HttpContext httpContext, CancellationToken cancellationToken = default)
+        private async Task CreateUserAsync(
+            ClaimsPrincipal principal,
+            HttpContext httpContext,
+            CancellationToken cancellationToken = default)
         {
             // lookup our user and external provider info
             var claims = principal.Claims.ToList();
@@ -117,7 +134,10 @@ namespace GameStart.IdentityService.Common
             if (user is null)
             {
                 var mapped = mapper.Map<List<Claim>, User>(claims);
+
                 await userManager.CreateAsync(mapped);
+                await userManager.AddToRoleAsync(mapped, nameof(Roles.User));
+
                 user = await userManager.FindByEmailAsync(email);
             }
 
@@ -129,9 +149,11 @@ namespace GameStart.IdentityService.Common
         }
 
         /// <summary>
-        ///     Generate JSON Web Token from identity which stored inside cookies, and write it to Authorization header of the response.
+        ///     Generate JSON Web Token from identity which stored inside cookies,
+        ///     and write it to Authorization header of the response.
         /// </summary>
-        public async Task GenerateJwtAsync(HttpContext httpContext, CancellationToken cancellationToken = default)
+        public async Task GenerateJwtAsync(HttpContext httpContext,
+            CancellationToken cancellationToken = default)
         {
             var principal = new ClaimsPrincipal(httpContext.User.Identity);
             var token = await tools.IssueJwtAsync(TokenLifetime, principal.Claims);

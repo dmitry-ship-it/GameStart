@@ -12,42 +12,50 @@ namespace GameStart.OrderingService.Application.Services
         private readonly IMapper mapper;
         private readonly IValidator<AddressDto> validator;
 
-        public AddressService(IAddressRepository repository, IMapper mapper, IValidator<AddressDto> validator)
+        public AddressService(
+            IAddressRepository repository,
+            IMapper mapper,
+            IValidator<AddressDto> validator)
         {
             this.repository = repository;
             this.mapper = mapper;
             this.validator = validator;
         }
 
-        public async Task CreateAsync(AddressDto address)
+        public async Task CreateAsync(AddressDto address, CancellationToken cancellationToken = default)
         {
             validator.ValidateAndThrow(address);
-            await repository.CreateAsync(mapper.Map<Address>(address));
+            await repository.CreateAsync(mapper.Map<Address>(address), cancellationToken);
         }
 
-        public async Task<bool> DeleteAsync(Guid id)
+        public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            var addresses = await repository.GetByConditionAsync(entity => entity.Id == id);
+            var addresses = await repository.GetByConditionAsync(
+                entity => entity.Id == id, cancellationToken);
 
             if (addresses.Any())
             {
-                await repository.DeleteAsync(addresses.First());
+                await repository.DeleteAsync(addresses.First(), cancellationToken);
                 return true;
             }
 
             return false;
         }
 
-        public async Task<IEnumerable<Address>> GetByUserIdAsync(Guid userId)
+        public async Task<IEnumerable<Address>> GetByUserIdAsync(Guid userId,
+            CancellationToken cancellationToken = default)
         {
-            return await repository.GetByConditionAsync(entity => entity.UserId == userId);
+            return await repository.GetByConditionAsync(
+                entity => entity.UserId == userId, cancellationToken);
         }
 
-        public async Task<bool> UpdateAsync(Guid id, AddressDto address)
+        public async Task<bool> UpdateAsync(Guid id, AddressDto address,
+            CancellationToken cancellationToken = default)
         {
             validator.ValidateAndThrow(address);
 
-            var dbAddresses = await repository.GetByConditionAsync(entity => entity.Id == id);
+            var dbAddresses = await repository.GetByConditionAsync(
+                entity => entity.Id == id, cancellationToken);
 
             if (dbAddresses?.Any() != true)
             {
@@ -55,7 +63,7 @@ namespace GameStart.OrderingService.Application.Services
             }
 
             var updatedAddress = mapper.Map(address, dbAddresses.First());
-            await repository.UpdateAsync(updatedAddress);
+            await repository.UpdateAsync(updatedAddress, cancellationToken);
 
             return true;
         }

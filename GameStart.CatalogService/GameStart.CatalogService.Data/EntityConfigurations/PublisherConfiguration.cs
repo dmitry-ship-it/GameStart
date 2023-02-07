@@ -8,8 +8,7 @@ namespace GameStart.CatalogService.Data.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Publisher> builder)
         {
-            builder.HasKey(publisher => publisher.Id)
-                .IsClustered(true);
+            builder.HasKey(publisher => publisher.Id);
 
             builder.Property(publisher => publisher.Id)
                 .ValueGeneratedOnAdd();

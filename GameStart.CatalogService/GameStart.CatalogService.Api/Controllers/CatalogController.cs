@@ -17,13 +17,15 @@ namespace GameStart.CatalogService.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken = default)
+        public async Task<IActionResult> GetAllAsync(
+            CancellationToken cancellationToken = default)
         {
             return Ok(await manager.GetAllAsync(cancellationToken));
         }
 
         [HttpGet("{id:Guid}")]
-        public async Task<IActionResult> GetByIdAsync([FromRoute] Guid id, CancellationToken cancellationToken = default)
+        public async Task<IActionResult> GetByIdAsync([FromRoute] Guid id,
+            CancellationToken cancellationToken = default)
         {
             var result = await manager.GetByIdAsync(id, cancellationToken);
 
@@ -32,7 +34,8 @@ namespace GameStart.CatalogService.Api.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> CreateAsync([FromBody] VideoGameViewModel model, CancellationToken cancellationToken = default)
+        public async Task<IActionResult> CreateAsync([FromBody] VideoGameViewModel model,
+            CancellationToken cancellationToken = default)
         {
             await manager.AddAsync(model, cancellationToken);
 
@@ -41,7 +44,9 @@ namespace GameStart.CatalogService.Api.Controllers
 
         [Authorize]
         [HttpPut("{id:Guid}")]
-        public async Task<IActionResult> UpdateAsync([FromRoute] Guid id, [FromBody] VideoGameViewModel viewModel, CancellationToken cancellationToken = default)
+        public async Task<IActionResult> UpdateAsync([FromRoute] Guid id,
+            [FromBody] VideoGameViewModel viewModel,
+            CancellationToken cancellationToken = default)
         {
             var isUpdated = await manager.UpdateAsync(id, viewModel, cancellationToken);
 
@@ -50,7 +55,8 @@ namespace GameStart.CatalogService.Api.Controllers
 
         [Authorize]
         [HttpDelete("{id:Guid}")]
-        public async Task<IActionResult> DeleteAsync([FromRoute] Guid id, CancellationToken cancellationToken = default)
+        public async Task<IActionResult> DeleteAsync([FromRoute] Guid id,
+            CancellationToken cancellationToken = default)
         {
             var isDeleted = await manager.DeleteAsync(id, cancellationToken);
 

@@ -1,6 +1,5 @@
 ﻿using GameStart.OrderingService.Application.DtoModels;
 using GameStart.OrderingService.Application.Services;
-using GameStart.OrderingService.Core.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,31 +18,35 @@ namespace GameStart.OrderingService.Api.Controllers
         }
 
         [HttpGet("{userId:Guid}")]
-        public async Task<IActionResult> GetAsync([FromRoute] Guid userId)
+        public async Task<IActionResult> GetAsync([FromRoute] Guid userId,
+            CancellationToken cancellationToken = default)
         {
-            return Ok(await addressService.GetByUserIdAsync(userId));
+            return Ok(await addressService.GetByUserIdAsync(userId, cancellationToken));
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAsync([FromBody] AddressDto address)
+        public async Task<IActionResult> CreateAsync([FromBody] AddressDto address,
+            CancellationToken cancellationToken = default)
         {
-            await addressService.CreateAsync(address);
+            await addressService.CreateAsync(address, cancellationToken);
 
             return Ok();
         }
 
         [HttpPut("{id:Guid}")]
-        public async Task<IActionResult> UpdateAsync([FromRoute] Guid id, [FromBody] AddressDto address)
+        public async Task<IActionResult> UpdateAsync([FromRoute] Guid id, [FromBody] AddressDto address,
+            CancellationToken cancellationToken = default)
         {
-            var isUpdated = await addressService.UpdateAsync(id, address);
+            var isUpdated = await addressService.UpdateAsync(id, address, cancellationToken);
 
             return isUpdated ? Ok() : NotFound();
         }
 
         [HttpDelete("{id:Guid}")]
-        public async Task<IActionResult> DeleteAsync([FromRoute] Guid id)
+        public async Task<IActionResult> DeleteAsync([FromRoute] Guid id,
+            CancellationToken cancellationToken = default)
         {
-            var isDeleted = await addressService.DeleteAsync(id);
+            var isDeleted = await addressService.DeleteAsync(id, cancellationToken);
 
             return isDeleted ? NoContent() : NotFound();
         }

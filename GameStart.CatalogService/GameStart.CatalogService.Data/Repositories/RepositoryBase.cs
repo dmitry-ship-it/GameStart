@@ -14,26 +14,31 @@ namespace GameStart.Shared.Data
             Context = context;
         }
 
-        public virtual async Task CreateAsync(TEntity entity, CancellationToken cancellationToken = default)
+        public virtual async Task CreateAsync(TEntity entity,
+            CancellationToken cancellationToken = default)
         {
             await Context.Set<TEntity>().AddAsync(entity, cancellationToken);
             await Context.SaveChangesAsync(cancellationToken);
         }
 
-        public virtual async Task DeleteAsync(TEntity entity, CancellationToken cancellationToken = default)
+        public virtual async Task DeleteAsync(TEntity entity,
+            CancellationToken cancellationToken = default)
         {
             Context.Set<TEntity>().Remove(entity);
             await Context.SaveChangesAsync(cancellationToken);
         }
 
-        public virtual async Task<IEnumerable<TEntity>> FindAllAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<IEnumerable<TEntity>> FindAllAsync(
+            CancellationToken cancellationToken = default)
         {
             return await Context.Set<TEntity>()
                 .AsNoTracking()
                 .ToListAsync(cancellationToken);
         }
 
-        public virtual async Task<IEnumerable<TEntity>> FindByConditionAsync(Expression<Func<TEntity, bool>> expression, CancellationToken cancellationToken = default)
+        public virtual async Task<IEnumerable<TEntity>> FindByConditionAsync(
+            Expression<Func<TEntity, bool>> expression,
+            CancellationToken cancellationToken = default)
         {
             return await Context.Set<TEntity>()
                 .Where(expression)
@@ -41,7 +46,8 @@ namespace GameStart.Shared.Data
                 .ToListAsync(cancellationToken);
         }
 
-        public virtual async Task UpdateAsync(TEntity entity, CancellationToken cancellationToken = default)
+        public virtual async Task UpdateAsync(TEntity entity,
+            CancellationToken cancellationToken = default)
         {
             Context.Set<TEntity>().Update(entity);
             await Context.SaveChangesAsync(cancellationToken);
