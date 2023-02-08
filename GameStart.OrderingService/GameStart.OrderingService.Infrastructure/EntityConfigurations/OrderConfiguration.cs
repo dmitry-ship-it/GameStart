@@ -17,8 +17,7 @@ namespace GameStart.OrderingService.Infrastructure.EntityConfigurations
                 .IsRequired(true);
 
             builder.HasOne(order => order.Address)
-                .WithOne(address => address.Order)
-                .IsRequired(false);
+                .WithMany(address => address.Orders);
 
             builder.HasMany(order => order.Items)
                 .WithOne(item => item.Order)

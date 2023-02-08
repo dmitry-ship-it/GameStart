@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UsePreconfiguredSerilog(builder.Configuration);
 
-builder.Services.AddDbContextsWithIdentity(builder.Configuration);
+builder.Services.AddDbContextsWithIdentity();
 builder.Services.AddAutoMapper(typeof(UserProfile));
 builder.Services.AddControllers();
 builder.Services.AddPreconfiguredIdentityServer();
@@ -20,7 +20,7 @@ var app = builder.Build();
 
 app.UseMiddleware<ExceptionLoggerMiddleware>();
 app.UseHttpsRedirection();
-app.UpdateIdentityDbTables(app.Configuration);
+app.UseUpdateIdentityDbTables(app.Configuration);
 app.UseIdentityServer();
 app.UseAuthorization();
 app.MapControllers();

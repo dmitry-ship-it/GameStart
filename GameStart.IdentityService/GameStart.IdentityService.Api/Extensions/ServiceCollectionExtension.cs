@@ -14,35 +14,26 @@ namespace GameStart.IdentityService.Api.Extensions
 {
     public static class ServiceCollectionExtension
     {
-        public static void AddDbContextsWithIdentity(this IServiceCollection services, IConfiguration configuration)
+        public static void AddDbContextsWithIdentity(this IServiceCollection services)
         {
             static void ConfigureDbContext(DbContextOptionsBuilder options, string connectionString) =>
                 options.UseSqlServer(connectionString, o =>
                     o.MigrationsAssembly(typeof(AccountsDbContext).Assembly.FullName));
 
-            var configurationConnectionString = configuration.GetConnectionString(
-                Constants.IdentityService.ConnectionStringNames.ConfigurationDb);
-
-            var persistedGrantsConnectionString = configuration.GetConnectionString(
-                Constants.IdentityService.ConnectionStringNames.PersistedGrantsDb);
-
-            var accountsConnectionString = configuration.GetConnectionString(
-                Constants.IdentityService.ConnectionStringNames.AccountsDb);
-
             services.AddDbContext<ConfigurationDbContext>(options =>
-                ConfigureDbContext(options, configurationConnectionString));
+                ConfigureDbContext(options, Constants.IdentityService.ConnectionStrings.ConfigurationDb));
 
             services.AddDbContext<PersistedGrantDbContext>(options =>
-                ConfigureDbContext(options, persistedGrantsConnectionString));
+                ConfigureDbContext(options, Constants.IdentityService.ConnectionStrings.PersistedGrantDb));
 
             services.AddDbContext<AccountsDbContext>(options =>
-                ConfigureDbContext(options, accountsConnectionString));
+                ConfigureDbContext(options, Constants.IdentityService.ConnectionStrings.AccountsDb));
 
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<AccountsDbContext>()
                 .AddDefaultTokenProviders();
 
-            // email used as username if user signs in with Google for the first time
+            // email is used as username if user signs in with Google for the first time
             services.Configure<IdentityOptions>(options => options.User.RequireUniqueEmail = true);
 
             // override default AspIdentity's behavior

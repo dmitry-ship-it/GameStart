@@ -4,11 +4,25 @@
     {
         public struct IdentityService
         {
-            public struct ConnectionStringNames
+            public readonly struct ConnectionStrings
             {
-                public const string ConfigurationDb = "ConfigurationDbConnection";
-                public const string PersistedGrantsDb = "PersistedGrantsDbConnection";
-                public const string AccountsDb = "AccountsDbConnection";
+                public static readonly string ConfigurationDb =
+                    $"Server={Environment.GetEnvironmentVariable("IDENTITY_DB_HOST")};" +
+                    $"Database={Environment.GetEnvironmentVariable("IDENTITY_DB_IS4_DATABASE")};" +
+                    $"User ID={Environment.GetEnvironmentVariable("IDENTITY_DB_USERNAME")};" +
+                    $"Password={Environment.GetEnvironmentVariable("IDENTITY_DB_PASSWORD")}";
+
+                public static readonly string PersistedGrantDb =
+                    $"Server={Environment.GetEnvironmentVariable("IDENTITY_DB_HOST")};" +
+                    $"Database={Environment.GetEnvironmentVariable("IDENTITY_DB_IS4_DATABASE")};" +
+                    $"User ID={Environment.GetEnvironmentVariable("IDENTITY_DB_USERNAME")};" +
+                    $"Password={Environment.GetEnvironmentVariable("IDENTITY_DB_PASSWORD")}";
+
+                public static readonly string AccountsDb =
+                    $"Server={Environment.GetEnvironmentVariable("IDENTITY_DB_HOST")};" +
+                    $"Database={Environment.GetEnvironmentVariable("IDENTITY_DB_ACCOUNTS_DATABASE")};" +
+                    $"User ID={Environment.GetEnvironmentVariable("IDENTITY_DB_USERNAME")};" +
+                    $"Password={Environment.GetEnvironmentVariable("IDENTITY_DB_PASSWORD")}";
             }
 
             public struct ExceptionMessages
@@ -21,17 +35,25 @@
 
         public struct CatalogService
         {
-            public struct ConnectionStringNames
+            public readonly struct ConnectionStrings
             {
-                public const string CatalogDb = "CatalogDbConnection";
+                public static readonly string CatalogDb =
+                    $"Host={Environment.GetEnvironmentVariable("CATALOG_DB_HOST")};" +
+                    $"Database={Environment.GetEnvironmentVariable("CATALOG_DB_DATABASE")};" +
+                    $"Username={Environment.GetEnvironmentVariable("CATALOG_DB_USERNAME")};" +
+                    $"Password={Environment.GetEnvironmentVariable("CATALOG_DB_PASSWORD")}";
             }
         }
 
         public struct OrderingService
         {
-            public struct ConnectionStringNames
+            public readonly struct ConnectionStrings
             {
-                public const string OrdersDb = "OrdersDbConnection";
+                public static readonly string OrdersDb =
+                    $"Server={Environment.GetEnvironmentVariable("ORDERS_DB_HOST")};" +
+                    $"Database={Environment.GetEnvironmentVariable("ORDERS_DB_DATABASE")};" +
+                    $"User ID={Environment.GetEnvironmentVariable("ORDERS_DB_USERNAME")};" +
+                    $"Password={Environment.GetEnvironmentVariable("ORDERS_DB_PASSWORD")}";
             }
 
             public struct ValidationMessages

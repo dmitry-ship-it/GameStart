@@ -1,0 +1,107 @@
+version: '3.4'
+
+networks:
+  backend:
+  frontend:
+      
+
+services:
+  gamestart.gateway:
+    container_name: gateway
+    image: ${DOCKER_REGISTRY-}gateway
+    build:
+      context: .
+      dockerfile: GameStart.Gateway/Dockerfile
+    networks:
+      - backend
+      - frontend
+    ports:
+      - 6001:443
+  
+  # Catalog service 
+  gamestart.catalogservice.api:
+    container_name: catalog-service
+    image: ${DOCKER_REGISTRY-}catalogservice
+    build:
+      context: .
+      dockerfile: GameStart.CatalogService/GameStart.CatalogService.Api/Dockerfile
+    networks:
+      - backend
+    depends_on:
+      - gamestart.gateway
+      - gamestart.identityservice.api
+      - catalogdb
+    environment:
+      - CATALOG_DB_HOST=catalogdb
+      - CATALOG_DB_DATABASE=Catalog
+      - CATALOG_DB_USERNAME=postgres
+      - CATALOG_DB_PASSWORD=wtugJkfAbkTq5
+      - IDENTITY_AUTHORITY=https://gamestart.identityservice.api
+  catalogdb:
+    container_name: catalog-service-db
+    image: postgres
+    networks:
+      - backend
+    environment:
+      - POSTGRES_DB=Catalog
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=wtugJkfAbkTq5
+  
+  # Identity service
+  gamestart.identityservice.api:
+    container_name: identity-service
+    image: ${DOCKER_REGISTRY-}identityservice
+    build:
+      context: .
+      dockerfile: GameStart.IdentityService/GameStart.IdentityService.Api/Dockerfile
+    networks:
+      - backend
+    depends_on:
+      - gamestart.gateway
+      - identitydb
+    environment:
+      - IDENTITY_DB_HOST=identitydb
+      - IDENTITY_DB_ACCOUNTS_DATABASE=Accounts
+      - IDENTITY_DB_IS4_DATABASE=IdentityServer
+      - IDENTITY_DB_USERNAME=sa
+      - IDENTITY_DB_PASSWORD=Ht8R!n6HG7T2
+  identitydb:
+    container_name: identity-service-db
+    image: mcr.microsoft.com/mssql/server
+    networks:
+      - backend
+    ports:
+      - 1445:1433
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Ht8R!n6HG7T2
+
+  # Ordering service
+  gamestart.orderingservice.api:
+    container_name: ordering-service
+    image: ${DOCKER_REGISTRY-}orderingservice
+    build:
+      context: .
+      dockerfile: GameStart.OrderingService/GameStart.OrderingService.Api/Dockerfile
+    networks:
+      - backend
+    depends_on:
+      - gamestart.gateway
+      - gamestart.identityservice.api
+      - ordersdb
+    environment:
+      - ORDERS_DB_HOST=ordersdb
+      - ORDERS_DB_DATABASE=Orders
+      - ORDERS_DB_USERNAME=root
+      - ORDERS_DB_PASSWORD=4mG3SSUqkF7rX
+      - IDENTITY_AUTHORITY=https://gamestart.identityservice.api
+  ordersdb:
+    container_name: ordering-service-db
+    image: mysql
+    networks:
+      - backend
+    environment:
+      - MYSQL_DATABASE=Orders
+      #- MYSQL_USER=user
+      #- MYSQL_PASSWORD=Qs6hWJ7gha4Zb
+      - MYSQL_ROOT_PASSWORD=4mG3SSUqkF7rX

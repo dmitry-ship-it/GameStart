@@ -8,11 +8,12 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 7153
+          "Host": "gamestart.identityservice.api",
+          "Port": 443
         }
       ],
-      "DownstreamPathTemplate": "/api/account/{endpoint}"
+      "DownstreamPathTemplate": "/api/account/{endpoint}",
+      "DangerousAcceptAnyServerCertificateValidator": true
     },
 
     // Catalog service
@@ -23,11 +24,12 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 7116
+          "Host": "gamestart.catalogservice.api",
+          "Port": 443
         }
       ],
-      "DownstreamPathTemplate": "/api/catalog"
+      "DownstreamPathTemplate": "/api/catalog",
+      "DangerousAcceptAnyServerCertificateValidator": true
     },
     {
       "UpstreamPathTemplate": "/api/catalog/{id}",
@@ -36,11 +38,12 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 7116
+          "Host": "gamestart.catalogservice.api",
+          "Port": 443
         }
       ],
-      "DownstreamPathTemplate": "/api/catalog/{id}"
+      "DownstreamPathTemplate": "/api/catalog/{id}",
+      "DangerousAcceptAnyServerCertificateValidator": true
     },
 
     // Ordering service
@@ -51,11 +54,12 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 7117
+          "Host": "gamestart.orderingservice.api",
+          "Port": 443
         }
       ],
-      "DownstreamPathTemplate": "/api/order"
+      "DownstreamPathTemplate": "/api/order",
+      "DangerousAcceptAnyServerCertificateValidator": true
     },
     {
       "UpstreamPathTemplate": "/api/order/{id}",
@@ -64,11 +68,12 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 7117
+          "Host": "gamestart.orderingservice.api",
+          "Port": 443
         }
       ],
-      "DownstreamPathTemplate": "/api/order/{id}"
+      "DownstreamPathTemplate": "/api/order/{id}",
+      "DangerousAcceptAnyServerCertificateValidator": true
     },
     {
       "UpstreamPathTemplate": "/api/address",
@@ -78,10 +83,11 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 7117
+          "Port": 443
         }
       ],
-      "DownstreamPathTemplate": "/api/address"
+      "DownstreamPathTemplate": "/api/address",
+      "DangerousAcceptAnyServerCertificateValidator": true
     },
     {
       "UpstreamPathTemplate": "/api/address/{id}",
@@ -91,13 +97,14 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 7117
+          "Port": 443
         }
       ],
-      "DownstreamPathTemplate": "/api/address/{id}"
+      "DownstreamPathTemplate": "/api/address/{id}",
+      "DangerousAcceptAnyServerCertificateValidator": true
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "https://localhost:8001"
+    "BaseUrl": "https://localhost:6001"
   }
 }

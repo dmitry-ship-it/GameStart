@@ -73,11 +73,11 @@ namespace GameStart.IdentityService.Common
         }
 
         public virtual AuthenticationProperties CreateAuthenticationProperties(
-            string scheme, string returnUrl, string callbackUrl)
+            string scheme, string returnUrl, string callUrl, string callbackUrn)
         {
             return new AuthenticationProperties
             {
-                RedirectUri = callbackUrl,
+                RedirectUri = $"https://{callUrl}{callbackUrn}",
                 Items =
                 {
                     [nameof(returnUrl)] = returnUrl,

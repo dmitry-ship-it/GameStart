@@ -36,10 +36,10 @@ namespace GameStart.IdentityService.Api.Controllers
         }
 
         [HttpGet("challenge")]
-        public IActionResult Challenge([FromQuery] string scheme, [FromQuery] string returnUrl)
+        public IActionResult Challenge([FromQuery] string scheme, [FromQuery] string returnUrl, [FromQuery] string callUrl)
         {
             var authenticationProperties = accountManager.CreateAuthenticationProperties(
-                scheme, returnUrl, Url.Action(nameof(CallbackAsync)));
+                scheme, returnUrl, callUrl, Url.ActionLink(nameof(CallbackAsync)));
 
             return Challenge(authenticationProperties, scheme);
         }

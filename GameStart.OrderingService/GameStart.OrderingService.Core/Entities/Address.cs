@@ -24,6 +24,6 @@ namespace GameStart.OrderingService.Core.Entities
         public string PostCode { get; set; }
 
         [JsonIgnore]
-        public virtual Order Order { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

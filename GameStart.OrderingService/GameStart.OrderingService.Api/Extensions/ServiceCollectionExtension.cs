@@ -11,15 +11,10 @@ namespace GameStart.OrderingService.Api.Extensions
 {
     public static class ServiceCollectionExtension
     {
-        public static IServiceCollection AddDbContextWithRepositories(
-            this IServiceCollection services,
-            IConfiguration configuration)
+        public static IServiceCollection AddDbContextWithRepositories(this IServiceCollection services)
         {
-            var connectionString = configuration.GetConnectionString(
-                Constants.OrderingService.ConnectionStringNames.OrdersDb);
-
             services.AddDbContext<OrdersDbContext>(options =>
-                options.UseMySQL(connectionString, config =>
+                options.UseMySQL(Constants.OrderingService.ConnectionStrings.OrdersDb, config =>
                     config.MigrationsAssembly(typeof(OrdersDbContext).Assembly.FullName)));
 
             services.AddScoped<IOrderRepository, OrderRepository>();
@@ -46,15 +41,18 @@ namespace GameStart.OrderingService.Api.Extensions
             return services;
         }
 
-        public static IServiceCollection AddPreconfiguredJwtAuthentication(
-            this IServiceCollection services,
-            IConfiguration configuration)
+        public static IServiceCollection AddPreconfiguredJwtAuthentication(this IServiceCollection services)
         {
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
                 {
                     options.TokenValidationParameters.ValidateAudience = false;
-                    options.Authority = configuration["Auth:Authority"];
+                    options.Authority = Environment.GetEnvironmentVariable("IDENTITY_AUTHORITY");
+                    options.RequireHttpsMetadata = false;
+                    options.BackchannelHttpHandler = new HttpClientHandler
+                    {
+                        ServerCertificateCustomValidationCallback = delegate { return true; }
+                    };
                 });
 
             return services.AddAuthorization();

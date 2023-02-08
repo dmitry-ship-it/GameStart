@@ -11,4 +11,4 @@
 ## Misc
 
 - [x] Gateway - Ocelot
-- [ ] Containerization - Kubernetes
+- [ ] Containerization - Docker with docker compose

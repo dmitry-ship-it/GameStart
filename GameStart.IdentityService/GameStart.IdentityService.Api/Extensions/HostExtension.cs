@@ -1,18 +1,21 @@
-﻿using IdentityServer4.EntityFramework.DbContexts;
+﻿using GameStart.IdentityService.Data;
+using GameStart.Shared.Extensions;
+using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
-using Microsoft.EntityFrameworkCore;
 
 namespace GameStart.IdentityService.Api.Extensions
 {
     public static class HostExtension
     {
-        public static IHost UpdateIdentityDbTables(this IHost host, IConfiguration configuration)
+        public static IHost UseUpdateIdentityDbTables(this IHost host, IConfiguration configuration)
         {
-            using var scope = host.Services.CreateScope();
-            scope.ServiceProvider.GetRequiredService<PersistedGrantDbContext>().Database.Migrate();
+            host.UseAutoCreatingForDatabases(host.Services,
+                typeof(ConfigurationDbContext),
+                typeof(PersistedGrantDbContext),
+                typeof(AccountsDbContext));
 
+            var scope = host.Services.CreateScope();
             using var context = scope.ServiceProvider.GetRequiredService<ConfigurationDbContext>();
-            context.Database.Migrate();
 
             var config = new Config(configuration);
 
