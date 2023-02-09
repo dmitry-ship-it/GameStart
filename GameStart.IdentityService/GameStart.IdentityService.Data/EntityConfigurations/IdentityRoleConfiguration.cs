@@ -11,6 +11,7 @@ namespace GameStart.IdentityService.Data.EntityConfigurations
         {
             builder.HasData(Enum.GetNames<Roles>().Select(role => new IdentityRole<Guid>
             {
+                Id = Guid.NewGuid(),
                 Name = role,
                 NormalizedName = role.ToUpper()
             }));

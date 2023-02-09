@@ -6,6 +6,7 @@ networks:
       
 
 services:
+  # gateway
   gamestart.gateway:
     container_name: gateway
     image: ${DOCKER_REGISTRY-}gateway
@@ -58,6 +59,7 @@ services:
       - backend
     depends_on:
       - gamestart.gateway
+      - messagebus
       - identitydb
     environment:
       - IDENTITY_DB_HOST=identitydb
@@ -85,6 +87,7 @@ services:
       - backend
     depends_on:
       - gamestart.gateway
+      - messagebus
       - gamestart.identityservice.api
       - ordersdb
     environment:
@@ -100,6 +103,17 @@ services:
       - backend
     environment:
       - MYSQL_DATABASE=Orders
-      #- MYSQL_USER=user
-      #- MYSQL_PASSWORD=Qs6hWJ7gha4Zb
       - MYSQL_ROOT_PASSWORD=4mG3SSUqkF7rX
+
+  # Message Bus
+  messagebus:
+    container_name: messagebus
+    image: rabbitmq:management
+    networks:
+      - backend
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/mnesia/
+      - ./rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf

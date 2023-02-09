@@ -21,15 +21,11 @@ namespace GameStart.OrderingService.Application.Services
         public async Task PublishMessageAsync(OrderDto orderDto, CancellationToken cancellationToken = default)
         {
             var message = mapper.Map<OrderCreatedMessageModel>(orderDto);
+            message.OrderItems = mapper.Map<ICollection<ItemDto>, ICollection<OrderItemMessageModel>>(orderDto.Items, message.OrderItems);
 
             GenerateGameKeys(message.OrderItems);
 
             await publishEndpoint.Publish(orderDto, cancellationToken);
-        }
-
-        private void SetGameTitles(ICollection<OrderItemMessageModel> orderItems)
-        {
-            throw new NotImplementedException();
         }
 
         private static void GenerateGameKeys(ICollection<OrderItemMessageModel> orderItems)

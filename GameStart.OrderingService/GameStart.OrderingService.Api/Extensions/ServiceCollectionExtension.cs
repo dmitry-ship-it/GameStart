@@ -66,7 +66,8 @@ namespace GameStart.OrderingService.Api.Extensions
             {
                 options.AddBus(_ => Bus.Factory.CreateUsingRabbitMq(bus =>
                 {
-                    bus.Host(new Uri("rabbitmq:messagebus"), host =>
+                    // TODO: MOVE STRINGS TO CONSTANTS
+                    bus.Host(new Uri("rabbitmq://messagebus"), host =>
                     {
                         host.Username("guest");
                         host.Password("guest");

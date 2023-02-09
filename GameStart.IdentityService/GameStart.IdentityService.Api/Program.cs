@@ -15,7 +15,7 @@ builder.Services.AddControllers();
 builder.Services.AddPreconfiguredIdentityServer();
 builder.Services.AddGoogleAuthentication(builder.Configuration);
 builder.Services.AddCustomCorsPolicy();
-builder.Services.AddScoped<AccountManager>();
+builder.Services.AddManagers();
 
 var app = builder.Build();
 

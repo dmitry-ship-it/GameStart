@@ -1,6 +1,7 @@
 using GameStart.IdentityService.Common;
 using GameStart.IdentityService.Data;
 using GameStart.IdentityService.Data.Models;
+using GameStart.IdentityService.Data.Repositories;
 using GameStart.Shared;
 using IdentityModel;
 using IdentityServer4;
@@ -31,7 +32,7 @@ namespace GameStart.IdentityService.Api.Extensions
             services.AddDbContext<AccountsDbContext>(options =>
                 ConfigureDbContext(options, Constants.IdentityService.ConnectionStrings.AccountsDb));
 
-            services.AddIdentity<User, IdentityRole>()
+            services.AddIdentity<User, IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<AccountsDbContext>()
                 .AddDefaultTokenProviders();
 
@@ -105,6 +106,15 @@ namespace GameStart.IdentityService.Api.Extensions
             return services;
         }
 
+        public static IServiceCollection AddManagers(this IServiceCollection services)
+        {
+            services.AddScoped<AccountManager>();
+            services.AddScoped<InventoryManager>();
+            services.AddScoped<IRepository<InventoryItem>, InventoryItemRepository>();
+
+            return services;
+        }
+
         public static IServiceCollection AddMassTransitEventConsuming(this IServiceCollection services)
         {
             return services.AddMassTransit(options =>
@@ -112,7 +122,8 @@ namespace GameStart.IdentityService.Api.Extensions
                 options.AddConsumer<OrderConsumer>();
                 options.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(bus =>
                 {
-                    bus.Host(new Uri("rabbitmq:messagebus"), host =>
+                    // TODO: MOVE STRINGS TO CONSTANTS
+                    bus.Host(new Uri("rabbitmq://messagebus"), host =>
                     {
                         host.Username("guest");
                         host.Password("guest");
