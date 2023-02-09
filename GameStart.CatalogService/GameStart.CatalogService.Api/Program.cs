@@ -16,7 +16,7 @@ var app = builder.Build();
 
 app.UseMiddleware<ExceptionLoggerMiddleware>();
 app.UseHttpsRedirection();
-app.UseAutoCreatingForDatabases(app.Services, typeof(CatalogDbContext));
+app.UseAutoCreatingForDatabases(typeof(CatalogDbContext));
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();

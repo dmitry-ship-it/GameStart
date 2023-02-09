@@ -9,7 +9,7 @@ namespace GameStart.IdentityService.Api.Extensions
     {
         public static IHost UseUpdateIdentityDbTables(this IHost host, IConfiguration configuration)
         {
-            host.UseAutoCreatingForDatabases(host.Services,
+            host.UseAutoCreatingForDatabases(
                 typeof(ConfigurationDbContext),
                 typeof(PersistedGrantDbContext),
                 typeof(AccountsDbContext));

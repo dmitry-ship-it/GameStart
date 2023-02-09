@@ -6,18 +6,15 @@ namespace GameStart.Shared.Extensions
 {
     public static class HostExtension
     {
-        public static IHost UseAutoCreatingForDatabases(this IHost host, IServiceProvider services, params Type[] contextTypes)
+        public static IHost UseAutoCreatingForDatabases(this IHost host, params Type[] contextTypes)
         {
-            using var scope = services.CreateScope();
+            using var scope = host.Services.CreateScope();
 
             foreach (var type in contextTypes)
             {
                 using var dbContext = scope.ServiceProvider.GetService(type) as DbContext;
 
-                if (dbContext?.Database?.CanConnect() == true)
-                {
-                    dbContext.Database.EnsureCreated();
-                }
+                dbContext?.Database?.EnsureCreated();
             }
 
             return host;
