@@ -18,7 +18,7 @@
     "Docker": {
       "commandName": "Docker",
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
-      "publishAllPorts": true,
+      "publishAllPorts": false,
       "useSSL": true
     }
   },
