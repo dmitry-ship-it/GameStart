@@ -8,7 +8,8 @@ namespace GameStart.IdentityService.Data.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.HasIndex(user => user.ExternalProviderUserId);
+            builder.HasIndex(user => user.ExternalProviderUserId)
+                .IsUnique(true);
 
             builder.Property(user => user.ExternalProviderUserId)
                 .HasMaxLength(255)

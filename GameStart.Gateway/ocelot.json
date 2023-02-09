@@ -15,6 +15,34 @@
       "DownstreamPathTemplate": "/api/account/{endpoint}",
       "DangerousAcceptAnyServerCertificateValidator": true
     },
+    {
+      "UpstreamPathTemplate": "/api/inventory",
+      "UpstreamHttpMethod": [ "Get" ],
+
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "gamestart.identityservice.api",
+          "Port": 443
+        }
+      ],
+      "DownstreamPathTemplate": "/api/inventory",
+      "DangerousAcceptAnyServerCertificateValidator": true
+    },
+    {
+      "UpstreamPathTemplate": "/api/inventory/{gameId}",
+      "UpstreamHttpMethod": [ "Get" ],
+
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "gamestart.identityservice.api",
+          "Port": 443
+        }
+      ],
+      "DownstreamPathTemplate": "/api/inventory/{gameId}",
+      "DangerousAcceptAnyServerCertificateValidator": true
+    },
 
     // Catalog service
     {

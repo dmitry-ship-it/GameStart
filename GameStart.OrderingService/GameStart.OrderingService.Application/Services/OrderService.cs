@@ -9,15 +9,18 @@ namespace GameStart.OrderingService.Application.Services
     public class OrderService : IOrderService
     {
         private readonly IOrderRepository repository;
+        private readonly IOrderMessagePublisher messagePublisher;
         private readonly IMapper mapper;
         private readonly IValidator<OrderDto> validator;
 
         public OrderService(
             IOrderRepository repository,
+            IOrderMessagePublisher messagePublisher,
             IMapper mapper,
             IValidator<OrderDto> validator)
         {
             this.repository = repository;
+            this.messagePublisher = messagePublisher;
             this.mapper = mapper;
             this.validator = validator;
         }
@@ -26,6 +29,7 @@ namespace GameStart.OrderingService.Application.Services
         {
             validator.ValidateAndThrow(order);
             await repository.CreateAsync(mapper.Map<Order>(order), cancellationToken);
+            await messagePublisher.PublishMessageAsync(order, cancellationToken);
         }
 
         public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default)

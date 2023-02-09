@@ -12,7 +12,7 @@ namespace GameStart.IdentityService.Data.EntityConfigurations
                 .IsClustered(true);
 
             builder.HasIndex(entity => entity.GameId)
-                .IsUnique(false);
+                .IsUnique(true);
 
             builder.Property(entity => entity.GameId)
                 .IsRequired(true);

@@ -70,8 +70,6 @@ services:
     image: mcr.microsoft.com/mssql/server
     networks:
       - backend
-    ports:
-      - 1445:1433
     environment:
       - ACCEPT_EULA=Y
       - MSSQL_SA_PASSWORD=Ht8R!n6HG7T2

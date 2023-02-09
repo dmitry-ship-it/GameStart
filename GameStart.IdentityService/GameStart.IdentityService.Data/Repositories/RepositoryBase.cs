@@ -41,5 +41,11 @@ namespace GameStart.IdentityService.Data.Repositories
             Context.Set<T>().Update(entity);
             await Context.SaveChangesAsync(cancellationToken);
         }
+
+        public async Task CreateRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default)
+        {
+            await Context.Set<T>().AddRangeAsync(entities, cancellationToken);
+            await Context.SaveChangesAsync(cancellationToken);
+        }
     }
 }

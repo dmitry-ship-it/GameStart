@@ -3,6 +3,7 @@ using GameStart.OrderingService.Core.Abstractions;
 using GameStart.OrderingService.Infrastructure;
 using GameStart.OrderingService.Infrastructure.Repositories;
 using GameStart.Shared;
+using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
@@ -37,6 +38,7 @@ namespace GameStart.OrderingService.Api.Extensions
         {
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IAddressService, AddressService>();
+            services.AddScoped<IOrderMessagePublisher, OrderMessagePublisher>();
 
             return services;
         }
@@ -56,6 +58,21 @@ namespace GameStart.OrderingService.Api.Extensions
                 });
 
             return services.AddAuthorization();
+        }
+
+        public static IServiceCollection AddMassTransitEventPublishing(this IServiceCollection services)
+        {
+            return services.AddMassTransit(options =>
+            {
+                options.AddBus(_ => Bus.Factory.CreateUsingRabbitMq(bus =>
+                {
+                    bus.Host(new Uri("rabbitmq:messagebus"), host =>
+                    {
+                        host.Username("guest");
+                        host.Password("guest");
+                    });
+                }));
+            });
         }
     }
 }

@@ -15,7 +15,7 @@ namespace GameStart.CatalogService.Data.EntityConfigurations
                 .ValueGeneratedOnAdd();
 
             builder.HasIndex(videoGame => videoGame.Title)
-                .IsUnique(false);
+                .IsUnique(true);
 
             builder.Property(videoGame => videoGame.Title)
                 .HasMaxLength(256)

@@ -12,6 +12,7 @@ builder.Host.UsePreconfiguredSerilog(builder.Configuration);
 
 builder.Services.AddDbContextWithRepositories();
 builder.Services.AddAutoMapper(typeof(OrderProfile));
+builder.Services.AddMassTransitEventPublishing();
 builder.Services.AddControllersWithJsonConfiguration();
 builder.Services.AddValidatorsFromAssemblyContaining<OrderDtoValidator>();
 builder.Services.AddCustomServices();

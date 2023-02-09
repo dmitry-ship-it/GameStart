@@ -1,3 +1,4 @@
+using GameStart.IdentityService.Common;
 using GameStart.IdentityService.Data;
 using GameStart.IdentityService.Data.Models;
 using GameStart.Shared;
@@ -5,6 +6,7 @@ using IdentityModel;
 using IdentityServer4;
 using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.Services;
+using MassTransit;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.IdentityModel.Tokens.Jwt;
@@ -101,6 +103,29 @@ namespace GameStart.IdentityService.Api.Extensions
                 });
 
             return services;
+        }
+
+        public static IServiceCollection AddMassTransitEventConsuming(this IServiceCollection services)
+        {
+            return services.AddMassTransit(options =>
+            {
+                options.AddConsumer<OrderConsumer>();
+                options.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(bus =>
+                {
+                    bus.Host(new Uri("rabbitmq:messagebus"), host =>
+                    {
+                        host.Username("guest");
+                        host.Password("guest");
+                    });
+
+                    bus.ReceiveEndpoint("Orders", config =>
+                    {
+                        config.PrefetchCount = 5;
+                        config.UseMessageRetry(retry => retry.Interval(2, 100));
+                        config.ConfigureConsumer<OrderConsumer>(provider);
+                    });
+                }));
+            });
         }
     }
 }

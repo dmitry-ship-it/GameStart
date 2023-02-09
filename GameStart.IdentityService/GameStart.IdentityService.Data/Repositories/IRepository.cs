@@ -12,6 +12,8 @@ namespace GameStart.IdentityService.Data.Repositories
 
         Task CreateAsync(T entity, CancellationToken cancellationToken = default);
 
+        Task CreateRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default);
+
         Task UpdateAsync(T entity, CancellationToken cancellationToken = default);
 
         Task DeleteAsync(T entity, CancellationToken cancellationToken = default);
