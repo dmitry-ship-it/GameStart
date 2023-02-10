@@ -17,11 +17,6 @@ namespace GameStart.IdentityService.Data.EntityConfigurations
             builder.Property(entity => entity.GameId)
                 .IsRequired(true);
 
-            builder.Property(entity => entity.GameTitle)
-                .HasMaxLength(256)
-                .IsUnicode(true)
-                .IsRequired(true);
-
             builder.Property(entity => entity.GameKey)
                 .HasMaxLength(17)
                 .IsFixedLength(true)

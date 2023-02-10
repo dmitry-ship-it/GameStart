@@ -2,7 +2,7 @@
 using GameStart.IdentityService.Data.Models;
 using System.Security.Claims;
 
-namespace GameStart.IdentityService.Data.Mapping
+namespace GameStart.IdentityService.Common.Mapping
 {
     public class UserProfile : Profile
     {

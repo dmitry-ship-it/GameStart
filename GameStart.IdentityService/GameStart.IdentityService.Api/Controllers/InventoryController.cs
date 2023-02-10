@@ -31,5 +31,14 @@ namespace GameStart.IdentityService.Api.Controllers
         {
             return Ok(await manager.GetAllAsync(HttpContext.User.Claims, cancellationToken));
         }
+
+        [HttpDelete("{GameId}")]
+        public async Task<IActionResult> DeleteAsync([FromRoute] Guid gameId,
+            CancellationToken cancellationToken = default)
+        {
+            var isDeleted = await manager.DeleteGameByUser(gameId, HttpContext.User.Claims, cancellationToken);
+
+            return isDeleted ? NoContent() : NotFound();
+        }
     }
 }

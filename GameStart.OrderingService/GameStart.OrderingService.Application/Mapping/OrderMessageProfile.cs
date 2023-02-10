@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using GameStart.OrderingService.Application.DtoModels;
-using GameStart.Shared.MessageBusModels;
+using GameStart.OrderingService.Core.Entities;
+using GameStart.Shared.MessageBus.Models;
 
 namespace GameStart.OrderingService.Application.Mapping
 {
@@ -8,8 +8,7 @@ namespace GameStart.OrderingService.Application.Mapping
     {
         public OrderMessageProfile()
         {
-            CreateMap<OrderDto, OrderCreatedMessageModel>()
-                .ForMember(message => message.UserId, options => options.MapFrom(dto => dto.UserId)); ;
+            CreateMap<Order, OrderCreated>().ConvertUsing<OrderToMessageConverter>();
         }
     }
 }

@@ -17,18 +17,17 @@ namespace GameStart.OrderingService.Api.Controllers
             this.orderService = orderService;
         }
 
-        [HttpGet("{userId:Guid}")]
-        public async Task<IActionResult> GetAsync([FromRoute] Guid userId,
-            CancellationToken cancellationToken = default)
+        [HttpGet]
+        public async Task<IActionResult> GetAsync(CancellationToken cancellationToken = default)
         {
-            return Ok(await orderService.GetByUserIdAsync(userId, cancellationToken));
+            return Ok(await orderService.GetByUserIdAsync(HttpContext.User.Claims, cancellationToken));
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateAsync([FromBody] OrderDto order,
             CancellationToken cancellationToken = default)
         {
-            await orderService.CreateAsync(order, cancellationToken);
+            await orderService.CreateAsync(order, HttpContext.User.Claims, cancellationToken);
 
             return Ok();
         }

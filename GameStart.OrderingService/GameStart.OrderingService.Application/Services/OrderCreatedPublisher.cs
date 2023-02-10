@@ -1,34 +1,37 @@
 ﻿using AutoMapper;
-using GameStart.OrderingService.Application.DtoModels;
-using GameStart.Shared.MessageBusModels;
+using GameStart.OrderingService.Core.Entities;
+using GameStart.Shared.MessageBus;
+using GameStart.Shared.MessageBus.Models;
 using MassTransit;
 using System.Security.Cryptography;
 using System.Text;
 
 namespace GameStart.OrderingService.Application.Services
 {
-    public class OrderMessagePublisher : IOrderMessagePublisher
+    public class OrderCreatedPublisher : IMessagePublisher<Order>
     {
-        private readonly IPublishEndpoint publishEndpoint;
+        private readonly IBus bus;
         private readonly IMapper mapper;
 
-        public OrderMessagePublisher(IPublishEndpoint publishEndpoint, IMapper mapper)
+        public OrderCreatedPublisher(IBus bus, IMapper mapper)
         {
-            this.publishEndpoint = publishEndpoint;
+            this.bus = bus;
             this.mapper = mapper;
         }
 
-        public async Task PublishMessageAsync(OrderDto orderDto, CancellationToken cancellationToken = default)
+        public async Task PublishMessageAsync(Order order, CancellationToken cancellationToken = default)
         {
-            var message = mapper.Map<OrderCreatedMessageModel>(orderDto);
-            message.OrderItems = mapper.Map<ICollection<ItemDto>, ICollection<OrderItemMessageModel>>(orderDto.Items, message.OrderItems);
+            var message = mapper.Map<OrderCreated>(order);
 
             GenerateGameKeys(message.OrderItems);
 
-            await publishEndpoint.Publish(orderDto, cancellationToken);
+            // TODO: MOVE TO CONSTANTS
+            var endpoint = await bus.GetSendEndpoint(new Uri($"rabbitmq://messagebus/{nameof(OrderCreated)}"));
+            
+            await endpoint.Send(message , cancellationToken);
         }
 
-        private static void GenerateGameKeys(ICollection<OrderItemMessageModel> orderItems)
+        private static void GenerateGameKeys(ICollection<OrderItem> orderItems)
         {
             foreach (var item in orderItems)
             {
@@ -72,7 +75,7 @@ namespace GameStart.OrderingService.Application.Services
 
             for (var i = 0; i < size; i++)
             {
-                result[i] = charPool[RandomNumberGenerator.GetInt32(charPool.Length + 1)];
+                result[i] = charPool[RandomNumberGenerator.GetInt32(charPool.Length)];
             }
 
             return new string(result);

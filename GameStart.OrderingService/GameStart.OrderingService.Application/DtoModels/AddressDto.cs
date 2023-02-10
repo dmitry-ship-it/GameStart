@@ -2,8 +2,6 @@
 {
     public class AddressDto
     {
-        public Guid UserId { get; set; }
-
         public string Country { get; set; }
 
         public string State { get; set; }

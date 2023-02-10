@@ -1,9 +1,13 @@
 ﻿using GameStart.OrderingService.Application.Services;
 using GameStart.OrderingService.Core.Abstractions;
+using GameStart.OrderingService.Core.Entities;
 using GameStart.OrderingService.Infrastructure;
 using GameStart.OrderingService.Infrastructure.Repositories;
 using GameStart.Shared;
+using GameStart.Shared.MessageBus;
+using GameStart.Shared.MessageBus.Models;
 using MassTransit;
+using MassTransit.Configuration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
@@ -38,7 +42,7 @@ namespace GameStart.OrderingService.Api.Extensions
         {
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IAddressService, AddressService>();
-            services.AddScoped<IOrderMessagePublisher, OrderMessagePublisher>();
+            services.AddScoped<IMessagePublisher<Order>, OrderCreatedPublisher>();
 
             return services;
         }

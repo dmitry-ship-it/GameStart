@@ -14,7 +14,10 @@ namespace GameStart.Shared.Extensions
             {
                 using var dbContext = scope.ServiceProvider.GetService(type) as DbContext;
 
-                dbContext?.Database?.EnsureCreated();
+                if (dbContext?.Database is not null)
+                {
+                    dbContext.Database.EnsureCreated();
+                }
             }
 
             return host;

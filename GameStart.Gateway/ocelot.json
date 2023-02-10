@@ -31,7 +31,7 @@
     },
     {
       "UpstreamPathTemplate": "/api/inventory/{gameId}",
-      "UpstreamHttpMethod": [ "Get" ],
+      "UpstreamHttpMethod": [ "Get", "Delete" ],
 
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
@@ -77,7 +77,7 @@
     // Ordering service
     {
       "UpstreamPathTemplate": "/api/order",
-      "UpstreamHttpMethod": [ "Post" ],
+      "UpstreamHttpMethod": [ "Get", "Post" ],
 
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
@@ -91,7 +91,7 @@
     },
     {
       "UpstreamPathTemplate": "/api/order/{id}",
-      "UpstreamHttpMethod": [ "Get", "Delete" ],
+      "UpstreamHttpMethod": [ "Get" ],
 
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [

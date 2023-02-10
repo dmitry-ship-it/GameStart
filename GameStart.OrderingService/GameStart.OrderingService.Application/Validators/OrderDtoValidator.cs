@@ -8,11 +8,6 @@ namespace GameStart.OrderingService.Application.Validators
     {
         public OrderDtoValidator()
         {
-            RuleFor(dto => dto.UserId).NotEqual(Guid.Empty);
-
-            RuleFor(dto => dto.DateTime).GreaterThanOrEqualTo(
-                DateTime.Now.Subtract(TimeSpan.FromMinutes(10)));
-
             RuleFor(dto => dto).Must(ValidItemsAndAddress)
                 .WithMessage(Constants.OrderingService.ValidationMessages.OrderedPhysicalCopyButAddressIsNull);
         }

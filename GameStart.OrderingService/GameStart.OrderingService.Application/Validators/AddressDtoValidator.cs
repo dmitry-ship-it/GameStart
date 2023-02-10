@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using FluentValidation.Results;
 using GameStart.OrderingService.Application.DtoModels;
 
 namespace GameStart.OrderingService.Application.Validators
@@ -10,8 +9,6 @@ namespace GameStart.OrderingService.Application.Validators
         {
             When(dto => dto is not null, () =>
             {
-                RuleFor(dto => dto.UserId).NotEqual(Guid.Empty);
-
                 RuleFor(dto => dto.Country).NotNull().Length(3, 60);
 
                 RuleFor(dto => dto.State).Length(3, 60)

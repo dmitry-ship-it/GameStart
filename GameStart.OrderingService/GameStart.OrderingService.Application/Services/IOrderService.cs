@@ -1,14 +1,15 @@
 ﻿using GameStart.OrderingService.Application.DtoModels;
 using GameStart.OrderingService.Core.Entities;
+using System.Security.Claims;
 
 namespace GameStart.OrderingService.Application.Services
 {
     public interface IOrderService
     {
-        Task<IEnumerable<Order>> GetByUserIdAsync(Guid userId,
+        Task<IEnumerable<Order>> GetByUserIdAsync(IEnumerable<Claim> claims,
             CancellationToken cancellationToken = default);
 
-        Task CreateAsync(OrderDto order,
+        Task CreateAsync(OrderDto order, IEnumerable<Claim> claims,
             CancellationToken cancellationToken = default);
 
         Task<bool> DeleteAsync(Guid id,

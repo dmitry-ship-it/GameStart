@@ -1,19 +1,20 @@
 ﻿using AutoMapper;
 using GameStart.IdentityService.Data.Models;
 using GameStart.IdentityService.Data.Repositories;
-using GameStart.Shared.MessageBusModels;
+using GameStart.Shared.MessageBus;
+using GameStart.Shared.MessageBus.Models;
 using MassTransit;
 using Microsoft.AspNetCore.Identity;
 
 namespace GameStart.IdentityService.Common
 {
-    public class OrderConsumer : IConsumer<OrderCreatedMessageModel>
+    public class OrderCreatedConsumer : IConsumer<OrderCreated>
     {
         private readonly UserManager<User> userManager;
         private readonly IRepository<InventoryItem> inventoryRepository;
         private readonly IMapper mapper;
 
-        public OrderConsumer(
+        public OrderCreatedConsumer(
             UserManager<User> userManager,
             IRepository<InventoryItem> inventoryRepository,
             IMapper mapper)
@@ -23,7 +24,7 @@ namespace GameStart.IdentityService.Common
             this.mapper = mapper;
         }
 
-        public async Task Consume(ConsumeContext<OrderCreatedMessageModel> context)
+        public async Task Consume(ConsumeContext<OrderCreated> context)
         {
             var message = context.Message;
 
@@ -34,7 +35,7 @@ namespace GameStart.IdentityService.Common
                 throw new ArgumentException("Invalid user ID");
             }
 
-            var inventoryItems = mapper.Map<IEnumerable<OrderItemMessageModel>, IEnumerable<InventoryItem>>(message.OrderItems)
+            var inventoryItems = mapper.Map<IEnumerable<InventoryItem>>(message.OrderItems)
                 .Select(item =>
                 {
                     item.User = user;

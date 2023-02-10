@@ -6,7 +6,9 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Net.Http.Headers;
+using Serilog;
 using System.Security.Claims;
+using System.Text.Json;
 
 namespace GameStart.IdentityService.Common
 {
@@ -51,6 +53,8 @@ namespace GameStart.IdentityService.Common
             }
 
             await signInManager.SignInAsync(user, true);
+
+            httpContext.User = await signInManager.ClaimsFactory.CreateAsync(user);
             await GenerateJwtAsync(httpContext, cancellationToken);
         }
 
@@ -155,8 +159,7 @@ namespace GameStart.IdentityService.Common
         public async Task GenerateJwtAsync(HttpContext httpContext,
             CancellationToken cancellationToken = default)
         {
-            var principal = new ClaimsPrincipal(httpContext.User.Identity);
-            var token = await tools.IssueJwtAsync(TokenLifetime, principal.Claims);
+            var token = await tools.IssueJwtAsync(TokenLifetime, httpContext.User.Claims);
 
             cancellationToken.ThrowIfCancellationRequested();
 

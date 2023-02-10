@@ -1,7 +1,7 @@
 ﻿using GameStart.IdentityService.Data.Models;
 using GameStart.IdentityService.Data.Repositories;
+using GameStart.Shared.Extensions;
 using System.Security.Claims;
-using System.Security.Principal;
 
 namespace GameStart.IdentityService.Common
 {
@@ -18,7 +18,7 @@ namespace GameStart.IdentityService.Common
             IEnumerable<Claim> claims,
             CancellationToken cancellationToken = default)
         {
-            var userId = GetUserIdFromClaims(claims);
+            var userId = claims.GetUserId();
 
             return await repository.FindByConditionAsync(entity => entity.User.Id == userId, cancellationToken);
         }
@@ -27,18 +27,31 @@ namespace GameStart.IdentityService.Common
             IEnumerable<Claim> claims,
             CancellationToken cancellationToken = default)
         {
-            var userId = GetUserIdFromClaims(claims);
+            var userId = claims.GetUserId();
 
             return (await repository.FindByConditionAsync(
                 entity => entity.GameId == gameId && entity.User.Id == userId,
                 cancellationToken)).FirstOrDefault();
         }
 
-        private static Guid GetUserIdFromClaims(IEnumerable<Claim> claims)
+        public async Task<bool> DeleteGameByUser(Guid gameId,
+            IEnumerable<Claim> claims,
+            CancellationToken cancellationToken = default)
         {
-            var found = claims.First(claim => claim.Type == ClaimTypes.NameIdentifier);
+            var userId = claims.GetUserId();
 
-            return Guid.Parse(found.Value);
+            var game = (await repository.FindByConditionAsync(
+                entity => entity.GameId == gameId && entity.User.Id == userId,
+                cancellationToken)).FirstOrDefault();
+
+            if (game is null)
+            {
+                return false;
+            }
+
+            await repository.DeleteAsync(game, cancellationToken);
+
+            return true;
         }
     }
 }
