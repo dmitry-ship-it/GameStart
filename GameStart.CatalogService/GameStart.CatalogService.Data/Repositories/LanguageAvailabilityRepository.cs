@@ -13,10 +13,12 @@ namespace GameStart.CatalogService.Data.Repositories
         }
 
         public override async Task<IEnumerable<LanguageAvailability>> FindAllAsync(
+            bool includeGraph = true,
             CancellationToken cancellationToken = default)
         {
-            return await GetLanguages()
-                .ToListAsync(cancellationToken);
+            return includeGraph
+                ? await GetLanguages().ToListAsync(cancellationToken)
+                : await Context.LanguageAvailabilities.AsNoTracking().ToListAsync(cancellationToken);
         }
 
         public override async Task<IEnumerable<LanguageAvailability>> FindByConditionAsync(

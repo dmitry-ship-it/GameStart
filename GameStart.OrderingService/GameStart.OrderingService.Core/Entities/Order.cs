@@ -10,6 +10,10 @@ namespace GameStart.OrderingService.Core.Entities
 
         public DateTime DateTime { get; set; }
 
+        public decimal TotalPrice { get; set; }
+
+        public string State { get; set; }
+
         public virtual ICollection<Item> Items { get; set; }
 
         public virtual Address Address { get; set; }

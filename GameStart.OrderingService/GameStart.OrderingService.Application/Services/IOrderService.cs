@@ -11,8 +11,5 @@ namespace GameStart.OrderingService.Application.Services
 
         Task CreateAsync(OrderDto order, IEnumerable<Claim> claims,
             CancellationToken cancellationToken = default);
-
-        Task<bool> DeleteAsync(Guid id,
-            CancellationToken cancellationToken = default);
     }
 }

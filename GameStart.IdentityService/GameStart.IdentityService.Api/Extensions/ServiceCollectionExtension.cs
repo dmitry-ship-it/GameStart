@@ -1,10 +1,9 @@
 using GameStart.IdentityService.Common;
+using GameStart.IdentityService.Common.Consumers;
 using GameStart.IdentityService.Data;
 using GameStart.IdentityService.Data.Models;
 using GameStart.IdentityService.Data.Repositories;
 using GameStart.Shared;
-using GameStart.Shared.MessageBus;
-using GameStart.Shared.MessageBus.Models;
 using IdentityModel;
 using IdentityServer4;
 using IdentityServer4.EntityFramework.DbContexts;
@@ -121,23 +120,18 @@ namespace GameStart.IdentityService.Api.Extensions
         {
             return services.AddMassTransit(options =>
             {
-                options.AddConsumer<OrderCreatedConsumer>();
-                options.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(bus =>
+                options.AddConsumer<OrderAcceptedConsumer>();
+
+                options.UsingRabbitMq((context, configurator) =>
                 {
-                    // TODO: MOVE STRINGS TO CONSTANTS
-                    bus.Host(new Uri("rabbitmq://messagebus"), host =>
+                    configurator.Host(Constants.MessageBus.RabbitMQRoot, host =>
                     {
-                        host.Username("guest");
-                        host.Password("guest");
+                        host.Username(Constants.MessageBus.Username);
+                        host.Password(Constants.MessageBus.Password);
                     });
 
-                    bus.ReceiveEndpoint(nameof(OrderCreated), config =>
-                    {
-                        config.PrefetchCount = 5;
-                        config.UseMessageRetry(retry => retry.Interval(2, 100));
-                        config.ConfigureConsumer<OrderCreatedConsumer>(provider);
-                    });
-                }));
+                    configurator.ConfigureEndpoints(context);
+                });
             });
         }
     }

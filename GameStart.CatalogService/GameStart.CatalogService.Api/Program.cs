@@ -10,6 +10,7 @@ builder.Host.UsePreconfiguredSerilog(builder.Configuration);
 builder.Services.AddDbContextWithRepositories();
 builder.Services.AddModelsMapper();
 builder.Services.AddPreconfiguredJwtAuthentication();
+builder.Services.AddMassTransitEventConsuming();
 builder.Services.AddControllersWithJsonConfiguration();
 
 var app = builder.Build();

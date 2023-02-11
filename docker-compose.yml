@@ -57,6 +57,9 @@ services:
       dockerfile: GameStart.IdentityService/GameStart.IdentityService.Api/Dockerfile
     networks:
       - backend
+    ports:
+      - 6002:443
+      - 6001:80
     depends_on:
       - gamestart.gateway
       - messagebus

@@ -4,7 +4,7 @@ namespace GameStart.Shared.Data
 {
     public interface IRepository<T> where T : class, IEntity
     {
-        Task<IEnumerable<T>> FindAllAsync(CancellationToken cancellationToken = default);
+        Task<IEnumerable<T>> FindAllAsync(bool includeGraph = true, CancellationToken cancellationToken = default);
 
         Task<IEnumerable<T>> FindByConditionAsync(Expression<Func<T, bool>> expression,
             CancellationToken cancellationToken = default);

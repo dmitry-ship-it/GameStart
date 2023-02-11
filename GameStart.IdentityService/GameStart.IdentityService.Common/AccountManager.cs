@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using GameStart.IdentityService.Common.ViewModels;
 using GameStart.IdentityService.Data.Models;
 using GameStart.Shared;
 using IdentityServer4;
@@ -6,16 +7,12 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Net.Http.Headers;
-using Serilog;
 using System.Security.Claims;
-using System.Text.Json;
 
 namespace GameStart.IdentityService.Common
 {
     public class AccountManager
     {
-        private const int TokenLifetime = 3600;
-
         private readonly IMapper mapper;
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
@@ -33,19 +30,18 @@ namespace GameStart.IdentityService.Common
         }
 
         public virtual async Task LoginAsync(
-            string username,
-            string password,
+            LoginViewModel model,
             HttpContext httpContext,
             CancellationToken cancellationToken = default)
         {
-            var user = await userManager.FindByNameAsync(username);
+            var user = await userManager.FindByNameAsync(model.Username);
 
             if (user is null)
             {
                 throw new ArgumentException(Constants.IdentityService.ExceptionMessages.UserNotFound);
             }
 
-            var checkResult = await signInManager.CheckPasswordSignInAsync(user, password, false);
+            var checkResult = await signInManager.CheckPasswordSignInAsync(user, model.Password, false);
 
             if (!checkResult.Succeeded)
             {
@@ -59,20 +55,18 @@ namespace GameStart.IdentityService.Common
         }
 
         public virtual async Task RegisterAsync(
-            string username,
-            string email,
-            string password,
+            RegisterViewModel model,
             CancellationToken cancellationToken = default)
         {
             var user = new User
             {
-                UserName = username,
-                Email = email
+                UserName = model.Username,
+                Email = model.Email
             };
 
             cancellationToken.ThrowIfCancellationRequested();
 
-            await userManager.CreateAsync(user, password);
+            await userManager.CreateAsync(user, model.Password);
             await userManager.AddToRoleAsync(user, nameof(Roles.User));
         }
 
@@ -149,6 +143,8 @@ namespace GameStart.IdentityService.Common
             await httpContext.SignOutAsync(IdentityServerConstants.ExternalCookieAuthenticationScheme);
 
             await signInManager.SignInAsync(user, true);
+
+            httpContext.User = await signInManager.ClaimsFactory.CreateAsync(user);
             await GenerateJwtAsync(httpContext, cancellationToken);
         }
 
@@ -159,7 +155,7 @@ namespace GameStart.IdentityService.Common
         public async Task GenerateJwtAsync(HttpContext httpContext,
             CancellationToken cancellationToken = default)
         {
-            var token = await tools.IssueJwtAsync(TokenLifetime, httpContext.User.Claims);
+            var token = await tools.IssueJwtAsync(Constants.IdentityService.TokenLifetime, httpContext.User.Claims);
 
             cancellationToken.ThrowIfCancellationRequested();
 

@@ -3,6 +3,7 @@ using FluentValidation;
 using GameStart.OrderingService.Application.DtoModels;
 using GameStart.OrderingService.Core.Abstractions;
 using GameStart.OrderingService.Core.Entities;
+using GameStart.Shared;
 using GameStart.Shared.Extensions;
 using GameStart.Shared.MessageBus;
 using System.Security.Claims;
@@ -36,23 +37,11 @@ namespace GameStart.OrderingService.Application.Services
             var dbOrder = mapper.Map<Order>(order);
             SeedMessingData(dbOrder, claims);
 
-            await orderMessagePublisher.PublishMessageAsync(dbOrder, cancellationToken);
-
+            dbOrder.State = nameof(OrderStates.Submitted);
+            dbOrder.Id = Guid.NewGuid();
             await repository.CreateAsync(dbOrder, cancellationToken);
-        }
 
-        public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
-        {
-            var orders = await repository.GetByConditionAsync(
-                entity => entity.Id == id, cancellationToken);
-
-            if (orders.Any())
-            {
-                await repository.DeleteAsync(orders.First(), cancellationToken);
-                return true;
-            }
-
-            return false;
+            await orderMessagePublisher.PublishMessageAsync(dbOrder, cancellationToken);
         }
 
         public async Task<IEnumerable<Order>> GetByUserIdAsync(

@@ -8,7 +8,6 @@ namespace GameStart.IdentityService.Common.Mapping
     {
         public InventoryItemProfile()
         {
-            CreateMap<OrderCreated, User>();
             CreateMap<OrderItem, InventoryItem>();
         }
     }

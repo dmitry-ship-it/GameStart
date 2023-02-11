@@ -1,4 +1,5 @@
-﻿using GameStart.OrderingService.Application.Services;
+﻿using GameStart.OrderingService.Application.Consumers;
+using GameStart.OrderingService.Application.Services;
 using GameStart.OrderingService.Core.Abstractions;
 using GameStart.OrderingService.Core.Entities;
 using GameStart.OrderingService.Infrastructure;
@@ -7,7 +8,6 @@ using GameStart.Shared;
 using GameStart.Shared.MessageBus;
 using GameStart.Shared.MessageBus.Models;
 using MassTransit;
-using MassTransit.Configuration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
@@ -21,6 +21,8 @@ namespace GameStart.OrderingService.Api.Extensions
             services.AddDbContext<OrdersDbContext>(options =>
                 options.UseMySQL(Constants.OrderingService.ConnectionStrings.OrdersDb, config =>
                     config.MigrationsAssembly(typeof(OrdersDbContext).Assembly.FullName)));
+
+            services.AddSingleton<IGameKeyGeneratorService, GameKeyGeneratorService>();
 
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IAddressRepository, AddressRepository>();
@@ -68,15 +70,24 @@ namespace GameStart.OrderingService.Api.Extensions
         {
             return services.AddMassTransit(options =>
             {
-                options.AddBus(_ => Bus.Factory.CreateUsingRabbitMq(bus =>
+                options.AddConsumer<OrderCompletedConsumer>();
+                options.AddConsumer<OrderFaultedConsumer>();
+
+                options.UsingRabbitMq((context, configurator) =>
                 {
-                    // TODO: MOVE STRINGS TO CONSTANTS
-                    bus.Host(new Uri("rabbitmq://messagebus"), host =>
+                    configurator.Host(Constants.MessageBus.RabbitMQRoot, host =>
                     {
-                        host.Username("guest");
-                        host.Password("guest");
+                        host.Username(Constants.MessageBus.Username);
+                        host.Password(Constants.MessageBus.Password);
                     });
-                }));
+
+                    configurator.ConfigureEndpoints(context);
+                });
+
+                options.AddRequestClient<OrderSubmitted>();
+                options.AddRequestClient<OrderAccepted>();
+                options.AddRequestClient<OrderCompleted>();
+                options.AddRequestClient<OrderFaulted>();
             });
         }
     }

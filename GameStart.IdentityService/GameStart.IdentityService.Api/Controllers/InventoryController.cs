@@ -32,7 +32,7 @@ namespace GameStart.IdentityService.Api.Controllers
             return Ok(await manager.GetAllAsync(HttpContext.User.Claims, cancellationToken));
         }
 
-        [HttpDelete("{GameId}")]
+        [HttpDelete("{gameId:Guid}")]
         public async Task<IActionResult> DeleteAsync([FromRoute] Guid gameId,
             CancellationToken cancellationToken = default)
         {

@@ -11,4 +11,9 @@
 ## Misc
 
 - [x] Gateway - Ocelot
-- [ ] Containerization - Docker with docker compose
+- [x] Containerization - Docker with docker compose
+- [x] Message Bus - RabbitMQ with MassTransit
+- [ ] DB Caching - Redis
+- [ ] ELK ElasticSearch
+- [ ] ELK Kibana
+- [ ] ELK Logstash

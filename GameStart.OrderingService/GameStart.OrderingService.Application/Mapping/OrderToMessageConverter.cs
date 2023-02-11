@@ -4,12 +4,13 @@ using GameStart.Shared.MessageBus.Models;
 
 namespace GameStart.OrderingService.Application.Mapping
 {
-    public class OrderToMessageConverter : ITypeConverter<Order, OrderCreated>
+    public class OrderToMessageConverter : ITypeConverter<Order, OrderSubmitted>
     {
-        public OrderCreated Convert(Order source, OrderCreated destination, ResolutionContext context)
+        public OrderSubmitted Convert(Order source, OrderSubmitted destination, ResolutionContext context)
         {
             destination ??= new();
 
+            destination.Id = source.Id;
             destination.UserId = source.UserId;
 
             var orderItems = new List<OrderItem>();

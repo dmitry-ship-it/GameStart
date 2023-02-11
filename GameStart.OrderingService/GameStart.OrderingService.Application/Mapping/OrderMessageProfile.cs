@@ -8,7 +8,7 @@ namespace GameStart.OrderingService.Application.Mapping
     {
         public OrderMessageProfile()
         {
-            CreateMap<Order, OrderCreated>().ConvertUsing<OrderToMessageConverter>();
+            CreateMap<Order, OrderSubmitted>().ConvertUsing<OrderToMessageConverter>();
         }
     }
 }

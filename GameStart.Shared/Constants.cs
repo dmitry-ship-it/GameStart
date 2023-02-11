@@ -4,6 +4,8 @@
     {
         public struct IdentityService
         {
+            public const int TokenLifetime = 36_000;
+
             public readonly struct ConnectionStrings
             {
                 public static readonly string ConfigurationDb =
@@ -68,6 +70,13 @@
             {
                 public const string GatewayConfigurationFileName = "ocelot.json";
             }
+        }
+
+        public struct MessageBus
+        {
+            public static readonly Uri RabbitMQRoot = new("rabbitmq://messagebus");
+            public const string Username = "guest";
+            public const string Password = "guest";
         }
     }
 }

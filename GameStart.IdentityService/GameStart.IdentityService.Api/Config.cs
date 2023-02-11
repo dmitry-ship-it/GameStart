@@ -1,4 +1,5 @@
-﻿using IdentityServer4;
+﻿using GameStart.Shared;
+using IdentityServer4;
 using IdentityServer4.Models;
 
 namespace GameStart.IdentityService.Api
@@ -31,7 +32,8 @@ namespace GameStart.IdentityService.Api
                     }.Concat(GetApiScopes().Select(r => r.Name)).ToArray(),
                     RedirectUris = { "https://localhost:7116/" },
                     AllowAccessTokensViaBrowser = true,
-                    AllowOfflineAccess = true
+                    AllowOfflineAccess = true,
+                    AccessTokenLifetime = Constants.IdentityService.TokenLifetime
                 }
             };
 

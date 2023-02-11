@@ -29,16 +29,7 @@ namespace GameStart.OrderingService.Api.Controllers
         {
             await orderService.CreateAsync(order, HttpContext.User.Claims, cancellationToken);
 
-            return Ok();
-        }
-
-        [HttpDelete("{id:Guid}")]
-        public async Task<IActionResult> DeleteAsync([FromRoute] Guid id,
-            CancellationToken cancellationToken = default)
-        {
-            var isDeleted = await orderService.DeleteAsync(id, cancellationToken);
-
-            return isDeleted ? NoContent() : NotFound();
+            return Accepted();
         }
     }
 }

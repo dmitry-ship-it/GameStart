@@ -28,7 +28,7 @@ namespace GameStart.Shared.Data
             await Context.SaveChangesAsync(cancellationToken);
         }
 
-        public virtual async Task<IEnumerable<TEntity>> FindAllAsync(
+        public virtual async Task<IEnumerable<TEntity>> FindAllAsync(bool includeGraph = true,
             CancellationToken cancellationToken = default)
         {
             return await Context.Set<TEntity>()

@@ -18,9 +18,11 @@ namespace GameStart.CatalogService.Data.Repositories
             await Context.SaveChangesAsync(cancellationToken);
         }
 
-        public override async Task<IEnumerable<VideoGame>> FindAllAsync(CancellationToken cancellationToken = default)
+        public override async Task<IEnumerable<VideoGame>> FindAllAsync(bool includeGraph = true, CancellationToken cancellationToken = default)
         {
-            return await GetVideoGames().AsNoTrackingWithIdentityResolution().ToListAsync(cancellationToken);
+            return includeGraph
+                ? await GetVideoGames().AsNoTrackingWithIdentityResolution().ToListAsync(cancellationToken)
+                : await Context.VideoGames.AsNoTracking().ToListAsync(cancellationToken);
         }
 
         public override async Task<IEnumerable<VideoGame>> FindByConditionAsync(

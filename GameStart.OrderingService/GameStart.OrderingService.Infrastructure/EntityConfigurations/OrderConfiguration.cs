@@ -13,6 +13,16 @@ namespace GameStart.OrderingService.Infrastructure.EntityConfigurations
             builder.Property(order => order.UserId)
                 .IsRequired(true);
 
+            builder.Property(order => order.TotalPrice)
+                .HasColumnType("DECIMAL(13, 4)")
+                .HasDefaultValue(0)
+                .IsRequired(true);
+
+            builder.Property(order => order.State)
+                .HasMaxLength(32)
+                .IsUnicode(true)
+                .IsRequired(true);
+
             builder.Property(order => order.DateTime)
                 .IsRequired(true);
 

@@ -26,7 +26,7 @@ namespace GameStart.CatalogService.Common
 
         public async Task<IEnumerable<VideoGame>> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            return await repository.VideoGames.FindAllAsync(cancellationToken);
+            return await repository.VideoGames.FindAllAsync(cancellationToken: cancellationToken);
         }
 
         public async Task AddAsync(VideoGameViewModel viewModel, CancellationToken cancellationToken = default)
