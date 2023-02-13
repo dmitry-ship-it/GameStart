@@ -1,6 +1,6 @@
 ﻿namespace GameStart.Shared.MessageBus.Models
 {
-    public class OrderItem : IMessageBusMessage
+    public class OrderItem
     {
         public Guid GameId { get; set; }
 
