@@ -31,6 +31,7 @@ services:
     depends_on:
       - gamestart.gateway
       - gamestart.identityservice.api
+      - redis.cache
       - catalogdb
     environment:
       - CATALOG_DB_HOST=catalogdb
@@ -38,6 +39,7 @@ services:
       - CATALOG_DB_USERNAME=postgres
       - CATALOG_DB_PASSWORD=wtugJkfAbkTq5
       - IDENTITY_AUTHORITY=https://gamestart.identityservice.api
+      - REDIS_CACHE_URL=redis.cache:6379
   catalogdb:
     container_name: catalog-service-db
     image: postgres
@@ -59,7 +61,7 @@ services:
       - backend
     ports:
       - 6002:443
-      - 6001:80
+      - 6003:80
     depends_on:
       - gamestart.gateway
       - messagebus
@@ -122,3 +124,14 @@ services:
     volumes:
       - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/mnesia/
       - ./rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
+
+  # Redis Cache
+  redis.cache:
+    container_name: redis-cache
+    image: redis
+    networks:
+      - backend
+    ports:
+      - 6379:6379
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes

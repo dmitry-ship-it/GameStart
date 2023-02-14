@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Host.UsePreconfiguredSerilog(builder.Configuration);
 
 builder.Services.AddDbContextWithRepositories();
+builder.Services.AddRedisCache();
 builder.Services.AddModelsMapper();
 builder.Services.AddPreconfiguredJwtAuthentication();
 builder.Services.AddMassTransitEventConsuming();

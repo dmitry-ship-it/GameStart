@@ -3,6 +3,7 @@ using GameStart.CatalogService.Common;
 using GameStart.CatalogService.Common.Consumers;
 using GameStart.CatalogService.Common.Mapping;
 using GameStart.CatalogService.Data;
+using GameStart.CatalogService.Common.Caching;
 using GameStart.CatalogService.Data.EntityConfigurations.ValueConverters;
 using GameStart.CatalogService.Data.Repositories;
 using GameStart.Shared;
@@ -10,6 +11,8 @@ using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
+using System.Text.Json;
+using System;
 
 namespace GameStart.CatalogService.Api.Extensions
 {
@@ -81,6 +84,19 @@ namespace GameStart.CatalogService.Api.Extensions
                     configurator.ConfigureEndpoints(context);
                 });
             });
+        }
+
+        public static IServiceCollection AddRedisCache(this IServiceCollection services)
+        {
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = Environment.GetEnvironmentVariable("REDIS_CACHE_URL");
+                options.InstanceName = typeof(Program).Namespace;
+            });
+
+            services.AddScoped<IRedisCacheService, RedisCacheService>();
+
+            return services;
         }
     }
 }
