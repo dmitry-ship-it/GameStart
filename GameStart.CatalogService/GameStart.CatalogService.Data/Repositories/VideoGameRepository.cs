@@ -1,5 +1,4 @@
 ﻿using GameStart.CatalogService.Data.Models;
-using GameStart.Shared.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 

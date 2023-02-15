@@ -1,4 +1,4 @@
-﻿namespace GameStart.Shared.Data
+﻿namespace GameStart.CatalogService.Data.Models
 {
     public abstract class BaseModel : IEntity
     {

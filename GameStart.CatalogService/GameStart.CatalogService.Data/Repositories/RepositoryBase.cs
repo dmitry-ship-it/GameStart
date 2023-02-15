@@ -1,7 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using GameStart.CatalogService.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace GameStart.Shared.Data
+namespace GameStart.CatalogService.Data.Repositories
 {
     public abstract class RepositoryBase<TEntity, TContext> : IRepository<TEntity>
         where TEntity : class, IEntity

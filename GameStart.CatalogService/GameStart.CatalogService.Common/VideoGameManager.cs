@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using GameStart.CatalogService.Common.Caching;
+using GameStart.CatalogService.Common.Elasticsearch.Search;
+using GameStart.CatalogService.Common.Elasticsearch;
 using GameStart.CatalogService.Common.ViewModels;
 using GameStart.CatalogService.Data.Models;
 using GameStart.CatalogService.Data.Repositories;
@@ -13,12 +15,14 @@ namespace GameStart.CatalogService.Common
         private readonly IRepositoryWrapper repository;
         private readonly IMapper mapper;
         private readonly IRedisCacheService cache;
+        private readonly IElasticsearchService<VideoGame, VideoGameSearchRequest> elasticsearch;
 
-        public VideoGameManager(IRepositoryWrapper repository, IMapper mapper, IRedisCacheService cache)
+        public VideoGameManager(IRepositoryWrapper repository, IMapper mapper, IRedisCacheService cache, IElasticsearchService<VideoGame, VideoGameSearchRequest> elasticsearch)
         {
             this.repository = repository;
             this.mapper = mapper;
             this.cache = cache;
+            this.elasticsearch = elasticsearch;
         }
 
         public async Task<VideoGame> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
@@ -65,6 +69,7 @@ namespace GameStart.CatalogService.Common
             var videoGame = mapper.Map<VideoGame>(viewModel);
             await repository.VideoGames.CreateAsync(videoGame, cancellationToken);
             await cache.DeleteAsync(AllVideoGamesCacheKey, cancellationToken);
+            await elasticsearch.InsertAsync(videoGame, cancellationToken);
         }
 
         public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
@@ -102,6 +107,12 @@ namespace GameStart.CatalogService.Common
             await cache.DeleteAsync(AllVideoGamesCacheKey, cancellationToken);
 
             return true;
+        }
+
+        public async Task<IEnumerable<VideoGame>> SearchAsync(VideoGameSearchRequest request,
+            CancellationToken cancellationToken = default)
+        {
+            return await elasticsearch.SearchAsync(request, cancellationToken);
         }
     }
 }

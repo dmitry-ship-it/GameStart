@@ -2,6 +2,8 @@ version: '3.4'
 
 networks:
   backend:
+  elk:
+    driver: bridge
   frontend:
       
 
@@ -28,10 +30,12 @@ services:
       dockerfile: GameStart.CatalogService/GameStart.CatalogService.Api/Dockerfile
     networks:
       - backend
+      - elk
     depends_on:
       - gamestart.gateway
       - gamestart.identityservice.api
       - redis.cache
+      - elk.elasticsearch
       - catalogdb
     environment:
       - CATALOG_DB_HOST=catalogdb
@@ -40,6 +44,7 @@ services:
       - CATALOG_DB_PASSWORD=wtugJkfAbkTq5
       - IDENTITY_AUTHORITY=https://gamestart.identityservice.api
       - REDIS_CACHE_URL=redis.cache:6379
+      - ELASTICSEARCH_URI=elk.elasticsearch:6200
   catalogdb:
     container_name: catalog-service-db
     image: postgres
@@ -135,3 +140,26 @@ services:
       - 6379:6379
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
+
+  # ELK
+  elk.elasticsearch:
+    container_name: elasticsearch
+    image: elasticsearch:8.6.1
+    ports:
+      - 9200:9200
+      - 9300:9300
+    networks:
+      - elk
+    environment:
+      - discovery.type=single-node
+  elk.kibana:
+    container_name: kibana
+    image: kibana:8.6.1
+    ports:
+      - 5601:5601
+    networks:
+      - elk
+    depends_on:
+      - elk.elasticsearch
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elk.elasticsearch:9200

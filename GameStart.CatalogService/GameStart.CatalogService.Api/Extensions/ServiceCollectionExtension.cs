@@ -11,8 +11,10 @@ using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
-using System.Text.Json;
-using System;
+using Nest;
+using GameStart.CatalogService.Common.Elasticsearch;
+using GameStart.CatalogService.Data.Models;
+using GameStart.CatalogService.Common.Elasticsearch.Search;
 
 namespace GameStart.CatalogService.Api.Extensions
 {
@@ -95,6 +97,18 @@ namespace GameStart.CatalogService.Api.Extensions
             });
 
             services.AddScoped<IRedisCacheService, RedisCacheService>();
+
+            return services;
+        }
+
+        public static IServiceCollection AddElasticsearch(this IServiceCollection services)
+        {
+            var settings = new ConnectionSettings(new Uri(Environment.GetEnvironmentVariable("ELASTICSEARCH_URI")!));
+
+            var client = new ElasticClient(settings);
+
+            services.AddSingleton<IElasticClient>(client);
+            services.AddScoped<IElasticsearchService<VideoGame, VideoGameSearchRequest>, VideoGameSearchService>();
 
             return services;
         }

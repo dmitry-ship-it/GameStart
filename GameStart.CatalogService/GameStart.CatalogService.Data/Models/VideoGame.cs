@@ -1,6 +1,4 @@
-﻿using GameStart.Shared.Data;
-
-namespace GameStart.CatalogService.Data.Models
+﻿namespace GameStart.CatalogService.Data.Models
 {
     public class VideoGame : IEntity
     {

@@ -12,6 +12,7 @@ builder.Services.AddRedisCache();
 builder.Services.AddModelsMapper();
 builder.Services.AddPreconfiguredJwtAuthentication();
 builder.Services.AddMassTransitEventConsuming();
+builder.Services.AddElasticsearch();
 builder.Services.AddControllersWithJsonConfiguration();
 
 var app = builder.Build();

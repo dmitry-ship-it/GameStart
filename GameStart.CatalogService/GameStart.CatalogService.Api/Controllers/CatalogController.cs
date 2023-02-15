@@ -1,12 +1,15 @@
 ﻿using GameStart.CatalogService.Common;
+using GameStart.CatalogService.Common.Elasticsearch;
+using GameStart.CatalogService.Common.Elasticsearch.Search;
 using GameStart.CatalogService.Common.ViewModels;
+using GameStart.CatalogService.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameStart.CatalogService.Api.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class CatalogController : ControllerBase
     {
         private readonly VideoGameManager manager;
@@ -61,6 +64,13 @@ namespace GameStart.CatalogService.Api.Controllers
             var isDeleted = await manager.DeleteAsync(id, cancellationToken);
 
             return isDeleted ? NoContent() : NotFound();
+        }
+
+        [HttpGet("search")]
+        public async Task<IActionResult> SearchAsync([FromQuery] VideoGameSearchRequest request,
+            CancellationToken cancellationToken = default)
+        {
+            return Ok(await manager.SearchAsync(request, cancellationToken));
         }
     }
 }
