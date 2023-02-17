@@ -67,6 +67,8 @@ namespace GameStart.CatalogService.Common
         public async Task AddAsync(VideoGameViewModel viewModel, CancellationToken cancellationToken = default)
         {
             var videoGame = mapper.Map<VideoGame>(viewModel);
+            videoGame.Id = Guid.NewGuid();
+
             await repository.VideoGames.CreateAsync(videoGame, cancellationToken);
             await cache.DeleteAsync(AllVideoGamesCacheKey, cancellationToken);
             await elasticsearch.InsertAsync(videoGame, cancellationToken);
@@ -85,6 +87,7 @@ namespace GameStart.CatalogService.Common
             await cache.DeleteAsync(AllVideoGamesCacheKey, cancellationToken);
 
             await repository.VideoGames.DeleteAsync(videoGame, cancellationToken);
+            await elasticsearch.DeleteByIdAsync(videoGame, cancellationToken);
 
             return true;
         }

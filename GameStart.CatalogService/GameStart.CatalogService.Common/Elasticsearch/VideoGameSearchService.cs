@@ -1,14 +1,13 @@
 ﻿using GameStart.CatalogService.Common.Elasticsearch.Extensions;
 using GameStart.CatalogService.Common.Elasticsearch.Search;
 using GameStart.CatalogService.Data.Models;
-using Microsoft.AspNetCore.Http;
 using Nest;
 
 namespace GameStart.CatalogService.Common.Elasticsearch
 {
     public class VideoGameSearchService : IElasticsearchService<VideoGame, VideoGameSearchRequest>
     {
-        public string IndexName { get; } = nameof(VideoGame);
+        public string IndexName { get; } = nameof(VideoGame).ToLower();
 
         private readonly IElasticClient elasticClient;
 
@@ -26,11 +25,13 @@ namespace GameStart.CatalogService.Common.Elasticsearch
                 return;
             }
 
-            await elasticClient.Indices.CreateAsync(IndexName, index => index.MapVideoGame(), cancellationToken);
+            await elasticClient.Indices.CreateAsync(IndexName, config =>
+                config.Map<VideoGame>(map => map.MapVideoGameGraph()), cancellationToken);
         }
 
         public async Task DeleteByIdAsync(VideoGame entity, CancellationToken cancellationToken = default)
         {
+            await CheckIndexAsync(cancellationToken);
             await elasticClient.DeleteAsync(DocumentPath<VideoGame>.Id(entity.Id), selector => selector.Index(IndexName), cancellationToken);
         }
 
@@ -41,16 +42,13 @@ namespace GameStart.CatalogService.Common.Elasticsearch
 
         public async Task InsertAsync(VideoGame entity, CancellationToken cancellationToken = default)
         {
-            var response = await elasticClient.CreateAsync(entity, selector => selector.Index(IndexName), cancellationToken);
-
-            if (response.ApiCall?.HttpStatusCode == StatusCodes.Status409Conflict)
-            {
-                await elasticClient.UpdateAsync<VideoGame>(entity.Id, selector => selector.Index(IndexName).Doc(entity), cancellationToken);
-            }
+            await CheckIndexAsync(cancellationToken);
+            await elasticClient.IndexAsync(entity, config => config.Index(IndexName), cancellationToken);
         }
 
         public async Task InsertListAsync(IList<VideoGame> entities, CancellationToken cancellationToken = default)
         {
+            await CheckIndexAsync(cancellationToken);
             await elasticClient.IndexManyAsync(entities, IndexName, cancellationToken);
         }
 
@@ -63,45 +61,47 @@ namespace GameStart.CatalogService.Common.Elasticsearch
                 .Size(10)
                 .Index(IndexName)
                 .Query(query => query
-                    .DisMax(dismax => dismax.Queries(
-                        query => query. MatchPhrase(match => match
-                            .Field(field => field.Title)
-                            .Query(request.Title)
-                        ),
-                        query => query.DateRange(date => date
-                            .Field(field => field.ReleaseDate)
-                            .GreaterThanOrEquals(request.ReleasedFrom.Value.ToDateTime(TimeOnly.MinValue))
-                            .LessThanOrEquals(DateMath.Now)
-                        ),
-                        query => query.Range(price => price
-                            .Field(field => field.Price)
-                            .GreaterThanOrEquals((double)request.PriceFrom)
-                            .LessThanOrEquals(request.PriceTo is null || request.PriceTo == decimal.Zero ? double.MaxValue : (double)request.PriceTo)
-                        ),
-                        query => query.MatchPhrase(match => match
-                            .Field(field => field.Publisher.Name)
-                            .Query(request.Publisher)
-                        ),
-                        query => query.Terms(terms => terms
-                            .Field(field => field.Developers.Select(dev => dev.Name))
-                            .Terms(request.Developers)
-                        ),
-                        query => query.Terms(terms => terms
-                            .Field(field => field.Ganres.Select(ganre => ganre.Name))
-                            .Terms(request.Ganres)
-                        ),
-                        query => query.Terms(terms => terms
-                            .Field(field => field.LanguageAvailabilities.Select(language => language.Language.Name))
-                            .Terms(request.Languages)
-                        ),
-                        query => query.Terms(terms => terms
-                            .Field(field => field.SystemRequirements.Select(selector => selector.Platform.Name))
-                            .Terms(request.Platforms)
+                    .Bool(dismax => dismax
+                        .Must(
+                            query => query.Wildcard(wildcard => wildcard
+                                .Field(field => field.Title)
+                                .Value(request.Title)
+                                .CaseInsensitive(true)
+                            ),
+                            query => query.DateRange(daterange => daterange
+                                .Field(field => field.ReleaseDate)
+                                .GreaterThanOrEquals(DateMath.Anchored(request.ReleasedFrom))
+                                .LessThanOrEquals(DateMath.Anchored(request.ReleasedTo ?? DateTime.Now))
+                            ),
+                            query => query.Range(range => range
+                                .Field(field => field.Price)
+                                .GreaterThanOrEquals((double)request.PriceFrom)
+                                .LessThanOrEquals(request.PriceTo is null ? ushort.MaxValue : (double)request.PriceTo)
+                            ),
+                            query => query.Wildcard(wildcard => wildcard
+                                .Field(field => field.Publisher.Name)
+                                .Value(request.Publisher)
+                                .CaseInsensitive(true)
+                            ),
+                            query => query.Terms(terms => terms
+                                .Field(field => field.Developers.First().Name)
+                                .Terms(request.Developers)
+                            ),
+                            query => query.Terms(terms => terms
+                                .Field(field => field.Ganres.First().Name)
+                                .Terms(request.Ganres)
+                            ),
+                            query => query.Terms(terms => terms
+                                .Field(field => field.LanguageAvailabilities.First().Language.Name)
+                                .Terms(request.Languages)
+                            ),
+                            query => query.Terms(terms => terms
+                                .Field(field => field.SystemRequirements.First().Platform.Name)
+                                .Terms(request.Platforms)
+                            )
                         )
                     )
-                )
-            ),
-            cancellationToken);
+                ), cancellationToken);
 
             return response.Documents;
         }

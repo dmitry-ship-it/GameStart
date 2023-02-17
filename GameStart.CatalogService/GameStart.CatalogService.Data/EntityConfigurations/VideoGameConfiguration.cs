@@ -31,8 +31,7 @@ namespace GameStart.CatalogService.Data.EntityConfigurations
                 .IsRequired(false);
 
             builder.Property(videoGame => videoGame.ReleaseDate)
-                .HasConversion<DateOnlyConverter>()
-                .HasColumnType("date")
+                .HasColumnType("timestamp with time zone")
                 .IsRequired(true);
 
             builder.Property(videoGame => videoGame.Price)

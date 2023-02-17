@@ -4,9 +4,11 @@
     {
         public string Title { get; set; }
 
-        public DateOnly? ReleasedFrom { get; set; }
+        public DateTime ReleasedFrom { get; set; }
 
-        public decimal? PriceFrom { get; set; }
+        public DateTime? ReleasedTo { get; set; }
+
+        public decimal PriceFrom { get; set; }
 
         public decimal? PriceTo { get; set; }
 

@@ -11,10 +11,10 @@ using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
-using Nest;
 using GameStart.CatalogService.Common.Elasticsearch;
 using GameStart.CatalogService.Data.Models;
 using GameStart.CatalogService.Common.Elasticsearch.Search;
+using Nest;
 
 namespace GameStart.CatalogService.Api.Extensions
 {
@@ -104,6 +104,13 @@ namespace GameStart.CatalogService.Api.Extensions
         public static IServiceCollection AddElasticsearch(this IServiceCollection services)
         {
             var settings = new ConnectionSettings(new Uri(Environment.GetEnvironmentVariable("ELASTICSEARCH_URI")!));
+            settings.ThrowExceptions();
+            settings.IncludeServerStackTraceOnError();
+            settings.EnableApiVersioningHeader();
+            settings.BasicAuthentication(
+                Environment.GetEnvironmentVariable("ELASTICSEARCH_USERNAME")!,
+                Environment.GetEnvironmentVariable("ELASTICSEARCH_PASSWORD")!
+            );
 
             var client = new ElasticClient(settings);
 
