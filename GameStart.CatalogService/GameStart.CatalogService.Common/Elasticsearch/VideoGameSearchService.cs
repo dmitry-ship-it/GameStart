@@ -52,6 +52,11 @@ namespace GameStart.CatalogService.Common.Elasticsearch
             await elasticClient.IndexManyAsync(entities, IndexName, cancellationToken);
         }
 
+        public async Task UpdateAsync(VideoGame entity, CancellationToken cancellationToken = default)
+        {
+            await elasticClient.UpdateAsync<VideoGame>(entity.Id, selector => selector.Index(IndexName).Doc(entity), cancellationToken);
+        }
+
         public async Task<IEnumerable<VideoGame>> SearchAsync(VideoGameSearchRequest request, CancellationToken cancellationToken)
         {
             await CheckIndexAsync(cancellationToken);

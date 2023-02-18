@@ -19,6 +19,8 @@ namespace GameStart.CatalogService.Common.Elasticsearch
 
         Task DeleteByIdAsync(TEntity entity, CancellationToken cancellationToken = default);
 
+        Task UpdateAsync(TEntity entity, CancellationToken cancellationToken = default);
+
         Task<IEnumerable<TEntity>> SearchAsync(TRequest request, CancellationToken cancellationToken);
     }
 }

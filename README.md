@@ -13,7 +13,7 @@
 - [x] Gateway - Ocelot
 - [x] Containerization - Docker with docker compose
 - [x] Message Bus - RabbitMQ with MassTransit
-- [ ] DB Caching - Redis
-- [ ] ELK ElasticSearch
-- [ ] ELK Kibana
+- [x] DB Caching - Redis
+- [x] ELK ElasticSearch
+- [x] ? ELK Kibana
 - [ ] ELK Logstash

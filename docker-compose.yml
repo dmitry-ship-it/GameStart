@@ -1,11 +1,10 @@
-version: '3.4'
+version: "3.4"
 
 networks:
   backend:
   elk:
     driver: bridge
   frontend:
-      
 
 services:
   # gateway
@@ -20,8 +19,8 @@ services:
       - frontend
     ports:
       - 6001:443
-  
-  # Catalog service 
+
+  # Catalog service
   gamestart.catalogservice.api:
     container_name: catalog-service
     image: ${DOCKER_REGISTRY-}catalogservice
@@ -62,7 +61,7 @@ services:
       timeout: 10s
       retries: 10
       start_period: 10s
-  
+
   # Identity service
   gamestart.identityservice.api:
     container_name: identity-service
@@ -131,7 +130,7 @@ services:
       - MYSQL_DATABASE=Orders
       - MYSQL_ROOT_PASSWORD=4mG3SSUqkF7rX
     healthcheck:
-      test: ["CMD", 'mysqladmin', 'ping', '-h', 'localhost', '-u', 'root', '-p', '4mG3SSUqkF7rX' ]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p", "4mG3SSUqkF7rX"]
       interval: 10s
       timeout: 10s
       retries: 10
@@ -191,3 +190,14 @@ services:
       - elk.elasticsearch
     environment:
       - ELASTICSEARCH_HOSTS=http://elk.elasticsearch:9200
+  elk.logstash:
+    container_name: logstash
+    image: logstash:8.6.1
+    ports:
+      - 5044:5044
+    networks:
+      - elk
+    depends_on:
+      - elk.elasticsearch
+    volumes:
+      - ~/settings/:/usr/share/logstash/config/

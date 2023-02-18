@@ -17,7 +17,11 @@ namespace GameStart.CatalogService.Common
         private readonly IRedisCacheService cache;
         private readonly IElasticsearchService<VideoGame, VideoGameSearchRequest> elasticsearch;
 
-        public VideoGameManager(IRepositoryWrapper repository, IMapper mapper, IRedisCacheService cache, IElasticsearchService<VideoGame, VideoGameSearchRequest> elasticsearch)
+        public VideoGameManager(
+            IRepositoryWrapper repository,
+            IMapper mapper,
+            IRedisCacheService cache,
+            IElasticsearchService<VideoGame, VideoGameSearchRequest> elasticsearch)
         {
             this.repository = repository;
             this.mapper = mapper;
@@ -71,7 +75,9 @@ namespace GameStart.CatalogService.Common
 
             await repository.VideoGames.CreateAsync(videoGame, cancellationToken);
             await cache.DeleteAsync(AllVideoGamesCacheKey, cancellationToken);
-            await elasticsearch.InsertAsync(videoGame, cancellationToken);
+
+            var createdWithMappedIds = await GetByIdAsync(videoGame.Id, cancellationToken);
+            await elasticsearch.InsertAsync(createdWithMappedIds, cancellationToken);
         }
 
         public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
@@ -105,6 +111,7 @@ namespace GameStart.CatalogService.Common
             mapper.Map(model, videoGame);
 
             await repository.VideoGames.UpdateAsync(videoGame, cancellationToken);
+            await elasticsearch.UpdateAsync(videoGame, cancellationToken);
 
             await cache.SetAsync(id.ToString(), videoGame, cancellationToken);
             await cache.DeleteAsync(AllVideoGamesCacheKey, cancellationToken);
