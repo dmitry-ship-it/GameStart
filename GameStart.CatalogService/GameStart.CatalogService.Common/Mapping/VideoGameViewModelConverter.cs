@@ -59,6 +59,7 @@ namespace GameStart.CatalogService.Common.Mapping
             return systemRequirements.Select(selector =>
             {
                 var result = context.Mapper.Map<SystemRequirementsViewModel, SystemRequirements>(selector);
+
                 result.Platform = found.FirstOrDefault(platform =>
                     platform.Name == result.Platform.Name, result.Platform);
 
@@ -105,6 +106,7 @@ namespace GameStart.CatalogService.Common.Mapping
             return languages.Select(selector =>
             {
                 var result = context.Mapper.Map<LanguageAvailability>(selector);
+
                 result.Language = found.FirstOrDefault(entity =>
                     entity.Name == result.Language.Name, result.Language);
 

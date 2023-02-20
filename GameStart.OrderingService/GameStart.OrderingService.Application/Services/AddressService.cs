@@ -3,6 +3,8 @@ using FluentValidation;
 using GameStart.OrderingService.Application.DtoModels;
 using GameStart.OrderingService.Core.Abstractions;
 using GameStart.OrderingService.Core.Entities;
+using GameStart.Shared.Extensions;
+using System.Security.Claims;
 
 namespace GameStart.OrderingService.Application.Services
 {
@@ -42,9 +44,11 @@ namespace GameStart.OrderingService.Application.Services
             return false;
         }
 
-        public async Task<IEnumerable<Address>> GetByUserIdAsync(Guid userId,
+        public async Task<IEnumerable<Address>> GetByUserIdAsync(IEnumerable<Claim> claims,
             CancellationToken cancellationToken = default)
         {
+            var userId = claims.GetUserId();
+
             return await repository.GetByConditionAsync(
                 entity => entity.UserId == userId, cancellationToken);
         }

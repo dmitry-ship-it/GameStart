@@ -66,7 +66,7 @@ namespace GameStart.CatalogService.Common.Elasticsearch
                 .Size(10)
                 .Index(IndexName)
                 .Query(query => query
-                    .Bool(dismax => dismax
+                    .Bool(boolean => boolean
                         .Must(
                             query => query.Wildcard(wildcard => wildcard
                                 .Field(field => field.Title)

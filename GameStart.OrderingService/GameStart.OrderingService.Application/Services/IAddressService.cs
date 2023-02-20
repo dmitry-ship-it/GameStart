@@ -1,11 +1,12 @@
 ﻿using GameStart.OrderingService.Application.DtoModels;
 using GameStart.OrderingService.Core.Entities;
+using System.Security.Claims;
 
 namespace GameStart.OrderingService.Application.Services
 {
     public interface IAddressService
     {
-        Task<IEnumerable<Address>> GetByUserIdAsync(Guid userId,
+        Task<IEnumerable<Address>> GetByUserIdAsync(IEnumerable<Claim> claims,
             CancellationToken cancellationToken = default);
 
         Task CreateAsync(AddressDto address,

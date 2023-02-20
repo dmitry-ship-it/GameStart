@@ -17,11 +17,10 @@ namespace GameStart.OrderingService.Api.Controllers
             this.addressService = addressService;
         }
 
-        [HttpGet("{userId:Guid}")]
-        public async Task<IActionResult> GetAsync([FromRoute] Guid userId,
-            CancellationToken cancellationToken = default)
+        [HttpGet]
+        public async Task<IActionResult> GetAsync(CancellationToken cancellationToken = default)
         {
-            return Ok(await addressService.GetByUserIdAsync(userId, cancellationToken));
+            return Ok(await addressService.GetByUserIdAsync(HttpContext.User.Claims, cancellationToken));
         }
 
         [HttpPost]

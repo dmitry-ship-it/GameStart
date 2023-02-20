@@ -15,12 +15,13 @@ namespace GameStart.CatalogService.Data.Repositories
         {
             Context.Attach(entity).State = EntityState.Added;
             await Context.SaveChangesAsync(cancellationToken);
+            Context.ChangeTracker.Clear();
         }
 
         public override async Task<IEnumerable<VideoGame>> FindAllAsync(bool includeGraph = true, CancellationToken cancellationToken = default)
         {
             return includeGraph
-                ? await GetVideoGames().AsNoTrackingWithIdentityResolution().ToListAsync(cancellationToken)
+                ? await GetVideoGames().AsNoTracking().ToListAsync(cancellationToken)
                 : await Context.VideoGames.AsNoTracking().ToListAsync(cancellationToken);
         }
 
@@ -29,7 +30,7 @@ namespace GameStart.CatalogService.Data.Repositories
             CancellationToken cancellationToken = default)
         {
             return await GetVideoGames().Where(expression)
-                .AsNoTrackingWithIdentityResolution().ToListAsync(cancellationToken);
+                .AsNoTracking().ToListAsync(cancellationToken);
         }
 
         public override async Task DeleteAsync(VideoGame entity, CancellationToken cancellationToken = default)

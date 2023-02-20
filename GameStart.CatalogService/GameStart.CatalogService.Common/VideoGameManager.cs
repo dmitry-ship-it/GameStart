@@ -71,13 +71,13 @@ namespace GameStart.CatalogService.Common
         public async Task AddAsync(VideoGameViewModel viewModel, CancellationToken cancellationToken = default)
         {
             var videoGame = mapper.Map<VideoGame>(viewModel);
-            videoGame.Id = Guid.NewGuid();
 
             await repository.VideoGames.CreateAsync(videoGame, cancellationToken);
             await cache.DeleteAsync(AllVideoGamesCacheKey, cancellationToken);
 
-            var createdWithMappedIds = await GetByIdAsync(videoGame.Id, cancellationToken);
-            await elasticsearch.InsertAsync(createdWithMappedIds, cancellationToken);
+            CutCycles(videoGame);
+            await elasticsearch.InsertAsync(videoGame, cancellationToken);
+            await cache.SetAsync(videoGame.Id.ToString(), videoGame, cancellationToken);
         }
 
         public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
@@ -123,6 +123,37 @@ namespace GameStart.CatalogService.Common
             CancellationToken cancellationToken = default)
         {
             return await elasticsearch.SearchAsync(request, cancellationToken);
+        }
+
+        /// <summary>
+        ///     This method removes possible serialization cycles.
+        ///     Use it only for untracked etities.
+        /// </summary>
+        private static void CutCycles(VideoGame videoGame)
+        {
+            videoGame.Publisher.VideoGames = null;
+
+            foreach (var developer in videoGame.Developers)
+            {
+                developer.VideoGames = null;
+            }
+
+            foreach (var ganre in videoGame.Ganres)
+            {
+                ganre.VideoGames = null;
+            }
+
+            foreach (var availabilities in videoGame.LanguageAvailabilities)
+            {
+                availabilities.VideoGames = null;
+                availabilities.Language.LanguageAvailabilities = null;
+            }
+
+            foreach (var requirements in videoGame.SystemRequirements)
+            {
+                requirements.VideoGame = null;
+                requirements.Platform.SystemRequirements = null;
+            }
         }
     }
 }

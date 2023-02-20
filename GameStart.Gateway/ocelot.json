@@ -105,12 +105,12 @@
     },
     {
       "UpstreamPathTemplate": "/api/address",
-      "UpstreamHttpMethod": [ "Post" ],
+      "UpstreamHttpMethod": [ "Post", "Get" ],
 
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
+          "Host": "gamestart.orderingservice.api",
           "Port": 443
         }
       ],
@@ -119,12 +119,12 @@
     },
     {
       "UpstreamPathTemplate": "/api/address/{id}",
-      "UpstreamHttpMethod": [ "Get", "Put", "Delete" ],
+      "UpstreamHttpMethod": [ "Put", "Delete" ],
 
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
+          "Host": "gamestart.orderingservice.api",
           "Port": 443
         }
       ],
