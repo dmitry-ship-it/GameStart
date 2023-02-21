@@ -1,20 +1,20 @@
 ﻿using AutoMapper;
 using GameStart.CatalogService.Common;
+using GameStart.CatalogService.Common.Caching;
 using GameStart.CatalogService.Common.Consumers;
+using GameStart.CatalogService.Common.Elasticsearch;
+using GameStart.CatalogService.Common.Elasticsearch.Search;
 using GameStart.CatalogService.Common.Mapping;
 using GameStart.CatalogService.Data;
-using GameStart.CatalogService.Common.Caching;
 using GameStart.CatalogService.Data.EntityConfigurations.ValueConverters;
+using GameStart.CatalogService.Data.Models;
 using GameStart.CatalogService.Data.Repositories;
 using GameStart.Shared;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using System.Text.Json.Serialization;
-using GameStart.CatalogService.Common.Elasticsearch;
-using GameStart.CatalogService.Data.Models;
-using GameStart.CatalogService.Common.Elasticsearch.Search;
 using Nest;
+using System.Text.Json.Serialization;
 
 namespace GameStart.CatalogService.Api.Extensions
 {

@@ -1,5 +1,4 @@
-﻿using GameStart.CatalogService.Data.EntityConfigurations.ValueConverters;
-using GameStart.CatalogService.Data.Models;
+﻿using GameStart.CatalogService.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

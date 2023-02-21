@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using GameStart.CatalogService.Common.Caching;
-using GameStart.CatalogService.Common.Elasticsearch.Search;
 using GameStart.CatalogService.Common.Elasticsearch;
+using GameStart.CatalogService.Common.Elasticsearch.Search;
 using GameStart.CatalogService.Common.ViewModels;
 using GameStart.CatalogService.Data.Models;
 using GameStart.CatalogService.Data.Repositories;

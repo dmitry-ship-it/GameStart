@@ -1,8 +1,6 @@
 ﻿using GameStart.CatalogService.Common;
-using GameStart.CatalogService.Common.Elasticsearch;
 using GameStart.CatalogService.Common.Elasticsearch.Search;
 using GameStart.CatalogService.Common.ViewModels;
-using GameStart.CatalogService.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
