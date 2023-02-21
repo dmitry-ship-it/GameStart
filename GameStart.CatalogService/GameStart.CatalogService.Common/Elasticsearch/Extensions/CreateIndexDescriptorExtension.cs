@@ -16,7 +16,7 @@ namespace GameStart.CatalogService.Common.Elasticsearch.Extensions
                 .Number(number => number.Name(name => name.Price).Type(NumberType.Double))
                 .Object<Publisher>(child => child.Name(name => name.Publisher))
                 .Nested<Developer>(child => child.Name(name => name.Developers))
-                .Nested<Ganre>(child => child.Name(name => name.Ganres))
+                .Nested<Genre>(child => child.Name(name => name.Genres))
                 .Nested<LanguageAvailability>(child => child.Name(name => name.LanguageAvailabilities))
                 .Nested<SystemRequirements>(child => child.Name(name => name.SystemRequirements)))
             .Properties<Publisher>(properties => properties
@@ -25,7 +25,7 @@ namespace GameStart.CatalogService.Common.Elasticsearch.Extensions
             .Properties<Developer>(properties => properties
                 .Keyword(key => key.Name(name => name.Id))
                 .Text(text => text.Name(name => name.Name)))
-            .Properties<Ganre>(properties => properties
+            .Properties<Genre>(properties => properties
                 .Keyword(key => key.Name(name => name.Id))
                 .Text(text => text.Name(name => name.Name)))
             .Properties<LanguageAvailability>(properties => properties

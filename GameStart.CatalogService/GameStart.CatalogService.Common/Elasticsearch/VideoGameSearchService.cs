@@ -88,21 +88,41 @@ namespace GameStart.CatalogService.Common.Elasticsearch
                                 .Value(request.Publisher)
                                 .CaseInsensitive(true)
                             ),
-                            query => query.Terms(terms => terms
-                                .Field(field => field.Developers.First().Name)
-                                .Terms(request.Developers)
+                            query => query.Nested(child => child
+                                .Path(path => path.Developers)
+                                .Query(query => query
+                                    .Terms(terms => terms
+                                        .Field(field => field.Developers.First().Name)
+                                        .Terms(request.Developers)
+                                    )
+                                )
                             ),
-                            query => query.Terms(terms => terms
-                                .Field(field => field.Ganres.First().Name)
-                                .Terms(request.Ganres)
+                            query => query.Nested(child => child
+                                .Path(path => path.Genres)
+                                .Query(query => query
+                                    .Terms(terms => terms
+                                        .Field(field => field.Genres.First().Name)
+                                        .Terms(request.Genres)
+                                    )
+                                )
                             ),
-                            query => query.Terms(terms => terms
-                                .Field(field => field.LanguageAvailabilities.First().Language.Name)
-                                .Terms(request.Languages)
+                            query => query.Nested(child => child
+                                .Path(path => path.LanguageAvailabilities)
+                                .Query(query => query
+                                    .Terms(terms => terms
+                                        .Field(field => field.LanguageAvailabilities.First().Language.Name)
+                                        .Terms(request.Languages)
+                                    )
+                                )
                             ),
-                            query => query.Terms(terms => terms
-                                .Field(field => field.SystemRequirements.First().Platform.Name)
-                                .Terms(request.Platforms)
+                            query => query.Nested(child => child
+                                .Path(path => path.SystemRequirements)
+                                .Query(query => query
+                                    .Terms(terms => terms
+                                        .Field(field => field.SystemRequirements.First().Platform.Name)
+                                        .Terms(request.Platforms)
+                                    )
+                                )
                             )
                         )
                     )

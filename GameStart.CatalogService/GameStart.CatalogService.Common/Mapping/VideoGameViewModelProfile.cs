@@ -15,7 +15,7 @@ namespace GameStart.CatalogService.Common.Mapping
             CreateMap<string, Developer>().ForMember(developer => developer.Name,
                 options => options.MapFrom(source => source));
 
-            CreateMap<string, Ganre>().ForMember(ganre => ganre.Name,
+            CreateMap<string, Genre>().ForMember(genre => genre.Name,
                 options => options.MapFrom(source => source));
 
             CreateMap<LanguageViewModel, LanguageAvailability>().ForPath(entity => entity.Language.Name,

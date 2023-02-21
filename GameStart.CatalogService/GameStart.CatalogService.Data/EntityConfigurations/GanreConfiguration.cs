@@ -4,34 +4,34 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace GameStart.CatalogService.Data.EntityConfigurations
 {
-    public class GanreConfiguration : IEntityTypeConfiguration<Ganre>
+    public class GenreConfiguration : IEntityTypeConfiguration<Genre>
     {
-        public void Configure(EntityTypeBuilder<Ganre> builder)
+        public void Configure(EntityTypeBuilder<Genre> builder)
         {
-            builder.HasKey(ganre => ganre.Id);
+            builder.HasKey(genre => genre.Id);
 
-            builder.Property(ganre => ganre.Id)
+            builder.Property(genre => genre.Id)
                 .ValueGeneratedOnAdd();
 
-            builder.HasIndex(ganre => ganre.Name)
+            builder.HasIndex(genre => genre.Name)
                 .IsUnique(true);
 
-            builder.Property(ganre => ganre.Name)
+            builder.Property(genre => genre.Name)
                 .HasMaxLength(256)
                 .IsUnicode(true)
                 .IsRequired(true);
 
             builder.HasMany(entity => entity.VideoGames)
-                .WithMany(entity => entity.Ganres)
+                .WithMany(entity => entity.Genres)
                 .UsingEntity<Dictionary<string, object>>(
                     right => right.HasOne<VideoGame>()
                         .WithMany()
                         .HasForeignKey("VideoGameId"),
-                    left => left.HasOne<Ganre>()
+                    left => left.HasOne<Genre>()
                         .WithMany()
-                        .HasForeignKey("GanreId"),
-                    joining => joining.ToTable("VideoGameGanre")
-                        .HasKey("VideoGameId", "GanreId"));
+                        .HasForeignKey("GenreId"),
+                    joining => joining.ToTable("VideoGameGenre")
+                        .HasKey("VideoGameId", "GenreId"));
         }
     }
 }

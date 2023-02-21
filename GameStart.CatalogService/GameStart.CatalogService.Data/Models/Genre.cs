@@ -2,7 +2,7 @@
 
 namespace GameStart.CatalogService.Data.Models
 {
-    public class Ganre : BaseModel
+    public class Genre : BaseModel
     {
         [JsonIgnore]
         public virtual ICollection<VideoGame> VideoGames { get; set; }

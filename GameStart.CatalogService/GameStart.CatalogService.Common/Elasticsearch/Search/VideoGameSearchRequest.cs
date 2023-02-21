@@ -16,7 +16,7 @@
 
         public IEnumerable<string> Developers { get; set; }
 
-        public IEnumerable<string> Ganres { get; set; }
+        public IEnumerable<string> Genres { get; set; }
 
         public IEnumerable<string> Languages { get; set; }
 

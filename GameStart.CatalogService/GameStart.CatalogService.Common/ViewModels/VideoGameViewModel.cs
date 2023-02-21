@@ -16,7 +16,7 @@
 
         public IList<string> Developers { get; set; }
 
-        public IList<string> Ganres { get; set; }
+        public IList<string> Genres { get; set; }
 
         public IList<LanguageViewModel> Languages { get; set; }
 

@@ -39,9 +39,9 @@ namespace GameStart.CatalogService.Common.Mapping
                 ? MapDevelopers(source.Developers, context).ToArray()
                 : destination.Developers;
 
-            destination.Ganres = source.Ganres is not null
-                ? MapGanres(source.Ganres, context).ToArray()
-                : destination.Ganres;
+            destination.Genres = source.Genres is not null
+                ? MapGenres(source.Genres, context).ToArray()
+                : destination.Genres;
 
             destination.LanguageAvailabilities = source.Languages is not null
                 ? MapLanguages(source.Languages, context).ToArray()
@@ -87,15 +87,15 @@ namespace GameStart.CatalogService.Common.Mapping
             });
         }
 
-        private IEnumerable<Ganre> MapGanres(IList<string> ganres, ResolutionContext context)
+        private IEnumerable<Genre> MapGenres(IList<string> genres, ResolutionContext context)
         {
-            var found = repository.Ganres.FindAllAsync().Result;
+            var found = repository.Genres.FindAllAsync().Result;
 
-            return ganres.Select(selector =>
+            return genres.Select(selector =>
             {
-                var result = context.Mapper.Map<Ganre>(selector);
+                var result = context.Mapper.Map<Genre>(selector);
 
-                return found.FirstOrDefault(ganre => ganre.Name == result.Name, result);
+                return found.FirstOrDefault(genre => genre.Name == result.Name, result);
             });
         }
 

@@ -138,9 +138,9 @@ namespace GameStart.CatalogService.Common
                 developer.VideoGames = null;
             }
 
-            foreach (var ganre in videoGame.Ganres)
+            foreach (var genre in videoGame.Genres)
             {
-                ganre.VideoGames = null;
+                genre.VideoGames = null;
             }
 
             foreach (var availabilities in videoGame.LanguageAvailabilities)

@@ -18,7 +18,7 @@
 
         public virtual ICollection<Developer> Developers { get; set; }
 
-        public virtual ICollection<Ganre> Ganres { get; set; }
+        public virtual ICollection<Genre> Genres { get; set; }
 
         public virtual ICollection<LanguageAvailability> LanguageAvailabilities { get; set; }
 

@@ -33,6 +33,7 @@ services:
     depends_on:
       - gamestart.gateway
       - gamestart.identityservice.api
+      - messagebus
       - redis.cache
       - elk.elasticsearch
       - catalogdb

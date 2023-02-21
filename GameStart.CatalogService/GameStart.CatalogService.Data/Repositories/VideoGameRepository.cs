@@ -51,7 +51,7 @@ namespace GameStart.CatalogService.Data.Repositories
         private IQueryable<VideoGame> GetVideoGames()
         {
             return Context.VideoGames
-                .Include(entity => entity.Ganres)
+                .Include(entity => entity.Genres)
                 .Include(entity => entity.Developers)
                 .Include(entity => entity.Publisher)
                 .Include(entity => entity.LanguageAvailabilities)

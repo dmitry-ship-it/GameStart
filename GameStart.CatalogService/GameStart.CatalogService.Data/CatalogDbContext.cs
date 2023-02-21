@@ -11,7 +11,7 @@ namespace GameStart.CatalogService.Data
 
         public DbSet<VideoGame> VideoGames { get; set; }
 
-        public DbSet<Ganre> Ganres { get; set; }
+        public DbSet<Genre> Genres { get; set; }
 
         public DbSet<Developer> Developers { get; set; }
 
