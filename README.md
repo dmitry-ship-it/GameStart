@@ -5,7 +5,7 @@
 ## Services
 
 - [x] IdentityService - IdentityServer4 using Google authentication and standard ASP Identity.
-- [x] CatalogService - CRUD API for catalog of video games.
+- [x] CatalogService - CRUD API for catalog of video games. Supports search using elasticsearch
 - [x] OrderingService - CRUD API for ordering physical versions of video games.
 
 ## Misc
@@ -15,5 +15,5 @@
 - [x] Message Bus - RabbitMQ with MassTransit
 - [x] DB Caching - Redis
 - [x] ELK ElasticSearch
-- [x] ? ELK Kibana
-- [ ] ELK Logstash
+- [x] ELK Kibana
+- [x] ELK Logstash
