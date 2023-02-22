@@ -1,7 +1,11 @@
-﻿namespace GameStart.Shared
+﻿using Microsoft.Net.Http.Headers;
+
+namespace GameStart.Shared
 {
     public static class Constants
     {
+        public static readonly string AuthCookieName = HeaderNames.Authorization;
+
         public struct IdentityService
         {
             public const int TokenLifetime = 36_000;

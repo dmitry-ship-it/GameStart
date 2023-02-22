@@ -19,6 +19,7 @@ var app = builder.Build();
 
 app.UseMiddleware<ExceptionLoggerMiddleware>();
 app.UseHttpsRedirection();
+app.UseMiddleware<CookieToHeaderWriterMiddleware>();
 app.UseAutoCreatingForDatabases(typeof(CatalogDbContext));
 app.UseAuthentication();
 app.UseAuthorization();

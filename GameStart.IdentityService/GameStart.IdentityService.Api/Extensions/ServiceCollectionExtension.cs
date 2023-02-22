@@ -41,26 +41,26 @@ namespace GameStart.IdentityService.Api.Extensions
             services.Configure<IdentityOptions>(options => options.User.RequireUniqueEmail = true);
 
             // override default AspIdentity's behavior
-            services.ConfigureApplicationCookie(o =>
+            services.ConfigureApplicationCookie(options =>
             {
-                o.Events.OnRedirectToLogin = (ctx) =>
+                options.Events.OnRedirectToLogin = async context =>
                 {
-                    if (ctx.Request.Path.StartsWithSegments("/api") && ctx.Response.StatusCode < 400)
+                    if (context.Request.Path.StartsWithSegments("/api") && context.Response.StatusCode < 400)
                     {
-                        ctx.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                        context.Response.StatusCode = StatusCodes.Status401Unauthorized;
                     }
 
-                    return Task.CompletedTask;
+                    await Task.CompletedTask;
                 };
 
-                o.Events.OnRedirectToAccessDenied = (ctx) =>
+                options.Events.OnRedirectToAccessDenied = async context =>
                 {
-                    if (ctx.Request.Path.StartsWithSegments("/api") && ctx.Response.StatusCode < 400)
+                    if (context.Request.Path.StartsWithSegments("/api") && context.Response.StatusCode < 400)
                     {
-                        ctx.Response.StatusCode = StatusCodes.Status403Forbidden;
+                        context.Response.StatusCode = StatusCodes.Status403Forbidden;
                     }
 
-                    return Task.CompletedTask;
+                    await Task.CompletedTask;
                 };
             });
         }
@@ -107,7 +107,7 @@ namespace GameStart.IdentityService.Api.Extensions
             return services;
         }
 
-        public static IServiceCollection AddManagers(this IServiceCollection services)
+        public static IServiceCollection AddManagersAndRepositories(this IServiceCollection services)
         {
             services.AddScoped<AccountManager>();
             services.AddScoped<InventoryManager>();

@@ -22,6 +22,7 @@ var app = builder.Build();
 
 app.UseMiddleware<ExceptionLoggerMiddleware>();
 app.UseHttpsRedirection();
+app.UseMiddleware<CookieToHeaderWriterMiddleware>();
 app.UseAutoCreatingForDatabases(typeof(OrdersDbContext));
 app.UseAuthentication();
 app.UseAuthorization();

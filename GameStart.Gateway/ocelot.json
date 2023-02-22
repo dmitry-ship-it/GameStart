@@ -15,6 +15,20 @@
       "DownstreamPathTemplate": "/api/account/{endpoint}",
       "DangerousAcceptAnyServerCertificateValidator": true
     },
+    //{
+    //  "UpstreamPathTemplate": "/{}",
+    //  "UpstreamHttpMethod": [ "Get", "Delete" ],
+
+    //  "DownstreamScheme": "https",
+    //  "DownstreamHostAndPorts": [
+    //    {
+    //      "Host": "gamestart.identityservice.api",
+    //      "Port": 443
+    //    }
+    //  ],
+    //  "DownstreamPathTemplate": "/signin-google",
+    //  "DangerousAcceptAnyServerCertificateValidator": true,
+    //},
     {
       "UpstreamPathTemplate": "/api/inventory",
       "UpstreamHttpMethod": [ "Get" ],

@@ -71,15 +71,18 @@ namespace GameStart.IdentityService.Common
         }
 
         public virtual AuthenticationProperties CreateAuthenticationProperties(
-            string scheme, string returnUrl, string callUrl, string callbackUrn)
+            string scheme, string returnUrl, string callbackUri, HttpContext httpContext)
         {
-            return new AuthenticationProperties
+            // override docker's service name which used as hostname
+            httpContext.Request.Host = new HostString(Environment.GetEnvironmentVariable("OUTSIDE_HOST"));
+
+            return new()
             {
-                RedirectUri = $"https://{callUrl}{callbackUrn}",
+                RedirectUri = callbackUri,
                 Items =
                 {
                     [nameof(returnUrl)] = returnUrl,
-                    [nameof(scheme)] = scheme,
+                    [nameof(scheme)] = scheme
                 }
             };
         }
@@ -109,11 +112,13 @@ namespace GameStart.IdentityService.Common
 
             await httpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
             await httpContext.SignOutAsync(IdentityServerConstants.DefaultCookieAuthenticationScheme);
+
+            httpContext.Response.Cookies.Delete(Constants.AuthCookieName);
         }
 
         /// <summary>
         ///     This method is used after external authentication (Google).
-        ///     All required claims are mapping into <c>User</c> object.
+        ///     All required claims are mapping into <see cref="User"/> object.
         ///     If user with given email does not exist then will be created new user
         ///     without password, and with email as username.
         /// </summary>
@@ -159,7 +164,14 @@ namespace GameStart.IdentityService.Common
 
             cancellationToken.ThrowIfCancellationRequested();
 
-            httpContext.Response.Headers.Add(HeaderNames.Authorization, $"Bearer {token}");
+            var cookieOptions = new CookieOptions()
+            {
+                IsEssential = true,
+                SameSite = Microsoft.AspNetCore.Http.SameSiteMode.None,
+                MaxAge = TimeSpan.FromSeconds(Constants.IdentityService.TokenLifetime)
+            };
+
+            httpContext.Response.Cookies.Append(HeaderNames.Authorization, token, cookieOptions);
         }
     }
 }

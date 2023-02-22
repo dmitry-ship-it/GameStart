@@ -14,12 +14,13 @@ builder.Services.AddControllers();
 builder.Services.AddPreconfiguredIdentityServer();
 builder.Services.AddGoogleAuthentication(builder.Configuration);
 builder.Services.AddCustomCorsPolicy();
-builder.Services.AddManagers();
+builder.Services.AddManagersAndRepositories();
 
 var app = builder.Build();
 
 app.UseMiddleware<ExceptionLoggerMiddleware>();
 app.UseHttpsRedirection();
+app.UseMiddleware<CookieToHeaderWriterMiddleware>();
 app.UseUpdateIdentityDbTables(app.Configuration);
 app.UseIdentityServer();
 app.UseAuthorization();
