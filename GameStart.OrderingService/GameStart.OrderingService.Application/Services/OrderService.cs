@@ -35,10 +35,9 @@ namespace GameStart.OrderingService.Application.Services
             validator.ValidateAndThrow(order);
 
             var dbOrder = mapper.Map<Order>(order);
-            SeedMessingData(dbOrder, claims);
+            SeedMissingData(dbOrder, claims);
 
             dbOrder.State = nameof(OrderStates.Submitted);
-            dbOrder.Id = Guid.NewGuid();
             await repository.CreateAsync(dbOrder, cancellationToken);
 
             await orderMessagePublisher.PublishMessageAsync(dbOrder, cancellationToken);
@@ -54,8 +53,9 @@ namespace GameStart.OrderingService.Application.Services
                 entity => entity.UserId == userId, cancellationToken);
         }
 
-        private static void SeedMessingData(Order order, IEnumerable<Claim> claims)
+        private static void SeedMissingData(Order order, IEnumerable<Claim> claims)
         {
+            order.Id = Guid.NewGuid();
             order.DateTime = DateTime.Now;
 
             var userId = claims.GetUserId();

@@ -41,6 +41,7 @@ namespace GameStart.IdentityService.Common.Consumers
             else
             {
                 var inventoryItems = mapper.Map<IEnumerable<InventoryItem>>(message.OrderItems)
+                    .DistinctBy(item => item.GameId)
                     .Select(item =>
                     {
                         item.User = user;
