@@ -20,19 +20,18 @@ namespace GameStart.CatalogService.Common.Elasticsearch
         {
             var result = await elasticClient.Indices.ExistsAsync(IndexName, ct: cancellationToken);
 
-            if (result.Exists)
+            if (!result.Exists)
             {
-                return;
+                await elasticClient.Indices.CreateAsync(IndexName, config =>
+                    config.Map<VideoGame>(map => map.MapVideoGameGraph()), cancellationToken);
             }
-
-            await elasticClient.Indices.CreateAsync(IndexName, config =>
-                config.Map<VideoGame>(map => map.MapVideoGameGraph()), cancellationToken);
         }
 
         public async Task DeleteByIdAsync(VideoGame entity, CancellationToken cancellationToken = default)
         {
             await CheckIndexAsync(cancellationToken);
-            await elasticClient.DeleteAsync(DocumentPath<VideoGame>.Id(entity.Id), selector => selector.Index(IndexName), cancellationToken);
+            await elasticClient.DeleteAsync(DocumentPath<VideoGame>.Id(entity.Id),
+                selector => selector.Index(IndexName), cancellationToken);
         }
 
         public async Task DeleteIndexAsync(CancellationToken cancellationToken = default)
@@ -54,7 +53,8 @@ namespace GameStart.CatalogService.Common.Elasticsearch
 
         public async Task UpdateAsync(VideoGame entity, CancellationToken cancellationToken = default)
         {
-            await elasticClient.UpdateAsync<VideoGame>(entity.Id, selector => selector.Index(IndexName).Doc(entity), cancellationToken);
+            await elasticClient.UpdateAsync<VideoGame>(entity.Id,
+                selector => selector.Index(IndexName).Doc(entity), cancellationToken);
         }
 
         public async Task<IEnumerable<VideoGame>> SearchAsync(VideoGameSearchRequest request, CancellationToken cancellationToken)
@@ -73,7 +73,7 @@ namespace GameStart.CatalogService.Common.Elasticsearch
                                 .Value(request.Title)
                                 .CaseInsensitive(true)
                             ),
-                            query => query.DateRange(daterange => daterange
+                            query => query.DateRange(dateRange => dateRange
                                 .Field(field => field.ReleaseDate)
                                 .GreaterThanOrEquals(DateMath.Anchored(request.ReleasedFrom))
                                 .LessThanOrEquals(DateMath.Anchored(request.ReleasedTo ?? DateTime.Now))

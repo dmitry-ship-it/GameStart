@@ -61,7 +61,7 @@ namespace GameStart.OrderingService.Application.Services
             var dbAddresses = await repository.GetByConditionAsync(
                 entity => entity.Id == id, cancellationToken);
 
-            if (dbAddresses?.Any() != true)
+            if (!dbAddresses.Any())
             {
                 return false;
             }

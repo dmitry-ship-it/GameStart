@@ -8,15 +8,15 @@ namespace GameStart.CatalogService.Data.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Platform> builder)
         {
-            builder.HasKey(platfrom => platfrom.Id);
+            builder.HasKey(platform => platform.Id);
 
-            builder.Property(platfrom => platfrom.Id)
+            builder.Property(platform => platform.Id)
                 .ValueGeneratedOnAdd();
 
-            builder.HasIndex(platfrom => platfrom.Name)
+            builder.HasIndex(platform => platform.Name)
                 .IsUnique(true);
 
-            builder.Property(platfrom => platfrom.Name)
+            builder.Property(platform => platform.Name)
                 .HasMaxLength(256)
                 .IsUnicode(true)
                 .IsRequired(true);

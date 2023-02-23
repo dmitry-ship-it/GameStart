@@ -127,7 +127,7 @@ namespace GameStart.CatalogService.Common
 
         /// <summary>
         ///     This method removes possible serialization cycles.
-        ///     Use it only for untracked etities.
+        ///     Use it only for untracked entities.
         /// </summary>
         private static void CutCycles(VideoGame videoGame)
         {

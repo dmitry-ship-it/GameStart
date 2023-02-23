@@ -58,7 +58,7 @@ namespace GameStart.CatalogService.Common.Mapping
 
             return systemRequirements.Select(selector =>
             {
-                var result = context.Mapper.Map<SystemRequirementsViewModel, SystemRequirements>(selector);
+                var result = context.Mapper.Map<SystemRequirements>(selector);
 
                 result.Platform = found.FirstOrDefault(platform =>
                     platform.Name == result.Platform.Name, result.Platform);
@@ -101,9 +101,12 @@ namespace GameStart.CatalogService.Common.Mapping
 
         private IEnumerable<LanguageAvailability> MapLanguages(IList<LanguageViewModel> languages, ResolutionContext context)
         {
+            var trimmed = languages.Where(language =>
+                language.AvailableForInterface || language.AvailableForSubtitles || language.AvailableForAudio);
+
             var found = repository.Languages.FindAllAsync().Result;
 
-            return languages.Select(selector =>
+            return trimmed.Select(selector =>
             {
                 var result = context.Mapper.Map<LanguageAvailability>(selector);
 

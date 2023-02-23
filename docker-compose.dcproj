@@ -12,5 +12,6 @@
     <None Include="docker-compose.yml" />
     <None Include=".dockerignore" />
     <None Include="logstash.conf" />
+    <None Include="rabbitmq.conf" />
   </ItemGroup>
 </Project>

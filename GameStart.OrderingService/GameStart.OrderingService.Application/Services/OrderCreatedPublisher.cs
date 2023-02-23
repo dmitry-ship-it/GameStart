@@ -12,7 +12,10 @@ namespace GameStart.OrderingService.Application.Services
         private readonly IMapper mapper;
         private readonly IGameKeyGeneratorService gameKeyGenerator;
 
-        public OrderCreatedPublisher(IPublishEndpoint publishEndpoint, IMapper mapper, IGameKeyGeneratorService gameKeyGenerator)
+        public OrderCreatedPublisher(
+            IPublishEndpoint publishEndpoint,
+            IMapper mapper,
+            IGameKeyGeneratorService gameKeyGenerator)
         {
             this.publishEndpoint = publishEndpoint;
             this.mapper = mapper;

@@ -9,6 +9,10 @@ namespace GameStart.OrderingService.Application.Services
         private const int BlockSize = 5;
         private const char Separator = '-';
         private const int SeparatorCount = Blocks - 1;
+        private const string charPool =
+            "abcdefghijklmnopqrstuvwxyz" +
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+            "0123456789";
 
         public string Generate()
         {
@@ -31,11 +35,6 @@ namespace GameStart.OrderingService.Application.Services
 
         private static string GetRandomString(int size)
         {
-            const string charPool =
-                "abcdefghijklmnopqrstuvwxyz" +
-                "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
-                "0123456789";
-
             var result = new char[size];
 
             for (var i = 0; i < size; i++)

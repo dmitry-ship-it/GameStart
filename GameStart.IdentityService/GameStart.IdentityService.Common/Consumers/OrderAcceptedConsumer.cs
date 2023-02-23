@@ -29,6 +29,7 @@ namespace GameStart.IdentityService.Common.Consumers
 
             var user = await userManager.FindByIdAsync(message.UserId.ToString());
 
+            // if user does not exist or already own any of order items
             if (user is null || (await inventoryRepository.FindByConditionAsync(entity => entity.User.Id == user.Id))
                 .Any(owned => message.OrderItems.Any(orderItem => orderItem.GameId == owned.GameId)))
             {

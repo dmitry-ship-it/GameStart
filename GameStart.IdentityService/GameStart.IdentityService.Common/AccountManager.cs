@@ -34,12 +34,8 @@ namespace GameStart.IdentityService.Common
             HttpContext httpContext,
             CancellationToken cancellationToken = default)
         {
-            var user = await userManager.FindByNameAsync(model.Username);
-
-            if (user is null)
-            {
-                throw new ArgumentException(Constants.IdentityService.ExceptionMessages.UserNotFound);
-            }
+            var user = await userManager.FindByNameAsync(model.Username)
+                ?? throw new ArgumentException(Constants.IdentityService.ExceptionMessages.UserNotFound);
 
             var checkResult = await signInManager.CheckPasswordSignInAsync(user, model.Password, false);
 
