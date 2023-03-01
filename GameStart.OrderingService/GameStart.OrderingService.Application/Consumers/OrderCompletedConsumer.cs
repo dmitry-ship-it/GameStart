@@ -1,6 +1,6 @@
 ﻿using GameStart.OrderingService.Core.Abstractions;
 using GameStart.Shared;
-using GameStart.Shared.MessageBus.Models;
+using GameStart.Shared.MessageBus.Models.OrderModels;
 using MassTransit;
 
 namespace GameStart.OrderingService.Application.Consumers

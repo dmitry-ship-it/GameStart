@@ -1,9 +1,12 @@
 using GameStart.IdentityService.Common;
 using GameStart.IdentityService.Common.Consumers;
+using GameStart.IdentityService.Common.Publishers;
 using GameStart.IdentityService.Data;
 using GameStart.IdentityService.Data.Models;
 using GameStart.IdentityService.Data.Repositories;
 using GameStart.Shared;
+using GameStart.Shared.MessageBus.Models.EmailModels;
+using GameStart.Shared.MessageBus;
 using IdentityModel;
 using IdentityServer4;
 using IdentityServer4.EntityFramework.DbContexts;
@@ -118,7 +121,7 @@ namespace GameStart.IdentityService.Api.Extensions
 
         public static IServiceCollection AddMassTransitEventConsuming(this IServiceCollection services)
         {
-            return services.AddMassTransit(options =>
+            services.AddMassTransit(options =>
             {
                 options.AddConsumer<OrderAcceptedConsumer>();
 
@@ -132,7 +135,13 @@ namespace GameStart.IdentityService.Api.Extensions
 
                     configurator.ConfigureEndpoints(context);
                 });
+
+                options.AddRequestClient<EmailTemplate>();
             });
+
+            services.AddScoped<IMessagePublisher<EmailTemplate>, EmailVerificationRequestPublisher>();
+
+            return services;
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace GameStart.Shared.MessageBus.Models
+﻿namespace GameStart.Shared.MessageBus.Models.OrderModels
 {
     public class OrderItem
     {

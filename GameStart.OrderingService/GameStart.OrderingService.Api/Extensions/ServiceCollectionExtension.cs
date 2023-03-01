@@ -6,7 +6,7 @@ using GameStart.OrderingService.Infrastructure;
 using GameStart.OrderingService.Infrastructure.Repositories;
 using GameStart.Shared;
 using GameStart.Shared.MessageBus;
-using GameStart.Shared.MessageBus.Models;
+using GameStart.Shared.MessageBus.Models.OrderModels;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;

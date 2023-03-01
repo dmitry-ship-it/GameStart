@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using GameStart.IdentityService.Data.Models;
 using GameStart.IdentityService.Data.Repositories;
-using GameStart.Shared.MessageBus.Models;
+using GameStart.Shared.MessageBus.Models.OrderModels;
 using MassTransit;
 using Microsoft.AspNetCore.Identity;
 

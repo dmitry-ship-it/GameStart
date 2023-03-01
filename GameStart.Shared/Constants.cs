@@ -39,6 +39,26 @@ namespace GameStart.Shared
             }
         }
 
+        public readonly struct MailingService
+        {
+            public const string ApplicationEmailAddress = "me";
+
+            public readonly struct ConnectionStrings
+            {
+                public static readonly string HangfireDb =
+                    $"mongodb://{Environment.GetEnvironmentVariable("MONGO_HANGFIRE_USERNAME")}" +
+                    $":{Environment.GetEnvironmentVariable("MONGO_HANGFIRE_PASSWORD")}" +
+                    $"@{Environment.GetEnvironmentVariable("MONGO_HANGFIRE_HOST")}" +
+                    $"/{Environment.GetEnvironmentVariable("MONGO_HANGFIRE_DATABASE")}" +
+                    "/?authSource=admin";
+            }
+
+            public readonly struct ConfigurationFiles
+            {
+                public const string EmailSettingsFileName = "mailsettings.json";
+            }
+        }
+
         public struct CatalogService
         {
             public readonly struct ConnectionStrings

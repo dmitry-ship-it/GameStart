@@ -2,6 +2,8 @@
 using GameStart.IdentityService.Common.ViewModels;
 using GameStart.IdentityService.Data.Models;
 using GameStart.Shared;
+using GameStart.Shared.MessageBus;
+using GameStart.Shared.MessageBus.Models.EmailModels;
 using IdentityServer4;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
@@ -14,16 +16,19 @@ namespace GameStart.IdentityService.Common
     public class AccountManager
     {
         private readonly IMapper mapper;
+        private readonly IMessagePublisher<EmailTemplate> emailVerificationRequestPublisher;
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
         private readonly IdentityServerTools tools;
 
         public AccountManager(IMapper mapper,
+            IMessagePublisher<EmailTemplate> emailVerificationRequestPublisher,
             UserManager<User> userManager,
             SignInManager<User> signInManager,
             IdentityServerTools tools)
         {
             this.mapper = mapper;
+            this.emailVerificationRequestPublisher = emailVerificationRequestPublisher;
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.tools = tools;
@@ -52,6 +57,7 @@ namespace GameStart.IdentityService.Common
 
         public virtual async Task RegisterAsync(
             RegisterViewModel model,
+            HttpContext httpContext,
             CancellationToken cancellationToken = default)
         {
             var user = new User
@@ -64,6 +70,47 @@ namespace GameStart.IdentityService.Common
 
             await userManager.CreateAsync(user, model.Password);
             await userManager.AddToRoleAsync(user, nameof(Roles.User));
+
+            await LoginAsync(new()
+            {
+                Username = model.Username,
+                Password = model.Password
+            }, httpContext, cancellationToken);
+        }
+
+        public virtual async Task SendEmailVerificationRequestAsync(
+            ClaimsPrincipal principal,
+            string confirmLinkPart,
+            CancellationToken cancellationToken = default)
+        {
+            var user = await userManager.FindByNameAsync(principal.Identity?.Name)
+                ?? throw new ArgumentNullException(nameof(principal));
+
+            cancellationToken.ThrowIfCancellationRequested();
+
+            var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
+            var link = $"{Uri.UriSchemeHttps}://{Environment.GetEnvironmentVariable("OUTSIDE_HOST")}{confirmLinkPart}?token={token}";
+
+            await emailVerificationRequestPublisher.PublishMessageAsync(new()
+            {
+                To = user.Email,
+                Subject = "Email verification",
+                Body = link
+            }, cancellationToken);
+        }
+
+        public virtual async Task<bool> VerifyEmailAsync(
+            string token,
+            ClaimsPrincipal principal,
+            CancellationToken cancellationToken = default)
+        {
+            var user = await userManager.FindByNameAsync(principal.Identity.Name);
+
+            cancellationToken.ThrowIfCancellationRequested();
+
+            var result = await userManager.ConfirmEmailAsync(user, token.Replace(' ', '+'));
+
+            return result.Succeeded;
         }
 
         public virtual AuthenticationProperties CreateAuthenticationProperties(

@@ -1,0 +1,15 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "gamestart.catalogservice.api": "StartDebugging",
+        "gamestart.gateway": "StartDebugging",
+        "gamestart.identityservice.api": "StartDebugging",
+        "gamestart.mailingservice.api": "StartDebugging",
+        "gamestart.orderingservice.api": "StartDebugging"
+      }
+    }
+  }
+}

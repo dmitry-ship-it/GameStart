@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using GameStart.OrderingService.Core.Entities;
-using GameStart.Shared.MessageBus.Models;
+using GameStart.Shared.MessageBus.Models.OrderModels;
 
 namespace GameStart.OrderingService.Application.Mapping
 {

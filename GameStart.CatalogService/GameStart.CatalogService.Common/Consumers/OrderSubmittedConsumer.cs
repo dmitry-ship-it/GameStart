@@ -1,5 +1,5 @@
 ﻿using GameStart.CatalogService.Data.Repositories;
-using GameStart.Shared.MessageBus.Models;
+using GameStart.Shared.MessageBus.Models.OrderModels;
 using MassTransit;
 
 namespace GameStart.CatalogService.Common.Consumers

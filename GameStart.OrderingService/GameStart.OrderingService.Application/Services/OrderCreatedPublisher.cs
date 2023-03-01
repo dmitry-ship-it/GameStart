@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using GameStart.OrderingService.Core.Entities;
 using GameStart.Shared.MessageBus;
-using GameStart.Shared.MessageBus.Models;
+using GameStart.Shared.MessageBus.Models.OrderModels;
 using MassTransit;
 
 namespace GameStart.OrderingService.Application.Services

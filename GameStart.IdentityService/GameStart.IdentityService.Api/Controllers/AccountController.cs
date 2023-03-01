@@ -28,9 +28,27 @@ namespace GameStart.IdentityService.Api.Controllers
         public async Task<IActionResult> RegisterAsync([FromBody] RegisterViewModel registerViewModel,
             CancellationToken cancellationToken = default)
         {
-            await accountManager.RegisterAsync(registerViewModel, cancellationToken);
+            await accountManager.RegisterAsync(registerViewModel, HttpContext, cancellationToken);
 
             return Ok();
+        }
+
+        [HttpGet("send-verification-email")]
+        public async Task<IActionResult> SendVerificationEmailAsync(CancellationToken cancellationToken = default)
+        {
+            var confirmationActionUri = Url.Action("verifyEmail");
+            await accountManager.SendEmailVerificationRequestAsync(
+                HttpContext.User, confirmationActionUri, cancellationToken);
+
+            return Accepted();
+        }
+
+        [HttpGet("verifyEmail")]
+        public async Task<IActionResult> VerifyEmailAsync([FromQuery] string token, CancellationToken cancellationToken = default)
+        {
+            var isSuccess = await accountManager.VerifyEmailAsync(token, HttpContext.User, cancellationToken);
+
+            return isSuccess ? Ok() : BadRequest();
         }
 
         [HttpGet("challenge")]

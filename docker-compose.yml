@@ -136,6 +136,46 @@ services:
       retries: 10
       start_period: 10s
 
+  # Mailing service
+  gamestart.mailingservice.api:
+    container_name: mailing-service
+    image: ${DOCKER_REGISTRY-}mailingservice
+    build:
+      context: .
+      dockerfile: GameStart.MailingService/GameStart.MailingService.Api/Dockerfile
+    networks:
+      - backend
+    ports:
+      - 6005:443
+      - 6006:80
+    depends_on:
+      - gamestart.identityservice.api
+      - gamestart.gateway
+      - messagebus
+      - hangfire-mongo
+    environment: 
+      - MONGO_HANGFIRE_HOST=hangfire-mongo:27017
+      - MONGO_HANGFIRE_USERNAME=root
+      - MONGO_HANGFIRE_PASSWORD=LxD43h4MbczRU
+      - MONGO_HANGFIRE_DATABASE=hangfire
+  hangfire-mongo:
+    container_name: hangfire-mongo-db
+    image: mongo
+    networks:
+      - backend
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=LxD43h4MbczRU
+      - MONGO_INITDB_DATABASE=hangfire
+    healthcheck:
+      test: echo 'db.runCommand({serverStatus:1}).ok' | mongo admin -u root -p LxD43h4MbczRU --quiet | grep 1
+      interval: 10s
+      timeout: 10s
+      retries: 10
+      start_period: 10s
+
   # Message Bus
   messagebus:
     container_name: messagebus

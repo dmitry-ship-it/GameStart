@@ -364,3 +364,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/GameStart.MailingService/GameStart.MailingService.Api/linen-arch-375708-f14c45d247dd.json
+/GameStart.MailingService/GameStart.MailingService.Api/google-service-account.json
+/GameStart.MailingService/GameStart.MailingService.Api/mailsettings.json
