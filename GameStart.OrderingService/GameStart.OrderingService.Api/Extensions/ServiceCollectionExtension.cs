@@ -5,6 +5,7 @@ using GameStart.OrderingService.Core.Entities;
 using GameStart.OrderingService.Infrastructure;
 using GameStart.OrderingService.Infrastructure.Repositories;
 using GameStart.Shared;
+using GameStart.Shared.Filters;
 using GameStart.Shared.MessageBus;
 using GameStart.Shared.MessageBus.Models.OrderModels;
 using MassTransit;
@@ -31,9 +32,9 @@ namespace GameStart.OrderingService.Api.Extensions
             return services;
         }
 
-        public static IServiceCollection AddControllersWithJsonConfiguration(this IServiceCollection services)
+        public static IServiceCollection AddControllersWithJsonConfigurationAndFilters(this IServiceCollection services)
         {
-            services.AddControllers()
+            services.AddControllers(config => config.Filters.Add<EmailVerifiedActionFilter>())
                 .AddJsonOptions(options =>
                     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 

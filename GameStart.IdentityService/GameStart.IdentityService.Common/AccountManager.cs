@@ -50,9 +50,7 @@ namespace GameStart.IdentityService.Common
             }
 
             await signInManager.SignInAsync(user, true);
-
-            httpContext.User = await signInManager.ClaimsFactory.CreateAsync(user);
-            await GenerateJwtAsync(httpContext, cancellationToken);
+            await GenerateJwtAsync(user, httpContext, cancellationToken);
         }
 
         public virtual async Task RegisterAsync(
@@ -101,16 +99,30 @@ namespace GameStart.IdentityService.Common
 
         public virtual async Task<bool> VerifyEmailAsync(
             string token,
-            ClaimsPrincipal principal,
+            HttpContext httpContext,
             CancellationToken cancellationToken = default)
         {
-            var user = await userManager.FindByNameAsync(principal.Identity.Name);
+            var username = httpContext.User?.Identity?.Name;
+
+            if (username is null)
+            {
+                return false;
+            }
+
+            var user = await userManager.FindByNameAsync(username);
 
             cancellationToken.ThrowIfCancellationRequested();
 
             var result = await userManager.ConfirmEmailAsync(user, token.Replace(' ', '+'));
 
-            return result.Succeeded;
+            if (!result.Succeeded)
+            {
+                return false;
+            }
+
+            await GenerateJwtAsync(user, httpContext, cancellationToken);
+
+            return true;
         }
 
         public virtual AuthenticationProperties CreateAuthenticationProperties(
@@ -191,19 +203,19 @@ namespace GameStart.IdentityService.Common
             await httpContext.SignOutAsync(IdentityServerConstants.ExternalCookieAuthenticationScheme);
 
             await signInManager.SignInAsync(user, true);
-
-            httpContext.User = await signInManager.ClaimsFactory.CreateAsync(user);
-            await GenerateJwtAsync(httpContext, cancellationToken);
+            await GenerateJwtAsync(user, httpContext, cancellationToken);
         }
 
         /// <summary>
         ///     Generate JSON Web Token from identity which stored inside cookies,
         ///     and write it to Authorization header of the response.
         /// </summary>
-        public async Task GenerateJwtAsync(HttpContext httpContext,
+        public async Task GenerateJwtAsync(User user,
+            HttpContext httpContext,
             CancellationToken cancellationToken = default)
         {
-            var token = await tools.IssueJwtAsync(Constants.IdentityService.TokenLifetime, httpContext.User.Claims);
+            httpContext.User = await signInManager.ClaimsFactory.CreateAsync(user);
+            var token = await tools.IssueJwtAsync(Constants.IdentityService.TokenLifetimeSeconds, httpContext.User.Claims);
 
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -211,7 +223,7 @@ namespace GameStart.IdentityService.Common
             {
                 IsEssential = true,
                 SameSite = Microsoft.AspNetCore.Http.SameSiteMode.None,
-                MaxAge = TimeSpan.FromSeconds(Constants.IdentityService.TokenLifetime)
+                MaxAge = TimeSpan.FromSeconds(Constants.IdentityService.TokenLifetimeSeconds)
             };
 
             httpContext.Response.Cookies.Append(HeaderNames.Authorization, token, cookieOptions);

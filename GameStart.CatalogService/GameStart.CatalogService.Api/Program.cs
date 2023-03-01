@@ -13,7 +13,7 @@ builder.Services.AddModelsMapper();
 builder.Services.AddPreconfiguredJwtAuthentication();
 builder.Services.AddMassTransitEventConsuming();
 builder.Services.AddElasticsearch();
-builder.Services.AddControllersWithJsonConfiguration();
+builder.Services.AddControllersWithJsonConfigurationAndFilters();
 
 var app = builder.Build();
 

@@ -10,6 +10,7 @@ using GameStart.CatalogService.Data.EntityConfigurations.ValueConverters;
 using GameStart.CatalogService.Data.Models;
 using GameStart.CatalogService.Data.Repositories;
 using GameStart.Shared;
+using GameStart.Shared.Filters;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -57,9 +58,9 @@ namespace GameStart.CatalogService.Api.Extensions
             return services.AddAuthorization();
         }
 
-        public static IServiceCollection AddControllersWithJsonConfiguration(this IServiceCollection services)
+        public static IServiceCollection AddControllersWithJsonConfigurationAndFilters(this IServiceCollection services)
         {
-            services.AddControllers()
+            services.AddControllers(config => config.Filters.Add<EmailVerifiedActionFilter>())
                 .AddJsonOptions(options =>
                 {
                     options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());

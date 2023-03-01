@@ -5,8 +5,9 @@ using GameStart.IdentityService.Data;
 using GameStart.IdentityService.Data.Models;
 using GameStart.IdentityService.Data.Repositories;
 using GameStart.Shared;
-using GameStart.Shared.MessageBus.Models.EmailModels;
+using GameStart.Shared.Filters;
 using GameStart.Shared.MessageBus;
+using GameStart.Shared.MessageBus.Models.EmailModels;
 using IdentityModel;
 using IdentityServer4;
 using IdentityServer4.EntityFramework.DbContexts;
@@ -93,6 +94,13 @@ namespace GameStart.IdentityService.Api.Extensions
             return services;
         }
 
+        public static IServiceCollection AddControllersWithFilters(this IServiceCollection services)
+        {
+            services.AddControllers(config => config.Filters.Add<EmailVerifiedActionFilter>());
+
+            return services;
+        }
+
         public static IServiceCollection AddGoogleAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
@@ -107,7 +115,7 @@ namespace GameStart.IdentityService.Api.Extensions
                     options.ClientSecret = configuration["Authentication:Google:ClientSecret"];
                 });
 
-            return services;
+            return services.AddAuthorization();
         }
 
         public static IServiceCollection AddManagersAndRepositories(this IServiceCollection services)

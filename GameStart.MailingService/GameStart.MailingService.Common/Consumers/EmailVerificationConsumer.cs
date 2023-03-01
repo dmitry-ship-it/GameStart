@@ -7,8 +7,8 @@ namespace GameStart.MailingService.Common.Consumers
 {
     public class EmailVerificationConsumer : IConsumer<EmailTemplate>
     {
-        private readonly IEmailService emailService;
         private readonly IBackgroundJobClient backgroundJob;
+        private readonly IEmailService emailService;
 
         public EmailVerificationConsumer(
             IBackgroundJobClient backgroundJob,

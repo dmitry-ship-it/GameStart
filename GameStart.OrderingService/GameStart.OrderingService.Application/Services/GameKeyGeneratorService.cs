@@ -9,6 +9,7 @@ namespace GameStart.OrderingService.Application.Services
         private const int BlockSize = 5;
         private const char Separator = '-';
         private const int SeparatorCount = Blocks - 1;
+
         private const string charPool =
             "abcdefghijklmnopqrstuvwxyz" +
             "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +

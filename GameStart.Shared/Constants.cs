@@ -6,9 +6,14 @@ namespace GameStart.Shared
     {
         public static readonly string AuthCookieName = HeaderNames.Authorization;
 
+        public readonly struct Messages
+        {
+            public const string VerifiedEmailIsRequired = "Verified email is required";
+        }
+
         public struct IdentityService
         {
-            public const int TokenLifetime = 36_000;
+            public const int TokenLifetimeSeconds = 36_000;
 
             public readonly struct ConnectionStrings
             {

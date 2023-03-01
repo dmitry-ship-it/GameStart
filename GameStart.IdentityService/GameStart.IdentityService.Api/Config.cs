@@ -33,7 +33,7 @@ namespace GameStart.IdentityService.Api
                     RedirectUris = { "https://localhost:7116/" },
                     AllowAccessTokensViaBrowser = true,
                     AllowOfflineAccess = true,
-                    AccessTokenLifetime = Constants.IdentityService.TokenLifetime
+                    AccessTokenLifetime = Constants.IdentityService.TokenLifetimeSeconds
                 }
             };
 

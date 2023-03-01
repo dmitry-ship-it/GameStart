@@ -16,7 +16,7 @@ namespace GameStart.Shared.Middlewares
         {
             var cookie = Constants.AuthCookieName;
 
-            if (!context.Request.Headers.ContainsKey(cookie) && context.Request.Cookies.ContainsKey(cookie))
+            if (context.Request.Cookies.ContainsKey(cookie))
             {
                 context.Request.Headers[HeaderNames.Authorization] = $"Bearer {context.Request.Cookies[cookie]}";
             }

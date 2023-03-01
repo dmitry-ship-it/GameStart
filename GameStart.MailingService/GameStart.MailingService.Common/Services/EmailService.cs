@@ -1,9 +1,9 @@
 ﻿using GameStart.MailingService.Common.Settings;
-using Microsoft.Extensions.Options;
-using MimeKit;
+using GameStart.Shared.MessageBus.Models.EmailModels;
 using MailKit.Net.Smtp;
 using MailKit.Security;
-using GameStart.Shared.MessageBus.Models.EmailModels;
+using Microsoft.Extensions.Options;
+using MimeKit;
 
 namespace GameStart.MailingService.Common.Services
 {
@@ -16,7 +16,7 @@ namespace GameStart.MailingService.Common.Services
             this.settings = settings.Value;
         }
 
-        public async Task<bool> SendMailAsync(EmailTemplate data, CancellationToken cancellationToken = default)
+        public async Task SendMailAsync(EmailTemplate data, CancellationToken cancellationToken = default)
         {
             using var smtp = new SmtpClient();
 
@@ -29,8 +29,6 @@ namespace GameStart.MailingService.Common.Services
             await smtp.AuthenticateAsync(settings.UserName, settings.Password, cancellationToken);
             await smtp.SendAsync(CreateMessageFromTemplate(data), cancellationToken);
             await smtp.DisconnectAsync(true, cancellationToken);
-
-            return true;
         }
 
         private MimeMessage CreateMessageFromTemplate(EmailTemplate data)

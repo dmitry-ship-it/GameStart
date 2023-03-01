@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GameStart.IdentityService.Api.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class AccountController : ControllerBase
     {
         private readonly AccountManager accountManager;
@@ -46,7 +46,7 @@ namespace GameStart.IdentityService.Api.Controllers
         [HttpGet("verifyEmail")]
         public async Task<IActionResult> VerifyEmailAsync([FromQuery] string token, CancellationToken cancellationToken = default)
         {
-            var isSuccess = await accountManager.VerifyEmailAsync(token, HttpContext.User, cancellationToken);
+            var isSuccess = await accountManager.VerifyEmailAsync(token, HttpContext, cancellationToken);
 
             return isSuccess ? Ok() : BadRequest();
         }
