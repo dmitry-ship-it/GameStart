@@ -37,9 +37,11 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GameStart.MailingService", "GameStart.MailingService", "{2A501125-27D0-49FF-A1BC-15FC55020CFB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStart.MailingService.Api", "GameStart.MailingService\GameStart.MailingService.Api\GameStart.MailingService.Api.csproj", "{1678982A-A2A3-4C77-9739-9AC895FA629A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStart.MailingService.Api", "GameStart.MailingService\GameStart.MailingService.Api\GameStart.MailingService.Api.csproj", "{1678982A-A2A3-4C77-9739-9AC895FA629A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStart.MailingService.Common", "GameStart.MailingService\GameStart.MailingService.Common\GameStart.MailingService.Common.csproj", "{25F63EB9-AE1B-4495-B47C-F1D7E68C829A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStart.MailingService.Common", "GameStart.MailingService\GameStart.MailingService.Common\GameStart.MailingService.Common.csproj", "{25F63EB9-AE1B-4495-B47C-F1D7E68C829A}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "gamestart.web", "GameStart.Web\gamestart.web.esproj", "{4F450433-C7C1-4F76-9BC7-F3A7F2038B63}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -107,6 +109,12 @@ Global
 		{25F63EB9-AE1B-4495-B47C-F1D7E68C829A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{25F63EB9-AE1B-4495-B47C-F1D7E68C829A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{25F63EB9-AE1B-4495-B47C-F1D7E68C829A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F450433-C7C1-4F76-9BC7-F3A7F2038B63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F450433-C7C1-4F76-9BC7-F3A7F2038B63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F450433-C7C1-4F76-9BC7-F3A7F2038B63}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{4F450433-C7C1-4F76-9BC7-F3A7F2038B63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F450433-C7C1-4F76-9BC7-F3A7F2038B63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F450433-C7C1-4F76-9BC7-F3A7F2038B63}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
