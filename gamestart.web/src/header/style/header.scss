@@ -1,0 +1,51 @@
+.title {
+  font-weight: bold;
+  font-size: 32px;
+  color: white;
+  margin: 20px;
+}
+
+.navbar {
+  position: sticky;
+  overflow: hidden;
+  background-color: #171a21;
+  text-align: left;
+  min-width: 100vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.account-button {
+  width: 160px;
+  margin: 20px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 20px;
+  text-align: center;
+  display: flex;
+  place-items: center;
+  justify-content: center;
+  color: black;
+  border: 0px;
+  padding: 10px;
+  text-decoration: none;
+}
+
+.login-button {
+  @extend .account-button;
+  margin: 20px 20px 20px 10px;
+  background-color: #00ff19;
+}
+
+.register-button {
+  @extend .account-button;
+  margin: 20px 10px 20px 20px;
+  background-color: white;
+}
+
+.account-buttons-box {
+  display: flex;
+  justify-items: center;
+  flex-direction: row;
+}
