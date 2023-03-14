@@ -10,13 +10,14 @@
   justify-self: start;
   justify-items: center;
   flex-direction: column;
-  width: fit-content;
-  height: 81vh;
+  min-height: 81vh;
+  max-height: fit-content;
+  width: 350px;
   padding: 15px;
 }
 
 .search-sidebar-item {
-  border-radius: 100px;
+  border-radius: 12px;
   height: fit-content;
   text-align: center;
   display: flex;
@@ -76,6 +77,10 @@ input:focus-visible {
 .list-picker-container {
   place-items: center;
   font-size: initial;
+  max-width: fit-content;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .list-item {
@@ -83,8 +88,9 @@ input:focus-visible {
   border-radius: 2px;
   font-size: 15px;
   color: #8d8d8d;
-  margin-right: 8px;
+  margin: 3px;
   padding-left: 3px;
+  white-space: nowrap;
 }
 
 .list-item-button {
@@ -105,12 +111,15 @@ input:focus-visible {
 .popup-content {
   min-width: 150px;
   min-height: 100px;
+  max-height: 20%;
   border-radius: 10px;
   margin: 0px;
-  box-shadow: 0 0px 5px 0px rgba(0, 0, 0, 0.699);
+  box-shadow: 0 0px 5px 0px rgba(0, 0, 0, 0.7);
   display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
   place-items: center;
-  justify-content: center;
+  justify-content: space-between;
   background-color: white;
 }
 
@@ -119,4 +128,76 @@ input:focus-visible {
   padding-right: 3px;
   margin: 10px 10px 10px 10px;
   border: 0px;
+}
+
+.search-list {
+  width: 100%;
+  min-height: 81vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: top;
+  place-items: center;
+}
+
+.search-item {
+  background-color: #b7b7b7;
+  height: fit-content;
+  width: max-content;
+  min-width: 700px;
+  place-self: top;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  place-items: center;
+  margin-top: 30px;
+  border-radius: 10px;
+}
+
+.search-item-image {
+  width: 150px;
+  height: 54px;
+  margin: 10px;
+  border-radius: 10px;
+}
+
+.search-item-title {
+  place-self: start;
+  margin-left: 10px;
+  font-weight: 700;
+  font-size: 20px;
+  overflow-x: hidden;
+  white-space: nowrap;
+}
+
+.search-item-platforms {
+  display: flex;
+  width: fit-content;
+  height: fit-content;
+  flex-direction: row;
+  margin-left: 10px;
+}
+
+.search-item-platform {
+  height: 40px;
+  width: 40px;
+}
+
+.search-item-middle {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  width: max-content;
+  height: auto;
+  justify-self: flex-start;
+  justify-content: space-around;
+}
+
+.search-item-price {
+  margin: 20px;
+  font-size: 20px;
+}
+
+.search-item-left-group {
+  display: flex;
+  flex-direction: row;
 }

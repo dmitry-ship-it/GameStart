@@ -49,8 +49,15 @@ namespace GameStart.CatalogService.Common
             return found;
         }
 
-        public async Task<IEnumerable<VideoGame>> GetAllAsync(CancellationToken cancellationToken = default)
+        // TODO: Refactor to use page select behavior
+        public async Task<IEnumerable<VideoGame>> GetByPageAsync(int page, int pageSize, CancellationToken cancellationToken = default)
         {
+            if (page < 1 || pageSize < 1)
+            {
+                // TODO: Move to constants
+                throw new ArgumentOutOfRangeException("Invalid page number or size");
+            }
+
             var cached = await cache.GetAsync<IEnumerable<VideoGame>>(AllVideoGamesCacheKey, cancellationToken);
 
             if (cached is not null)
@@ -76,6 +83,7 @@ namespace GameStart.CatalogService.Common
             await cache.DeleteAsync(AllVideoGamesCacheKey, cancellationToken);
 
             CutCycles(videoGame);
+
             await elasticsearch.InsertAsync(videoGame, cancellationToken);
             await cache.SetAsync(videoGame.Id.ToString(), videoGame, cancellationToken);
         }
@@ -123,6 +131,26 @@ namespace GameStart.CatalogService.Common
             CancellationToken cancellationToken = default)
         {
             return await elasticsearch.SearchAsync(request, cancellationToken);
+        }
+
+        public async Task<IEnumerable<Developer>> GetDevelopersAsync(CancellationToken cancellationToken = default)
+        {
+            return await repository.Developers.FindAllAsync(false, cancellationToken);
+        }
+
+        public async Task<IEnumerable<Genre>> GetGenresAsync(CancellationToken cancellationToken = default)
+        {
+            return await repository.Genres.FindAllAsync(false, cancellationToken);
+        }
+
+        public async Task<IEnumerable<Language>> GetLanguagesAsync(CancellationToken cancellationToken = default)
+        {
+            return await repository.Languages.FindAllAsync(false, cancellationToken);
+        }
+
+        public async Task<IEnumerable<Platform>> GetPlatformsAsync(CancellationToken cancellationToken = default)
+        {
+            return await repository.Platforms.FindAllAsync(false, cancellationToken);
         }
 
         /// <summary>

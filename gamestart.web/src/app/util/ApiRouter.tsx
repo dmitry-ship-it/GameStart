@@ -1,25 +1,35 @@
 import axios, { AxiosRequestConfig } from "axios";
 
 export default class ApiRouter {
-  private static readonly baseUrl = "https://localhost:6001/api/";
+  private baseUrl = "https://localhost:6001/api";
 
-  public static async get<T>(relativeRoute: string) {
-    return await this.axiosBodyCall<T>(this.baseUrl + relativeRoute, null, "GET");
+  public static account = new ApiRouter("account");
+  public static inventory = new ApiRouter("inventory");
+  public static catalog = new ApiRouter("catalog");
+  public static order = new ApiRouter("order");
+  public static address = new ApiRouter("address");
+
+  private constructor(urlPart: string | null = null) {
+    if (urlPart !== null) this.baseUrl += "/" + urlPart;
   }
 
-  public static async post<T>(relativeRoute: string, body: T) {
-    return await this.axiosBodyCall(this.baseUrl + relativeRoute, body, "POST");
+  public async get<T>(relativeRoute: string, addSlash: boolean = true) {
+    return await this.axiosBodyCall<T>(this.baseUrl + (addSlash ? "/" : "") + relativeRoute, null, "GET");
   }
 
-  public static async put<T>(relativeRoute: string, body: T) {
-    return await this.axiosBodyCall(this.baseUrl + relativeRoute, body, "PUT");
+  public async post<T>(relativeRoute: string, body: T, addSlash: boolean = true) {
+    return await this.axiosBodyCall(this.baseUrl + (addSlash ? "/" : "") + relativeRoute, body, "POST");
   }
 
-  public static async delete(relativeRoute: string) {
-    return await this.axiosBodyCall(this.baseUrl + relativeRoute, null, "DELETE");
+  public async put<T>(relativeRoute: string, body: T, addSlash: boolean = true) {
+    return await this.axiosBodyCall(this.baseUrl + (addSlash ? "/" : "") + relativeRoute, body, "PUT");
   }
 
-  private static async axiosBodyCall<T>(fullPath: string, data: T | null, method: string) {
+  public async delete(relativeRoute: string, addSlash: boolean = true) {
+    return await this.axiosBodyCall(this.baseUrl + (addSlash ? "/" : "") + relativeRoute, null, "DELETE");
+  }
+
+  private async axiosBodyCall<T>(fullPath: string, data: T | null, method: string) {
     const config: AxiosRequestConfig = {
       method: method,
       headers: {

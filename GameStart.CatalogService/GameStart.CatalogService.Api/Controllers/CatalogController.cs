@@ -18,10 +18,10 @@ namespace GameStart.CatalogService.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllAsync(
+        public async Task<IActionResult> GetAllAsync([FromQuery] int page, [FromQuery] int pageSize,
             CancellationToken cancellationToken = default)
         {
-            return Ok(await manager.GetAllAsync(cancellationToken));
+            return Ok(await manager.GetByPageAsync(page, pageSize, cancellationToken));
         }
 
         [HttpGet("{id:Guid}")]
@@ -69,6 +69,30 @@ namespace GameStart.CatalogService.Api.Controllers
             CancellationToken cancellationToken = default)
         {
             return Ok(await manager.SearchAsync(request, cancellationToken));
+        }
+
+        [HttpGet("developers")]
+        public async Task<IActionResult> GetDevelopersAsync(CancellationToken cancellationToken = default)
+        {
+            return Ok(await manager.GetDevelopersAsync(cancellationToken));
+        }
+
+        [HttpGet("genres")]
+        public async Task<IActionResult> GetGenresAsync(CancellationToken cancellationToken = default)
+        {
+            return Ok(await manager.GetGenresAsync(cancellationToken));
+        }
+
+        [HttpGet("languages")]
+        public async Task<IActionResult> GetLanguagesAsync(CancellationToken cancellationToken = default)
+        {
+            return Ok(await manager.GetLanguagesAsync(cancellationToken));
+        }
+
+        [HttpGet("platforms")]
+        public async Task<IActionResult> GetPlatformsAsync(CancellationToken cancellationToken = default)
+        {
+            return Ok(await manager.GetPlatformsAsync(cancellationToken));
         }
     }
 }
