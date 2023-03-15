@@ -5,6 +5,7 @@ using GameStart.CatalogService.Common.Elasticsearch.Search;
 using GameStart.CatalogService.Common.ViewModels;
 using GameStart.CatalogService.Data.Models;
 using GameStart.CatalogService.Data.Repositories;
+using GameStart.Shared;
 
 namespace GameStart.CatalogService.Common
 {
@@ -50,12 +51,12 @@ namespace GameStart.CatalogService.Common
         }
 
         // TODO: Refactor to use page select behavior
-        public async Task<IEnumerable<VideoGame>> GetByPageAsync(int page, int pageSize, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<VideoGame>> GetByPageAsync(int page, CancellationToken cancellationToken = default)
         {
-            if (page < 1 || pageSize < 1)
+            if (page < 1)
             {
-                // TODO: Move to constants
-                throw new ArgumentOutOfRangeException("Invalid page number or size");
+                throw new ArgumentOutOfRangeException(nameof(page),
+                    Constants.CatalogService.ExceptionMessages.InvalidPageOrItsSize);
             }
 
             var cached = await cache.GetAsync<IEnumerable<VideoGame>>(AllVideoGamesCacheKey, cancellationToken);

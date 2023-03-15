@@ -54,3 +54,8 @@ export interface VideoGameSearchParams {
   languages: string[] | null;
   platforms: string[] | null;
 }
+
+export interface LoginModel {
+  username: string;
+  password: string;
+}

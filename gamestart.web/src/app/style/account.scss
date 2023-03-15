@@ -1,0 +1,109 @@
+.account-page {
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+}
+
+.account-page-group {
+  display: flex;
+  place-items: center;
+  flex-direction: column;
+  width: fit-content;
+}
+
+.account-box {
+  box-shadow: 0 0px 5px 0px rgba(0, 0, 0, 0.7);
+  width: max-content;
+  display: flex;
+  flex-direction: column;
+  font-size: 20px;
+  border-radius: 12px;
+}
+
+.account-form {
+  @extend .account-box;
+  padding: 30px;
+}
+
+.account-label {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.account-label-text {
+  margin-right: 10px;
+}
+
+.account-input {
+  font-size: 20px;
+  border: 1px solid;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 0 3px grey;
+}
+
+.account-form-button {
+  font-size: 16px;
+  width: fit-content;
+  place-self: center;
+  padding: 4px 10px 4px 10px;
+  background-color: lime;
+  border: 1px solid black;
+  border-radius: 8px;
+}
+
+.account-form-button:hover {
+  cursor: pointer;
+}
+
+.account-form-error {
+  font-size: 18px;
+  color: red;
+  margin-top: 5px;
+}
+
+.account-register-box {
+  @extend .account-box;
+  padding: 10px 15px 10px 15px;
+  flex-direction: row;
+  margin-top: 20px;
+  font-size: initial;
+}
+
+.account-register-text {
+  margin-right: 4px;
+}
+
+.account-external {
+  @extend .account-box;
+  margin-top: 20px;
+  place-items: center;
+  justify-content: start;
+  flex-direction: row;
+  width: 100%;
+  font-size: initial;
+}
+
+.account-external-button {
+  display: flex;
+  place-items: center;
+  background: transparent;
+  border: 0px;
+}
+
+.account-external-button:hover {
+  cursor: pointer;
+}
+
+.account-external-picture {
+  width: 40px;
+  height: 40px;
+  justify-self: center;
+}
+
+.account-external-text {
+  margin-left: 15px;
+  margin-right: 10px;
+}

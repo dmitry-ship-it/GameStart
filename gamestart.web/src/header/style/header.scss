@@ -5,6 +5,10 @@
   margin: 20px;
 }
 
+.title-link {
+  text-decoration: none;
+}
+
 .navbar {
   position: sticky;
   overflow: hidden;
@@ -41,6 +45,11 @@
 .register-button {
   @extend .account-button;
   margin: 20px 10px 20px 20px;
+  background-color: white;
+}
+
+.logout-button {
+  @extend .account-button;
   background-color: white;
 }
 

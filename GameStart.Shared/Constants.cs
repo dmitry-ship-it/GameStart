@@ -74,6 +74,11 @@ namespace GameStart.Shared
                     $"Username={Environment.GetEnvironmentVariable("CATALOG_DB_USERNAME")};" +
                     $"Password={Environment.GetEnvironmentVariable("CATALOG_DB_PASSWORD")}";
             }
+
+            public readonly struct ExceptionMessages
+            {
+                public const string InvalidPageOrItsSize = "Invalid page number or size";
+            }
         }
 
         public struct OrderingService

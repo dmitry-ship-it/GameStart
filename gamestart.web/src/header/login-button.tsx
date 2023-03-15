@@ -1,9 +1,10 @@
+import { NavLink } from "react-router-dom";
 import "./style/header.scss";
 
 export default function LoginButton() {
   return (
-    <a href="login" className="login-button">
+    <NavLink to="/login" className="login-button">
       Login
-    </a>
+    </NavLink>
   );
 }

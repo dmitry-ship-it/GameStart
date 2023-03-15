@@ -222,6 +222,9 @@ namespace GameStart.IdentityService.Common
             var cookieOptions = new CookieOptions()
             {
                 IsEssential = true,
+                HttpOnly = false,
+                Path = "/",
+                Secure = true,
                 SameSite = Microsoft.AspNetCore.Http.SameSiteMode.None,
                 MaxAge = TimeSpan.FromSeconds(Constants.IdentityService.TokenLifetimeSeconds)
             };

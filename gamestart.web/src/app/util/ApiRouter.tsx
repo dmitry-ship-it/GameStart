@@ -35,6 +35,7 @@ export default class ApiRouter {
       headers: {
         Accept: "application/json; charset=utf-8",
       },
+      withCredentials: true,
     };
 
     if (data !== null) config.data = data;

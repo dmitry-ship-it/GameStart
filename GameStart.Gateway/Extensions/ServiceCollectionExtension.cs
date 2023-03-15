@@ -6,9 +6,10 @@
         {
             return services.AddCors(options => options.AddDefaultPolicy(builder =>
             {
-                builder.AllowAnyOrigin()
+                builder.SetIsOriginAllowed(_ => true)
                     .AllowAnyMethod()
-                    .AllowAnyHeader();
+                    .AllowAnyHeader()
+                    .AllowCredentials();
             }));
         }
     }
