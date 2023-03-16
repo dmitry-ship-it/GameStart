@@ -85,7 +85,8 @@ namespace GameStart.CatalogService.Common
 
             CutCycles(videoGame);
 
-            await elasticsearch.InsertAsync(videoGame, cancellationToken);
+            // TODO: Uncomment
+            // await elasticsearch.InsertAsync(videoGame, cancellationToken);
             await cache.SetAsync(videoGame.Id.ToString(), videoGame, cancellationToken);
         }
 

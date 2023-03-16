@@ -113,6 +113,7 @@ namespace GameStart.IdentityService.Api.Extensions
                     options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
                     options.ClientId = configuration["Authentication:Google:ClientId"];
                     options.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+                    options.UsePkce = true;
                 });
 
             return services.AddAuthorization();

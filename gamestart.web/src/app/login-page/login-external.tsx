@@ -4,7 +4,7 @@ import ApiRouter from "../util/ApiRouter";
 export default function LoginExternal(ctx: { schemes: string[] }) {
   const handleExternalLogin = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, scheme: string) => {
     e.preventDefault();
-    const returnUrl = "localhost:3000";
+    const returnUrl = "https://localhost:3000";
     await ApiRouter.account.get(`challenge?scheme=${scheme}&returnUrl=${returnUrl}`);
   };
 

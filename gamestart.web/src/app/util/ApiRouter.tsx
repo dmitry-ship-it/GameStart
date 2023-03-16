@@ -33,12 +33,15 @@ export default class ApiRouter {
     const config: AxiosRequestConfig = {
       method: method,
       headers: {
-        Accept: "application/json; charset=utf-8",
+        "Access-Control-Allow-Origin": "https://localhost:3000",
       },
       withCredentials: true,
+      maxRedirects: 5,
     };
 
-    if (data !== null) config.data = data;
+    if (data !== null) {
+      config.data = data;
+    }
 
     return await axios<T>(fullPath, config);
   }

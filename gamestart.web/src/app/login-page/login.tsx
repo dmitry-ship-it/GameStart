@@ -5,9 +5,11 @@ import LoginExternal from "./login-external";
 import ApiRouter from "../util/ApiRouter";
 import { LoginModel } from "../util/types";
 import { useState } from "react";
+import { store } from "../../App";
 
 export default function Login() {
   const [error, setError] = useState<string>();
+  const [isLoggedIn, setIsLoggedIn] = store.useState<boolean>("isLoggedIn");
   const navigate = useNavigate();
 
   const handleLogin = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -23,6 +25,7 @@ export default function Login() {
     if (response.status !== 200) {
       setError("Login error");
     } else {
+      setIsLoggedIn(true);
       navigate("/");
     }
   };

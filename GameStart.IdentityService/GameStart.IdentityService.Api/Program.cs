@@ -10,16 +10,18 @@ builder.Host.UsePreconfiguredSerilog(builder.Configuration);
 builder.Services.AddDbContextsWithIdentity();
 builder.Services.AddAutoMapper(typeof(UserProfile));
 builder.Services.AddMassTransitEventConsuming();
+builder.Services.AddCors(options => options.AddDefaultPolicy(policy => policy.AllowAnyHeader().AllowAnyMethod().SetIsOriginAllowed(_ => true).AllowCredentials()));
+builder.Services.AddCustomCorsPolicy();
 builder.Services.AddControllersWithFilters();
 builder.Services.AddPreconfiguredIdentityServer();
 builder.Services.AddGoogleAuthentication(builder.Configuration);
-builder.Services.AddCustomCorsPolicy();
 builder.Services.AddManagersAndRepositories();
 
 var app = builder.Build();
 
 app.UseMiddleware<ExceptionLoggerMiddleware>();
 app.UseHttpsRedirection();
+app.UseCors();
 app.UseMiddleware<CookieToHeaderWriterMiddleware>();
 app.UseUpdateIdentityDbTables(app.Configuration);
 app.UseIdentityServer();

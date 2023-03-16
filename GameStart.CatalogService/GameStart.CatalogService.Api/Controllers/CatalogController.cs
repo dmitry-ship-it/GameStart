@@ -33,7 +33,7 @@ namespace GameStart.CatalogService.Api.Controllers
             return result is null ? NotFound() : Ok(result);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateAsync([FromBody] VideoGameViewModel model,
             CancellationToken cancellationToken = default)
