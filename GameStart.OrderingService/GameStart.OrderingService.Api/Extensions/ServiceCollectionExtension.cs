@@ -5,6 +5,7 @@ using GameStart.OrderingService.Core.Entities;
 using GameStart.OrderingService.Infrastructure;
 using GameStart.OrderingService.Infrastructure.Repositories;
 using GameStart.Shared;
+using GameStart.Shared.Extensions;
 using GameStart.Shared.Filters;
 using GameStart.Shared.MessageBus;
 using GameStart.Shared.MessageBus.Models.OrderModels;
@@ -53,16 +54,7 @@ namespace GameStart.OrderingService.Api.Extensions
         public static IServiceCollection AddPreconfiguredJwtAuthentication(this IServiceCollection services)
         {
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
-                {
-                    options.TokenValidationParameters.ValidateAudience = false;
-                    options.Authority = Environment.GetEnvironmentVariable("IDENTITY_AUTHORITY");
-                    options.RequireHttpsMetadata = false;
-                    options.BackchannelHttpHandler = new HttpClientHandler
-                    {
-                        ServerCertificateCustomValidationCallback = delegate { return true; }
-                    };
-                });
+                .AddPreconfiguredJwtBearer();
 
             return services.AddAuthorization();
         }

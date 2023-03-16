@@ -1,7 +1,7 @@
 import logo from "../../logo.svg";
 import ApiRouter from "../util/ApiRouter";
 
-export default function LoginExternal(ctx: { schemes: string[] }) {
+export default function LoginRegisterExternal(ctx: { schemes: string[]; label: string }) {
   const handleExternalLogin = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, scheme: string) => {
     e.preventDefault();
     const returnUrl = "https://localhost:3000";
@@ -10,7 +10,7 @@ export default function LoginExternal(ctx: { schemes: string[] }) {
 
   return (
     <div className="account-external">
-      <span className="account-external-text">Login with: </span>
+      <span className="account-external-text">{ctx.label} </span>
       {ctx.schemes.map((scheme) => (
         <button className="account-external-button" type="button" key={scheme} onClick={(e) => handleExternalLogin(e, scheme)}>
           <img className="account-external-picture" src={logo} alt={scheme} title={scheme} />

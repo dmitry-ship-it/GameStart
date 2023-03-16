@@ -8,7 +8,6 @@ using IdentityServer4;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Net.Http.Headers;
 using System.Security.Claims;
 
 namespace GameStart.IdentityService.Common
@@ -148,7 +147,7 @@ namespace GameStart.IdentityService.Common
             cancellationToken.ThrowIfCancellationRequested();
 
             var result = await httpContext.AuthenticateAsync(
-                IdentityServerConstants.ExternalCookieAuthenticationScheme);
+                IdentityConstants.ExternalScheme);
 
             if (result?.Succeeded != true)
             {
@@ -200,7 +199,7 @@ namespace GameStart.IdentityService.Common
             }
 
             // delete temporary cookie used during external authentication
-            await httpContext.SignOutAsync(IdentityServerConstants.ExternalCookieAuthenticationScheme);
+            await httpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
             await signInManager.SignInAsync(user, true);
             await GenerateJwtAsync(user, httpContext, cancellationToken);
@@ -208,7 +207,7 @@ namespace GameStart.IdentityService.Common
 
         /// <summary>
         ///     Generate JSON Web Token from identity which stored inside cookies,
-        ///     and write it to Authorization header of the response.
+        ///     and write it to target cookie of the response.
         /// </summary>
         public async Task GenerateJwtAsync(User user,
             HttpContext httpContext,
@@ -225,11 +224,11 @@ namespace GameStart.IdentityService.Common
                 HttpOnly = false,
                 Path = "/",
                 Secure = true,
-                SameSite = Microsoft.AspNetCore.Http.SameSiteMode.None,
+                SameSite = SameSiteMode.None,
                 MaxAge = TimeSpan.FromSeconds(Constants.IdentityService.TokenLifetimeSeconds)
             };
 
-            httpContext.Response.Cookies.Append(HeaderNames.Authorization, token, cookieOptions);
+            httpContext.Response.Cookies.Append(Constants.AuthCookieName, token, cookieOptions);
         }
     }
 }

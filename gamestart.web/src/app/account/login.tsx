@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import "../style/account.scss";
-import LoginRegisterBox from "./login-register-box";
-import LoginExternal from "./login-external";
+import LoginToRegisterBox from "./login-to-register-box";
+import LoginExternal from "./login-register-external";
 import ApiRouter from "../util/ApiRouter";
 import { LoginModel } from "../util/types";
 import { useState } from "react";
@@ -47,8 +47,8 @@ export default function Login() {
           </button>
           <span className="account-form-error">{error}</span>
         </form>
-        <LoginRegisterBox />
-        <LoginExternal schemes={["Google"]} />
+        <LoginToRegisterBox />
+        <LoginExternal schemes={["Google"]} label="Login with:" />
       </div>
     </div>
   );

@@ -110,7 +110,7 @@ namespace GameStart.IdentityService.Api.Extensions
                 .AddGoogle(options =>
                 {
                     options.SaveTokens = true;
-                    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+                    options.SignInScheme = IdentityConstants.ExternalScheme;
                     options.ClientId = configuration["Authentication:Google:ClientId"];
                     options.ClientSecret = configuration["Authentication:Google:ClientSecret"];
                     options.UsePkce = true;

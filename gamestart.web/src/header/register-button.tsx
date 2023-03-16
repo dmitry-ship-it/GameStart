@@ -1,9 +1,10 @@
+import { NavLink } from "react-router-dom";
 import "./style/header.scss";
 
 export default function RegisterButton() {
   return (
-    <a href="register" className="register-button">
+    <NavLink to="/register" className="register-button">
       Register
-    </a>
+    </NavLink>
   );
 }

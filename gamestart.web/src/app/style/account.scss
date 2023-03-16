@@ -4,6 +4,14 @@
   place-items: center;
 }
 
+.account-unauthorized {
+  font-size: 30px;
+  font-weight: bold;
+  place-self: start;
+  min-height: 70vh;
+  margin-left: 20px;
+}
+
 .account-page-group {
   display: flex;
   place-items: center;
@@ -54,7 +62,7 @@
   border-radius: 8px;
 }
 
-.account-form-button:hover {
+button:hover {
   cursor: pointer;
 }
 
@@ -106,4 +114,40 @@
 .account-external-text {
   margin-left: 15px;
   margin-right: 10px;
+}
+
+.account-summary {
+  border-collapse: collapse;
+}
+
+.account-info-box {
+  @extend .account-box;
+  padding: 40px;
+}
+
+.account-summary-title {
+  font-size: 24px;
+  text-align: start;
+  padding-bottom: 20px;
+}
+
+.account-summary-row {
+  border-bottom: 1px solid black;
+}
+
+.account-summary-item-title {
+  font-size: 18px;
+  text-align: start;
+  padding-right: 100px;
+  padding-top: 10px;
+  font-weight: bolder;
+}
+
+.account-summary-item {
+  font-size: 18px;
+  text-align: end;
+  color: #000066;
+  padding-left: 100px;
+  padding-top: 10px;
+  font-weight: bolder;
 }

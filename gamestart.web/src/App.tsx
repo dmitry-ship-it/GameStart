@@ -5,31 +5,39 @@ import Header from "./header/header";
 import Footer from "./footer/footer";
 import Main from "./app/main";
 import { Routes, Route } from "react-router-dom";
-import Login from "./app/login-page/login";
+import Login from "./app/account/login";
 import { createStore } from "state-pool";
 import jwtDecode from "jwt-decode";
 import { useCookies } from "react-cookie";
 import reportWebVitals from "./reportWebVitals";
+import Register from "./app/account/register";
+import AccountPage from "./app/account/account-page";
+import GamePage from "./app/game/game-page";
+import { VideoGame } from "./app/util/types";
 
 export const store = createStore();
 store.setState("isLoggedIn", false);
 
+const intialGames: VideoGame[] = [];
+store.setState("games", intialGames);
+
 export default function App() {
-  // const [cookies, setCookie] = useCookies(["Authorization"]);
-  // const [isLoggedIn, setIsLoggedIn] = store.useState<boolean>("isLoggedIn");
+  const [cookies, setCookie] = useCookies(["Authorization"]);
+  const [isLoggedIn, setIsLoggedIn] = store.useState<boolean>("isLoggedIn");
 
-  // useEffect(() => {
-  //   const checkAuthCookie = () => {
-  //     const cookie = cookies.Authorization;
-  //     if (cookie !== undefined && cookie !== null) {
-  //       const jwt = jwtDecode<any>(cookie);
-  //       return Date.now() < (jwt.exp as number) * 1000;
-  //     }
-  //     return false;
-  //   };
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const cookie = cookies.Authorization;
+      let loggedIn = false;
+      if (cookie !== undefined && cookie !== null) {
+        const jwt = jwtDecode<any>(cookie);
+        loggedIn = Date.now() < (jwt.exp as number) * 1000;
+        if (loggedIn !== isLoggedIn) setIsLoggedIn(loggedIn);
+      }
+    }, 200);
 
-  //   if (checkAuthCookie() !== isLoggedIn) setIsLoggedIn(!isLoggedIn);
-  // });
+    return () => clearInterval(interval);
+  }, [cookies.Authorization, isLoggedIn, setIsLoggedIn]);
 
   return (
     <div className="App">
@@ -37,7 +45,9 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
-        {/* <Route path="/register" element={<Register />} /> */}
+        <Route path="/register" element={<Register />} />
+        <Route path="/account" element={<AccountPage />} />
+        <Route path="/game/:gameId" element={<GamePage />} />
       </Routes>
       <Footer />
     </div>

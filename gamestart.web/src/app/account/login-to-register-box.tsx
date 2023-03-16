@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-export default function LoginRegisterBox() {
+export default function LoginToRegisterBox() {
   return (
     <div className="account-register-box">
       <span className="account-register-text">Don't have an account yet?</span>

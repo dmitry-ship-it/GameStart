@@ -10,6 +10,7 @@ using GameStart.CatalogService.Data.EntityConfigurations.ValueConverters;
 using GameStart.CatalogService.Data.Models;
 using GameStart.CatalogService.Data.Repositories;
 using GameStart.Shared;
+using GameStart.Shared.Extensions;
 using GameStart.Shared.Filters;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -44,16 +45,7 @@ namespace GameStart.CatalogService.Api.Extensions
         public static IServiceCollection AddPreconfiguredJwtAuthentication(this IServiceCollection services)
         {
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
-                {
-                    options.TokenValidationParameters.ValidateAudience = false;
-                    options.Authority = Environment.GetEnvironmentVariable("IDENTITY_AUTHORITY");
-                    options.RequireHttpsMetadata = false;
-                    options.BackchannelHttpHandler = new HttpClientHandler
-                    {
-                        ServerCertificateCustomValidationCallback = delegate { return true; }
-                    };
-                });
+                .AddPreconfiguredJwtBearer();
 
             return services.AddAuthorization();
         }

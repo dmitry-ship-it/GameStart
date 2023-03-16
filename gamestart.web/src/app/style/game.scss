@@ -1,0 +1,78 @@
+.game-page {
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+  place-self: center;
+  min-height: 84vh;
+  max-width: 90%;
+}
+
+.game-title {
+  font-size: 40px;
+  place-self: start;
+  margin-top: 60px;
+  margin-bottom: 30px;
+  text-align: start;
+}
+
+.game-video-and-info {
+  display: flex;
+  flex-direction: row;
+  height: max-content;
+}
+
+.game-video {
+  border: 0px;
+  width: 60rem;
+  height: 33.75rem;
+}
+
+.game-side-box {
+  display: flex;
+  flex-direction: column;
+  background-color: #d9d9d9;
+  padding: 40px;
+  margin-left: 40px;
+}
+
+.game-side-box-image {
+  border: 1px solid red;
+  border-radius: 10px;
+  max-width: 100px;
+  place-self: center;
+}
+
+.game-side-box-price {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.game-side-box-table {
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.game-side-box-table-row {
+  border-bottom: 1px solid black;
+}
+
+.game-side-box-table-label {
+  color: #5c5c5c;
+  text-align: start;
+  padding-right: 15px;
+  white-space: nowrap;
+}
+
+.game-side-box-table-value {
+  color: #5c5c5c;
+  text-align: end;
+  padding-left: 15px;
+  overflow-x: hidden;
+  white-space: nowrap;
+}
+
+.game-side-box-table-platform {
+  width: 20px;
+  height: 20px;
+  vertical-align: bottom;
+}
