@@ -5,6 +5,7 @@ import ApiRouter from "../util/ApiRouter";
 import { useEffect, useState } from "react";
 import GameSideBox from "./game-side-box";
 import "../style/game.scss";
+import GameMainBox from "./game-main-box";
 
 export default function GamePage() {
   const { gameId } = useParams();
@@ -27,7 +28,7 @@ export default function GamePage() {
     <div className="game-page">
       <div className="game-title">{game.title}</div>
       <div className="game-video-and-info">
-        <iframe className="game-video" src="https://youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1" title={game.title}></iframe>
+        <GameMainBox game={game} />
         <GameSideBox game={game} />
       </div>
     </div>

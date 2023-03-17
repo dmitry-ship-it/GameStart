@@ -4,7 +4,7 @@
   place-items: center;
   place-self: center;
   min-height: 84vh;
-  max-width: 90%;
+  width: min-content;
 }
 
 .game-title {
@@ -23,8 +23,15 @@
 
 .game-video {
   border: 0px;
-  width: 60rem;
-  height: 33.75rem;
+  min-width: 60rem;
+  min-height: 33.75rem;
+  width: max-content;
+}
+
+.game-main-box {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
 }
 
 .game-side-box {
@@ -33,6 +40,30 @@
   background-color: #d9d9d9;
   padding: 40px;
   margin-left: 40px;
+  height: fit-content;
+  position: sticky;
+}
+
+.game-buy-button {
+  background-color: #3051ff;
+  border: 0px;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: 600;
+  padding: 10px 50px 10px 50px;
+  width: fit-content;
+  color: white;
+  place-self: center;
+}
+
+.game-add-to-cart-button {
+  @extend .game-buy-button;
+  background-color: transparent;
+  border: 1px solid black;
+  color: black;
+  font-weight: normal;
+  padding: 10px 37px 10px 37px;
+  margin-top: 25px;
 }
 
 .game-side-box-image {
@@ -45,6 +76,7 @@
 .game-side-box-price {
   margin-top: 10px;
   margin-bottom: 10px;
+  font-size: 20px;
 }
 
 .game-side-box-table {
@@ -53,7 +85,7 @@
 }
 
 .game-side-box-table-row {
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #5c5c5c;
 }
 
 .game-side-box-table-label {
@@ -61,6 +93,7 @@
   text-align: start;
   padding-right: 15px;
   white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .game-side-box-table-value {
@@ -69,10 +102,116 @@
   padding-left: 15px;
   overflow-x: hidden;
   white-space: nowrap;
+  max-width: 255px;
+  text-overflow: ellipsis;
 }
 
 .game-side-box-table-platform {
   width: 20px;
   height: 20px;
   vertical-align: bottom;
+}
+
+.game-description {
+  font-size: 20px;
+  overflow: hidden;
+  word-break: break-word;
+  width: fit-content;
+  text-align: start;
+  margin-top: 40px;
+}
+
+.game-specifications-block {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #d9d9d9;
+  margin-top: 40px;
+}
+
+.game-specifications-title {
+  font-size: 20px;
+  place-self: start;
+}
+
+.game-specifications-platforms-buttons {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid black;
+}
+
+.game-specifications-platform-button {
+  background-color: transparent;
+  border: 0px;
+  margin-right: 10px;
+}
+
+.game-specifications-platform-button-selected {
+  border-bottom: 2px solid black;
+}
+
+.game-specifications-table {
+  @extend .game-side-box-table;
+  margin-bottom: 40px;
+  border-bottom: 1px solid black;
+}
+
+.game-specifications-copyright {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  color: #5c5c5c;
+  text-align: start;
+  font-size: 14px;
+}
+
+.game-specifications-copyright-title {
+  font-weight: 600;
+}
+
+.game-specifications-row {
+  @extend .game-side-box-table-row;
+  margin-bottom: 10px;
+}
+
+.game-specifications-label {
+  @extend .game-side-box-table-label;
+}
+
+.game-specifications-value {
+  @extend .game-side-box-table-value;
+}
+
+.game-languages-table {
+  @extend .game-specifications-table;
+}
+
+.game-languages-title-row {
+  @extend .game-specifications-row;
+  border-bottom: 2px solid #5c5c5c;
+}
+
+.game-languages-col-title {
+  @extend .game-languages-col-title-main;
+  padding: initial;
+  text-align: center;
+}
+.game-languages-col-title-main {
+  @extend .game-specifications-label;
+  font-size: 18px;
+  font-weight: 600;
+  width: fit-content;
+}
+
+.game-languages-row {
+  @extend .game-specifications-row;
+}
+
+.game-languages-label {
+  @extend .game-specifications-label;
+}
+
+.game-languages-value {
+  @extend .game-specifications-value;
+  padding: initial;
+  text-align: center;
 }

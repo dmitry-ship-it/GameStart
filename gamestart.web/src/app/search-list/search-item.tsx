@@ -24,7 +24,7 @@ export default function SearchItem(ctx: { item: VideoGame }) {
             </span>
           </div>
         </div>
-        <span className="search-item-price">${ctx.item.price}</span>
+        <span className="search-item-price">${ctx.item.price.toFixed(2)}</span>
       </NavLink>
     );
   else return <></>;
