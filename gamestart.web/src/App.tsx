@@ -14,6 +14,7 @@ import Register from "./app/account/register";
 import AccountPage from "./app/account/account-page";
 import GamePage from "./app/game/game-page";
 import { VideoGame } from "./app/util/types";
+import AccountVerificationPage from "./app/account/account-verification-page";
 
 export const store = createStore();
 store.setState("isLoggedIn", false);
@@ -47,6 +48,7 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/account" element={<AccountPage />} />
+        <Route path="/account/verifyEmail" element={<AccountVerificationPage />} />
         <Route path="/game/:gameId" element={<GamePage />} />
       </Routes>
       <Footer />

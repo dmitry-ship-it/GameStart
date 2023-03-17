@@ -77,7 +77,6 @@ namespace GameStart.IdentityService.Common
 
         public virtual async Task SendEmailVerificationRequestAsync(
             ClaimsPrincipal principal,
-            string confirmLinkPart,
             CancellationToken cancellationToken = default)
         {
             var user = await userManager.FindByNameAsync(principal.Identity?.Name)
@@ -86,13 +85,12 @@ namespace GameStart.IdentityService.Common
             cancellationToken.ThrowIfCancellationRequested();
 
             var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
-            var link = $"{Uri.UriSchemeHttps}://{Environment.GetEnvironmentVariable("OUTSIDE_HOST")}{confirmLinkPart}?token={token}";
 
             await emailVerificationRequestPublisher.PublishMessageAsync(new()
             {
                 To = user.Email,
                 Subject = "Email verification",
-                Body = link
+                Body = $"Token: <b>{token}</b>"
             }, cancellationToken);
         }
 

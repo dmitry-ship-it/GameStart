@@ -1,12 +1,14 @@
+import { NavLink } from "react-router-dom";
 import { store } from "../../App";
 import { decodeJwt } from "../util/helpers";
+import AccountUnauthorized from "./account-unauthorized";
 
 export default function AccountPage() {
   const isLoggedIn = store.getState("isLoggedIn").getValue<boolean>();
   const user = decodeJwt();
 
   return !isLoggedIn ? (
-    <span className="account-unauthorized">Unauthorized</span>
+    <AccountUnauthorized />
   ) : (
     <div className="account-page">
       <div className="account-info-box">
@@ -26,7 +28,15 @@ export default function AccountPage() {
           </tr>
           <tr className="account-summary-row">
             <td className="account-summary-item-title">Email verified</td>
-            <td className="account-summary-item">{user.email_verified ? "Yes" : "No"}</td>
+            <td className="account-summary-item">
+              {user.email_verified ? (
+                "Yes"
+              ) : (
+                <>
+                  No <NavLink to="/account/verifyEmail">[verify email]</NavLink>
+                </>
+              )}
+            </td>
           </tr>
         </table>
       </div>

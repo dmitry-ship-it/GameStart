@@ -36,9 +36,8 @@ namespace GameStart.IdentityService.Api.Controllers
         [HttpGet("send-verification-email")]
         public async Task<IActionResult> SendVerificationEmailAsync(CancellationToken cancellationToken = default)
         {
-            var confirmationActionUri = Url.Action("verifyEmail");
             await accountManager.SendEmailVerificationRequestAsync(
-                HttpContext.User, confirmationActionUri, cancellationToken);
+                HttpContext.User, cancellationToken);
 
             return Accepted();
         }

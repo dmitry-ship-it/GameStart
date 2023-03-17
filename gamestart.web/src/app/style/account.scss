@@ -4,7 +4,7 @@
   place-items: center;
 }
 
-.account-unauthorized {
+.account-message-page {
   font-size: 30px;
   font-weight: bold;
   place-self: start;
@@ -150,4 +150,25 @@ button:hover {
   padding-left: 100px;
   padding-top: 10px;
   font-weight: bolder;
+}
+
+.account-verification-button-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.account-verification-submit-button {
+  @extend .account-form-button;
+}
+.account-verification-email-button {
+  @extend .account-form-button;
+  background-color: transparent;
+  border: 1px solid back;
+  margin-top: 10px;
+}
+
+.account-info-message {
+  margin-top: 20px;
+  color: navy;
 }
