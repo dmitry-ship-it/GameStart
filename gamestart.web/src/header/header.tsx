@@ -8,7 +8,7 @@ import { decodeJwt } from "../app/util/helpers";
 import AccountButton from "./account-button";
 
 export default function Header() {
-  const [isLoggedIn, setIsLoggedIn] = store.useState<boolean>("isLoggedIn");
+  const [isLoggedIn] = store.useState<boolean>("isLoggedIn");
 
   return (
     <nav className="navbar">

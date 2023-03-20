@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import GameSideBox from "./game-side-box";
 import "../style/game.scss";
 import GameMainBox from "./game-main-box";
+import GameNotFound from "./game-not-found";
 
 export default function GamePage() {
   const { gameId } = useParams();
@@ -22,9 +23,9 @@ export default function GamePage() {
     }
   }, [game, gameId]);
 
-  return game === undefined ? (
-    <>Not Found</>
-  ) : (
+  if (game === undefined) return <GameNotFound />;
+
+  return (
     <div className="game-page">
       <div className="game-title">{game.title}</div>
       <div className="game-video-and-info">

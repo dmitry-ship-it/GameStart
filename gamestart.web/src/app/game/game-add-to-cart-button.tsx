@@ -4,6 +4,7 @@ export default function GameAddToCartButton(ctx: { game: VideoGame }) {
   const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
 
+    // placeholder
     alert(`ADD TO CART (placeholder) ${ctx.game.id}`);
   };
 

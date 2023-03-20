@@ -10,7 +10,7 @@ export default function Main() {
 
   useEffect(() => {
     const getVideoGames = async () => {
-      const { data } = await ApiRouter.catalog.get<VideoGame[]>("?page=1&pageSize=10", false);
+      const { data } = await ApiRouter.catalog.get<VideoGame[]>("?page=1", false);
       setVideoGames(data);
     };
     getVideoGames();

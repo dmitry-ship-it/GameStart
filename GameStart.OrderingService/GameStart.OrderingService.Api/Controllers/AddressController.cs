@@ -27,7 +27,7 @@ namespace GameStart.OrderingService.Api.Controllers
         public async Task<IActionResult> CreateAsync([FromBody] AddressDto address,
             CancellationToken cancellationToken = default)
         {
-            await addressService.CreateAsync(address, cancellationToken);
+            await addressService.CreateAsync(address, HttpContext.User.Claims, cancellationToken);
 
             return Ok();
         }
@@ -36,7 +36,7 @@ namespace GameStart.OrderingService.Api.Controllers
         public async Task<IActionResult> UpdateAsync([FromRoute] Guid id, [FromBody] AddressDto address,
             CancellationToken cancellationToken = default)
         {
-            var isUpdated = await addressService.UpdateAsync(id, address, cancellationToken);
+            var isUpdated = await addressService.UpdateAsync(id, HttpContext.User.Claims, address, cancellationToken);
 
             return isUpdated ? Ok() : NotFound();
         }
@@ -45,7 +45,7 @@ namespace GameStart.OrderingService.Api.Controllers
         public async Task<IActionResult> DeleteAsync([FromRoute] Guid id,
             CancellationToken cancellationToken = default)
         {
-            var isDeleted = await addressService.DeleteAsync(id, cancellationToken);
+            var isDeleted = await addressService.DeleteAsync(id, HttpContext.User.Claims, cancellationToken);
 
             return isDeleted ? NoContent() : NotFound();
         }

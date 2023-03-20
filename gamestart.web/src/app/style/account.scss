@@ -123,6 +123,7 @@ button:hover {
 .account-info-box {
   @extend .account-box;
   padding: 40px;
+  height: fit-content;
 }
 
 .account-summary-title {
@@ -171,4 +172,120 @@ button:hover {
 .account-info-message {
   margin-top: 20px;
   color: navy;
+}
+
+.account-address-card {
+  width: max-content;
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  border-collapse: collapse;
+  padding: 20px;
+  border-bottom: 2px solid black;
+}
+
+.account-address-card:nth-last-child(2) {
+  border-bottom: 0px;
+}
+
+.account-address-card-row {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid black;
+}
+
+.account-address-card-label {
+  padding-right: 40px;
+  text-align: start;
+  width: 100px;
+  overflow-x: hidden;
+  white-space: nowrap;
+}
+
+.account-address-card-value {
+  padding-left: 40px;
+  text-align: end;
+  width: 100px;
+  overflow-x: hidden;
+  white-space: nowrap;
+}
+
+.account-info-group {
+  display: flex;
+  flex-direction: row;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.account-add-address-title {
+  font-size: 20px;
+  font-weight: 600;
+  padding: 10px;
+}
+
+.account-add-address-group {
+  @extend .account-box;
+  padding: 10px;
+  margin-left: 20px;
+}
+
+.account-address-card-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.account-address-card-edit {
+  border: 0px;
+  border-radius: 5px;
+  background-color: blue;
+  color: white;
+  margin-right: 10px;
+  font-size: 15px;
+  letter-spacing: 1px;
+  padding: 5px 10px 5px 10px;
+}
+
+.account-address-card-delete {
+  border: 0px;
+  border-radius: 5px;
+  background-color: red;
+  color: white;
+  margin-left: 10px;
+  font-size: 15px;
+  letter-spacing: 1px;
+  padding: 5px 10px 5px 10px;
+}
+
+.account-address-form {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  height: fit-content;
+  padding: 10px;
+}
+
+.account-address-form-label {
+  place-self: center;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5px;
+}
+
+.account-address-form-title {
+  text-align: center;
+}
+
+.account-address-form-value {
+  font-size: 15px;
+}
+
+.account-address-form-button {
+  margin-top: 5px;
+  border: 1px solid black;
+  background-color: transparent;
+  border-radius: 5px;
+  width: fit-content;
+  place-self: center;
+  font-size: 15px;
 }

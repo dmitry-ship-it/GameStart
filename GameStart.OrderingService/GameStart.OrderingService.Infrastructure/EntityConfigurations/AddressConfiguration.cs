@@ -10,7 +10,7 @@ namespace GameStart.OrderingService.Infrastructure.EntityConfigurations
         {
             builder.HasKey(key => key.Id);
 
-            builder.Property(address => address.Сountry)
+            builder.Property(address => address.Country)
                 .HasMaxLength(60)
                 .IsUnicode(true)
                 .IsRequired(true);

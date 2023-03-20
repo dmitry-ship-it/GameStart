@@ -3,7 +3,7 @@ import { store } from "../App";
 import ApiRouter from "../app/util/ApiRouter";
 
 export default function LogoutButton() {
-  const [isLoggedIn, setIsLoggedIn] = store.useState<boolean>("isLoggedIn");
+  const [, setIsLoggedIn] = store.useState<boolean>("isLoggedIn");
   const navigate = useNavigate();
 
   const handleLogout = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {

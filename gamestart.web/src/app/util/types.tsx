@@ -63,3 +63,18 @@ export interface LoginModel {
 export interface RegisterModel extends LoginModel {
   email: string;
 }
+
+export interface AddressRequest {
+  country: string;
+  state: string | null;
+  city: string;
+  street: string;
+  house: string;
+  flat: string | null;
+  postCode: string;
+}
+
+export interface Address extends AddressRequest {
+  id: string;
+  userId: string;
+}

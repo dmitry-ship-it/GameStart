@@ -57,7 +57,7 @@ export default function GameSpecificationsBlock(ctx: { game: VideoGame }) {
             <td className="game-languages-col-title">Audio</td>
             <td className="game-languages-col-title">Subtitles</td>
           </tr>
-          {ctx.game.languageAvailabilities.sort(compareByLanguageName).map((la) => (
+          {[...ctx.game.languageAvailabilities].sort(compareByLanguageName).map((la) => (
             <tr className="game-languages-row" key={la.id}>
               <td className="game-languages-label" key={la.language.id}>
                 {la.language.name}

@@ -9,13 +9,13 @@ namespace GameStart.OrderingService.Application.Services
         Task<IEnumerable<Address>> GetByUserIdAsync(IEnumerable<Claim> claims,
             CancellationToken cancellationToken = default);
 
-        Task CreateAsync(AddressDto address,
+        Task CreateAsync(AddressDto address, IEnumerable<Claim> claims,
             CancellationToken cancellationToken = default);
 
-        Task<bool> UpdateAsync(Guid id, AddressDto address,
+        Task<bool> UpdateAsync(Guid id, IEnumerable<Claim> claims, AddressDto address,
             CancellationToken cancellationToken = default);
 
-        Task<bool> DeleteAsync(Guid id,
+        Task<bool> DeleteAsync(Guid id, IEnumerable<Claim> claims,
             CancellationToken cancellationToken = default);
     }
 }

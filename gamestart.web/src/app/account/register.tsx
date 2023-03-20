@@ -8,7 +8,7 @@ import RegisterToLoginBox from "./register-to-login-box";
 
 export default function Register() {
   const [error, setError] = useState<string>();
-  const [isLoggedIn, setIsLoggedIn] = store.useState<boolean>("isLoggedIn");
+  const [, setIsLoggedIn] = store.useState<boolean>("isLoggedIn");
   const navigate = useNavigate();
 
   const handleLogin = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -44,15 +44,15 @@ export default function Register() {
         <form className="account-form">
           <label className="account-label">
             <span className="account-label-text">Username</span>
-            <input className="account-input" type="text" name="username" />
+            <input className="account-input" type="text" name="username" required={true} />
           </label>
           <label className="account-label">
             <span className="account-label-text">Email</span>
-            <input className="account-input" type="email" name="email" />
+            <input className="account-input" type="email" name="email" required={true} />
           </label>
           <label className="account-label">
             <span className="account-label-text">Password</span>
-            <input className="account-input" type="password" name="password" />
+            <input className="account-input" type="password" name="password" required={true} />
           </label>
           <label className="account-label">
             <span className="account-label-text">Confirm password</span>

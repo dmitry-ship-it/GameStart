@@ -37,6 +37,7 @@ export default class ApiRouter {
       },
       withCredentials: true,
       maxRedirects: 5,
+      validateStatus: () => true,
     };
 
     if (data !== null) {

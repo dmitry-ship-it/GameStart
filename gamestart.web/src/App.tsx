@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import logo from "./logo.svg";
+import { useEffect } from "react";
 import "./App.css";
 import Header from "./header/header";
 import Footer from "./footer/footer";
@@ -19,11 +18,11 @@ import AccountVerificationPage from "./app/account/account-verification-page";
 export const store = createStore();
 store.setState("isLoggedIn", false);
 
-const intialGames: VideoGame[] = [];
-store.setState("games", intialGames);
+const initialGames: VideoGame[] = [];
+store.setState("games", initialGames);
 
 export default function App() {
-  const [cookies, setCookie] = useCookies(["Authorization"]);
+  const [cookies] = useCookies(["Authorization"]);
   const [isLoggedIn, setIsLoggedIn] = store.useState<boolean>("isLoggedIn");
 
   useEffect(() => {

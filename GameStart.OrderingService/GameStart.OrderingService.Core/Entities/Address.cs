@@ -9,7 +9,7 @@ namespace GameStart.OrderingService.Core.Entities
 
         public Guid UserId { get; set; }
 
-        public string Сountry { get; set; }
+        public string Country { get; set; }
 
         public string State { get; set; }
 

@@ -24,24 +24,37 @@ namespace GameStart.OrderingService.Application.Services
             this.validator = validator;
         }
 
-        public async Task CreateAsync(AddressDto address, CancellationToken cancellationToken = default)
+        public async Task CreateAsync(AddressDto address, IEnumerable<Claim> claims, CancellationToken cancellationToken = default)
         {
             validator.ValidateAndThrow(address);
-            await repository.CreateAsync(mapper.Map<Address>(address), cancellationToken);
+
+            var entity = mapper.Map<Address>(address);
+            entity.UserId = claims.GetUserId();
+
+            await repository.CreateAsync(entity, cancellationToken);
         }
 
-        public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
+        public async Task<bool> DeleteAsync(Guid id, IEnumerable<Claim> claims, CancellationToken cancellationToken = default)
         {
             var addresses = await repository.GetByConditionAsync(
                 entity => entity.Id == id, cancellationToken);
 
-            if (addresses.Any())
+            if (!addresses.Any())
             {
-                await repository.DeleteAsync(addresses.First(), cancellationToken);
-                return true;
+                return false;
             }
 
-            return false;
+            var address = addresses.First();
+
+            if (address.UserId != claims.GetUserId())
+            {
+                // TODO: Move to constants
+                throw new ArgumentException("User cannot delete other user's address");
+            }
+
+            await repository.DeleteAsync(address, cancellationToken);
+
+            return true;
         }
 
         public async Task<IEnumerable<Address>> GetByUserIdAsync(IEnumerable<Claim> claims,
@@ -53,7 +66,7 @@ namespace GameStart.OrderingService.Application.Services
                 entity => entity.UserId == userId, cancellationToken);
         }
 
-        public async Task<bool> UpdateAsync(Guid id, AddressDto address,
+        public async Task<bool> UpdateAsync(Guid id, IEnumerable<Claim> claims, AddressDto address,
             CancellationToken cancellationToken = default)
         {
             validator.ValidateAndThrow(address);
@@ -66,7 +79,15 @@ namespace GameStart.OrderingService.Application.Services
                 return false;
             }
 
-            var updatedAddress = mapper.Map(address, dbAddresses.First());
+            var dbAddress = dbAddresses.First();
+
+            if (dbAddress.UserId != claims.GetUserId())
+            {
+                // TODO: Move to constants
+                throw new ArgumentException("User cannot update other user's address");
+            }
+
+            var updatedAddress = mapper.Map(address, dbAddress);
             await repository.UpdateAsync(updatedAddress, cancellationToken);
 
             return true;

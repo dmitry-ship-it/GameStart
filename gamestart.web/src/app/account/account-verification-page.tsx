@@ -32,6 +32,8 @@ export default function AccountVerificationPage() {
       setTimeout(() => {
         navigate("/account");
       }, 4000);
+    } else {
+      setMessage("Invalid token");
     }
   };
 

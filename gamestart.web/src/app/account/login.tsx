@@ -9,13 +9,18 @@ import { store } from "../../App";
 
 export default function Login() {
   const [error, setError] = useState<string>();
-  const [isLoggedIn, setIsLoggedIn] = store.useState<boolean>("isLoggedIn");
+  const [, setIsLoggedIn] = store.useState<boolean>("isLoggedIn");
   const navigate = useNavigate();
 
   const handleLogin = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
 
     const form = document.querySelector<HTMLFormElement>(".account-form")!;
+
+    form.querySelectorAll<HTMLInputElement>("[required]").forEach((element) => {
+      if (!element.reportValidity()) return;
+    });
+
     const formData = new FormData(form);
     const response = await ApiRouter.account.post<LoginModel>("login", {
       username: formData.get("username") as string,
@@ -36,11 +41,11 @@ export default function Login() {
         <form className="account-form">
           <label className="account-label">
             <span className="account-label-text">Username</span>
-            <input className="account-input" type="text" name="username" />
+            <input className="account-input" type="text" name="username" required={true} />
           </label>
           <label className="account-label">
             <span className="account-label-text">Password</span>
-            <input className="account-input" type="password" name="password" />
+            <input className="account-input" type="password" name="password" required={true} />
           </label>
           <button className="account-form-button" type="submit" onClick={handleLogin}>
             Login
