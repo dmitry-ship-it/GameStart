@@ -12,14 +12,30 @@ import reportWebVitals from "./reportWebVitals";
 import Register from "./app/account/register";
 import AccountPage from "./app/account/account-page";
 import GamePage from "./app/game/game-page";
-import { VideoGame } from "./app/util/types";
+import { CartItemWrapper, VideoGame } from "./app/util/types";
 import AccountVerificationPage from "./app/account/account-verification-page";
+import CartPage from "./app/cart/cart-page";
 
 export const store = createStore();
+store.persist({
+  saveState: (key, state, isInitialState) => {
+    localStorage.setItem(key, JSON.stringify(state));
+  },
+  loadState: (key, noState) => {
+    const data = localStorage.getItem(key);
+    if (data === null) return noState;
+
+    return JSON.parse(data);
+  },
+});
+
 store.setState("isLoggedIn", false);
 
 const initialGames: VideoGame[] = [];
 store.setState("games", initialGames);
+
+const initialCart: CartItemWrapper[] = [];
+store.setState("cart", initialCart, { persist: true });
 
 export default function App() {
   const [cookies] = useCookies(["Authorization"]);
@@ -47,6 +63,7 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/account" element={<AccountPage />} />
+        <Route path="/account/cart" element={<CartPage />} />
         <Route path="/account/verifyEmail" element={<AccountVerificationPage />} />
         <Route path="/game/:gameId" element={<GamePage />} />
       </Routes>

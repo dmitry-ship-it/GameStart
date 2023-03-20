@@ -6,6 +6,7 @@ import LogoutButton from "./logout-button";
 import { store } from "../App";
 import { decodeJwt } from "../app/util/helpers";
 import AccountButton from "./account-button";
+import CartButton from "./cart-button";
 
 export default function Header() {
   const [isLoggedIn] = store.useState<boolean>("isLoggedIn");
@@ -18,8 +19,9 @@ export default function Header() {
       <div className="account-buttons-box">
         {isLoggedIn ? (
           <>
-            <span className="accounts-logged-text">Hello, {decodeJwt().name}</span>
+            <span className="accounts-logged-text">Hello, {decodeJwt()?.name}</span>
             <AccountButton />
+            <CartButton />
             <LogoutButton />
           </>
         ) : (

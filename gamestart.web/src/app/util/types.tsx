@@ -78,3 +78,10 @@ export interface Address extends AddressRequest {
   id: string;
   userId: string;
 }
+
+export interface CartItemWrapper {
+  id: string;
+  isPhysicalCopy: boolean;
+  count: number;
+  game: VideoGame;
+}

@@ -1,16 +1,25 @@
-import { VideoGame } from "../util/types";
+import uuid from "react-uuid";
+import { store } from "../../App";
+import { CartItemWrapper, VideoGame } from "../util/types";
+import Popup from "reactjs-popup";
+import { useState } from "react";
+import GameAddToCartPopup from "./game-add-to-cart-popup";
 
 export default function GameAddToCartButton(ctx: { game: VideoGame }) {
-  const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault();
-
-    // placeholder
-    alert(`ADD TO CART (placeholder) ${ctx.game.id}`);
-  };
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   return (
-    <button className="game-add-to-cart-button" type="button" onClick={handleAddToCart}>
-      ADD TO CART
-    </button>
+    <Popup
+      arrow={false}
+      open={isPopupOpen}
+      onOpen={() => setIsPopupOpen(true)}
+      onClose={() => setIsPopupOpen(false)}
+      trigger={
+        <button className="game-add-to-cart-button" type="button">
+          ADD TO CART
+        </button>
+      }>
+      <GameAddToCartPopup game={ctx.game} />
+    </Popup>
   );
 }
