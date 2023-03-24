@@ -1,7 +1,9 @@
 import axios, { AxiosRequestConfig } from "axios";
+import HubConnector from "./SignalRConnector";
 
 export default class ApiRouter {
-  private baseUrl = "https://localhost:6001/api";
+  private static readonly baseUrl = "https://localhost:6001/api";
+  private route = ApiRouter.baseUrl;
 
   public static readonly account = new ApiRouter("account");
   public static readonly inventory = new ApiRouter("inventory");
@@ -9,24 +11,28 @@ export default class ApiRouter {
   public static readonly order = new ApiRouter("order");
   public static readonly address = new ApiRouter("address");
 
+  public static createSignalRConnection(hubRoute: string) {
+    return new HubConnector(this.baseUrl, hubRoute).connection;
+  }
+
   private constructor(urlPart: string | null = null) {
-    if (urlPart !== null) this.baseUrl += "/" + urlPart;
+    if (urlPart !== null) this.route += "/" + urlPart;
   }
 
   public async get<T>(relativeRoute: string, addSlash: boolean = true) {
-    return await this.axiosCall<T>(this.baseUrl + (addSlash ? "/" : "") + relativeRoute, null, "GET");
+    return await this.axiosCall<T>(this.route + (addSlash ? "/" : "") + relativeRoute, null, "GET");
   }
 
   public async post<T>(relativeRoute: string, body: T, addSlash: boolean = true) {
-    return await this.axiosCall(this.baseUrl + (addSlash ? "/" : "") + relativeRoute, body, "POST");
+    return await this.axiosCall(this.route + (addSlash ? "/" : "") + relativeRoute, body, "POST");
   }
 
   public async put<T>(relativeRoute: string, body: T, addSlash: boolean = true) {
-    return await this.axiosCall(this.baseUrl + (addSlash ? "/" : "") + relativeRoute, body, "PUT");
+    return await this.axiosCall(this.route + (addSlash ? "/" : "") + relativeRoute, body, "PUT");
   }
 
   public async delete(relativeRoute: string, addSlash: boolean = true) {
-    return await this.axiosCall(this.baseUrl + (addSlash ? "/" : "") + relativeRoute, null, "DELETE");
+    return await this.axiosCall(this.route + (addSlash ? "/" : "") + relativeRoute, null, "DELETE");
   }
 
   private async axiosCall<T>(fullPath: string, data: T | null, method: string) {

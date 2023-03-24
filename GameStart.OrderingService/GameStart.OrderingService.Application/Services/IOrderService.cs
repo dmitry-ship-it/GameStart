@@ -9,7 +9,10 @@ namespace GameStart.OrderingService.Application.Services
         Task<IEnumerable<Order>> GetByUserIdAsync(IEnumerable<Claim> claims,
             CancellationToken cancellationToken = default);
 
-        Task CreateAsync(OrderDto order, IEnumerable<Claim> claims,
+        Task<Order> GetByIdAsync(Guid orderId, IEnumerable<Claim> claims,
+            CancellationToken cancellationToken = default);
+
+        Task<Guid> CreateAsync(OrderDto order, IEnumerable<Claim> claims,
             CancellationToken cancellationToken = default);
     }
 }

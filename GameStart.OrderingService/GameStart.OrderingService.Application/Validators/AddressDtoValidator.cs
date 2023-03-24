@@ -11,8 +11,7 @@ namespace GameStart.OrderingService.Application.Validators
             {
                 RuleFor(dto => dto.Country).NotNull().Length(3, 60);
 
-                RuleFor(dto => dto.State).Length(3, 60)
-                    .When(dto => dto.State is not null, ApplyConditionTo.CurrentValidator);
+                RuleFor(dto => dto.State).Must(s => ValidateNullableStringLength(s, 3, 60));
 
                 RuleFor(dto => dto.City).NotNull().Length(3, 100);
 
@@ -20,14 +19,17 @@ namespace GameStart.OrderingService.Application.Validators
 
                 RuleFor(dto => dto.House).NotNull().Length(1, 10);
 
-                RuleFor(dto => dto.Flat).Length(1, 10)
-                    .When(dto => dto.Flat is not null, ApplyConditionTo.CurrentValidator);
+                RuleFor(dto => dto.Flat).Must(s => ValidateNullableStringLength(s, 1, 10));
 
                 // Some countries do not have postal codes,
                 // in other countries it can be from 2 to 12 characters
-                RuleFor(dto => dto.PostCode).Length(2, 12)
-                    .When(postcode => postcode is not null, ApplyConditionTo.CurrentValidator);
+                RuleFor(dto => dto.PostCode).Must(s => ValidateNullableStringLength(s, 2, 12));
             });
+        }
+
+        private static bool ValidateNullableStringLength(string s, int min, int max)
+        {
+            return s is null || (s.Length <= max && s.Length >= min);
         }
     }
 }

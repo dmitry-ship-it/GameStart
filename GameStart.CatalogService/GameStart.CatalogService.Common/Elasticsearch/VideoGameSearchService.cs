@@ -1,20 +1,23 @@
 ﻿using GameStart.CatalogService.Common.Elasticsearch.Extensions;
 using GameStart.CatalogService.Common.Elasticsearch.Search;
 using GameStart.CatalogService.Data.Models;
+using GameStart.Shared.Services;
 using Nest;
 
 namespace GameStart.CatalogService.Common.Elasticsearch
 {
     public class VideoGameSearchService : IElasticsearchService<VideoGame, VideoGameSearchRequest>
     {
-        public string IndexName { get; } = nameof(VideoGame).ToLower();
-
         private readonly IElasticClient elasticClient;
+        private readonly IClock clock;
 
-        public VideoGameSearchService(IElasticClient elasticClient)
+        public VideoGameSearchService(IElasticClient elasticClient, IClock clock)
         {
             this.elasticClient = elasticClient;
+            this.clock = clock;
         }
+
+        public string IndexName { get; } = nameof(VideoGame).ToLower();
 
         public async Task CheckIndexAsync(CancellationToken cancellationToken = default)
         {
@@ -76,7 +79,7 @@ namespace GameStart.CatalogService.Common.Elasticsearch
                             query => query.DateRange(dateRange => dateRange
                                 .Field(field => field.ReleaseDate)
                                 .GreaterThanOrEquals(DateMath.Anchored(request.ReleasedFrom))
-                                .LessThanOrEquals(DateMath.Anchored(request.ReleasedTo ?? DateTime.Now))
+                                .LessThanOrEquals(DateMath.Anchored(request.ReleasedTo ?? clock.Now))
                             ),
                             query => query.Range(range => range
                                 .Field(field => field.Price)

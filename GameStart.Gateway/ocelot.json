@@ -90,6 +90,21 @@
       "DangerousAcceptAnyServerCertificateValidator": true
     },
     {
+      "UpstreamPathTemplate": "/api/order/{hub}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ],
+
+      "DownstreamScheme": "wss",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "gamestart.orderingservice.api",
+          "Port": 443
+        }
+      ],
+      "DownstreamPathTemplate": "/api/order/{hub}",
+      // does not working with wss
+      "DangerousAcceptAnyServerCertificateValidator": true
+    },
+    {
       "UpstreamPathTemplate": "/api/order/{id}",
       "UpstreamHttpMethod": [ "Get" ],
 
@@ -133,6 +148,9 @@
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "https://localhost:6001"
+    "BaseUrl": "https://localhost:6001",
+    "HttpHandlerOptions": {
+      "AllowAutoRedirect": true
+    }
   }
 }

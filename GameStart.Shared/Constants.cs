@@ -92,9 +92,21 @@ namespace GameStart.Shared
                     $"Password={Environment.GetEnvironmentVariable("ORDERS_DB_PASSWORD")}";
             }
 
-            public struct ValidationMessages
+            public readonly struct ExceptionMessages
+            {
+                public const string CantDeleteOtherUsersAddress = "User cannot delete other user's address";
+                public const string CantUpdateOtherUsersAddress = "User cannot update other user's address";
+            }
+
+            public readonly struct ValidationMessages
             {
                 public const string OrderedPhysicalCopyButAddressIsNull = "You must provide your address";
+            }
+
+            public readonly struct HubOptions
+            {
+                public const string OrderStatusMethod = "OrderStatusUpdated";
+                public const string Route = "/api/order/hub";
             }
         }
 

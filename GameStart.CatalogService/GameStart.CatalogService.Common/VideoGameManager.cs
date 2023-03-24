@@ -14,17 +14,20 @@ namespace GameStart.CatalogService.Common
         private readonly string AllVideoGamesCacheKey = typeof(VideoGame).Name;
 
         private readonly IRepositoryWrapper repository;
+        private readonly ISelectorByPage<VideoGame> selectorByPage;
         private readonly IMapper mapper;
         private readonly IRedisCacheService cache;
         private readonly IElasticsearchService<VideoGame, VideoGameSearchRequest> elasticsearch;
 
         public VideoGameManager(
             IRepositoryWrapper repository,
+            ISelectorByPage<VideoGame> selectorByPage,
             IMapper mapper,
             IRedisCacheService cache,
             IElasticsearchService<VideoGame, VideoGameSearchRequest> elasticsearch)
         {
             this.repository = repository;
+            this.selectorByPage = selectorByPage;
             this.mapper = mapper;
             this.cache = cache;
             this.elasticsearch = elasticsearch;
@@ -50,28 +53,20 @@ namespace GameStart.CatalogService.Common
             return found;
         }
 
-        // TODO: Refactor to use page select behavior
-        public async Task<IEnumerable<VideoGame>> GetByPageAsync(int page, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<VideoGame>> GetByPageAsync(int page, int pageSize, CancellationToken cancellationToken = default)
         {
-            if (page < 1)
-            {
-                throw new ArgumentOutOfRangeException(nameof(page),
-                    Constants.CatalogService.ExceptionMessages.InvalidPageOrItsSize);
-            }
+            CheckPageAndItsSize(page, pageSize);
 
-            var cached = await cache.GetAsync<IEnumerable<VideoGame>>(AllVideoGamesCacheKey, cancellationToken);
+            var cacheKey = $"{AllVideoGamesCacheKey};{page};{pageSize}";
+            var cached = await cache.GetAsync<IEnumerable<VideoGame>>(cacheKey, cancellationToken);
 
             if (cached is not null)
             {
                 return cached;
             }
 
-            var videoGames = await repository.VideoGames.FindAllAsync(cancellationToken: cancellationToken);
-
-            if (videoGames?.Any() == true)
-            {
-                await cache.SetAsync(AllVideoGamesCacheKey, videoGames, cancellationToken);
-            }
+            var videoGames = await selectorByPage.GetByPageAsync(page, pageSize, cancellationToken);
+            await cache.SetAsync(cacheKey, videoGames, cancellationToken);
 
             return videoGames;
         }
@@ -129,6 +124,7 @@ namespace GameStart.CatalogService.Common
             return true;
         }
 
+        // TODO: Add selection by page and page size
         public async Task<IEnumerable<VideoGame>> SearchAsync(VideoGameSearchRequest request,
             CancellationToken cancellationToken = default)
         {
@@ -153,6 +149,15 @@ namespace GameStart.CatalogService.Common
         public async Task<IEnumerable<Platform>> GetPlatformsAsync(CancellationToken cancellationToken = default)
         {
             return await repository.Platforms.FindAllAsync(false, cancellationToken);
+        }
+
+        private static void CheckPageAndItsSize(int page, int pageSize)
+        {
+            if (page < 1 || pageSize < 1)
+            {
+                throw new ArgumentOutOfRangeException(nameof(page),
+                    Constants.CatalogService.ExceptionMessages.InvalidPageOrItsSize);
+            }
         }
 
         /// <summary>

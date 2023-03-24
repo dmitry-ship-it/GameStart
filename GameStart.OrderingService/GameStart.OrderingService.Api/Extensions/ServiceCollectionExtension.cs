@@ -9,6 +9,7 @@ using GameStart.Shared.Extensions;
 using GameStart.Shared.Filters;
 using GameStart.Shared.MessageBus;
 using GameStart.Shared.MessageBus.Models.OrderModels;
+using GameStart.Shared.Services;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -47,6 +48,8 @@ namespace GameStart.OrderingService.Api.Extensions
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IAddressService, AddressService>();
             services.AddScoped<IMessagePublisher<Order>, OrderCreatedPublisher>();
+
+            services.AddSingleton<IClock, Clock>();
 
             return services;
         }

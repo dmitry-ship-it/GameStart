@@ -74,6 +74,16 @@ export interface AddressRequest {
   postCode: string;
 }
 
+export interface OrderItem {
+  gameId: string;
+  isPhysicalCopy: boolean;
+}
+
+export interface OrderRequest {
+  items: OrderItem[];
+  address: AddressRequest | null;
+}
+
 export interface Address extends AddressRequest {
   id: string;
   userId: string;
@@ -84,4 +94,18 @@ export interface CartItemWrapper {
   isPhysicalCopy: boolean;
   count: number;
   game: VideoGame;
+}
+
+export interface Item extends OrderItem {
+  id: string;
+}
+
+export interface Order {
+  id: string;
+  userId: string;
+  dateTime: Date;
+  totalPrice: number;
+  state: string;
+  items: Item[];
+  address: Address;
 }

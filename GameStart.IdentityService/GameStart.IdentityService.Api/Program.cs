@@ -10,7 +10,7 @@ builder.Host.UsePreconfiguredSerilog(builder.Configuration);
 builder.Services.AddDbContextsWithIdentity();
 builder.Services.AddAutoMapper(typeof(UserProfile));
 builder.Services.AddMassTransitEventConsuming();
-builder.Services.AddCors(options => options.AddDefaultPolicy(policy => policy.AllowAnyHeader().AllowAnyMethod().SetIsOriginAllowed(_ => true).AllowCredentials()));
+builder.Services.AddAllowingEverythingCors();
 builder.Services.AddCustomCorsPolicy();
 builder.Services.AddControllersWithFilters();
 builder.Services.AddPreconfiguredIdentityServer();

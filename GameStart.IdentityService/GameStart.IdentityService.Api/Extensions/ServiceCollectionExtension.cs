@@ -9,7 +9,6 @@ using GameStart.Shared.Filters;
 using GameStart.Shared.MessageBus;
 using GameStart.Shared.MessageBus.Models.EmailModels;
 using IdentityModel;
-using IdentityServer4;
 using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.Services;
 using MassTransit;
@@ -78,7 +77,7 @@ namespace GameStart.IdentityService.Api.Extensions
 
                 return new DefaultCorsPolicyService(logger)
                 {
-                    AllowAll = true,
+                    AllowAll = true
                 };
             });
         }

@@ -8,12 +8,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Host.UsePreconfiguredSerilog(builder.Configuration);
 
 builder.Configuration.AddOcelotConfiguration(builder.Environment);
+
 builder.Services.AddAllowingEverythingCors();
 builder.Services.AddOcelot();
 
 var app = builder.Build();
 
 app.UseCors();
+app.UseWebSockets();
 await app.UseOcelot();
 
 app.Run();

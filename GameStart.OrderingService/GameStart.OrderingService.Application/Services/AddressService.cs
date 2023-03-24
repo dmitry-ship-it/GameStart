@@ -3,6 +3,7 @@ using FluentValidation;
 using GameStart.OrderingService.Application.DtoModels;
 using GameStart.OrderingService.Core.Abstractions;
 using GameStart.OrderingService.Core.Entities;
+using GameStart.Shared;
 using GameStart.Shared.Extensions;
 using System.Security.Claims;
 
@@ -48,8 +49,7 @@ namespace GameStart.OrderingService.Application.Services
 
             if (address.UserId != claims.GetUserId())
             {
-                // TODO: Move to constants
-                throw new ArgumentException("User cannot delete other user's address");
+                throw new ArgumentException(Constants.OrderingService.ExceptionMessages.CantDeleteOtherUsersAddress);
             }
 
             await repository.DeleteAsync(address, cancellationToken);
@@ -83,8 +83,7 @@ namespace GameStart.OrderingService.Application.Services
 
             if (dbAddress.UserId != claims.GetUserId())
             {
-                // TODO: Move to constants
-                throw new ArgumentException("User cannot update other user's address");
+                throw new ArgumentException(Constants.OrderingService.ExceptionMessages.CantUpdateOtherUsersAddress);
             }
 
             var updatedAddress = mapper.Map(address, dbAddress);

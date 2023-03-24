@@ -20,7 +20,10 @@ namespace GameStart.CatalogService.Common.Consumers
             var entities = await repository.VideoGames.FindAllAsync(
                 includeGraph: false, context.CancellationToken);
 
-            if (entities.Any() && entities.All(entity => message.OrderItems.All(item => item.GameId == entity.Id)))
+            if (entities.Any()
+                && message.OrderItems
+                    .Count(item => entities
+                        .Any(entity => entity.Id == item.GameId)) == message.OrderItems.Count)
             {
                 var totalPrice = (from entity in entities
                                   join item in message.OrderItems

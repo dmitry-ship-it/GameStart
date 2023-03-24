@@ -5,6 +5,7 @@ using GameStart.CatalogService.Common.Consumers;
 using GameStart.CatalogService.Common.Elasticsearch;
 using GameStart.CatalogService.Common.Elasticsearch.Search;
 using GameStart.CatalogService.Common.Mapping;
+using GameStart.CatalogService.Common.Services;
 using GameStart.CatalogService.Data;
 using GameStart.CatalogService.Data.EntityConfigurations.ValueConverters;
 using GameStart.CatalogService.Data.Models;
@@ -12,6 +13,7 @@ using GameStart.CatalogService.Data.Repositories;
 using GameStart.Shared;
 using GameStart.Shared.Extensions;
 using GameStart.Shared.Filters;
+using GameStart.Shared.Services;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -29,7 +31,16 @@ namespace GameStart.CatalogService.Api.Extensions
                     cfg.MigrationsAssembly(typeof(CatalogDbContext).Assembly.FullName)));
 
             services.AddScoped<IRepositoryWrapper, CatalogRepositoryWrapper>();
+            services.AddScoped<ISelectorByPage<VideoGame>, VideoGameRepository>();
+
+            return services;
+        }
+
+        public static IServiceCollection AddServices(this IServiceCollection services)
+        {
             services.AddScoped<VideoGameManager>();
+            services.AddSingleton<IClock, Clock>();
+            services.AddSingleton<IJsonSafeOptionsProvider, JsonSafeOptionsProvider>();
 
             return services;
         }

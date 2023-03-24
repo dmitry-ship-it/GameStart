@@ -18,10 +18,12 @@ namespace GameStart.CatalogService.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllAsync([FromQuery] int page,
+        public async Task<IActionResult> GetAllAsync(
+            [FromQuery] int page,
+            [FromQuery] int pageSize,
             CancellationToken cancellationToken = default)
         {
-            return Ok(await manager.GetByPageAsync(page, cancellationToken));
+            return Ok(await manager.GetByPageAsync(page, pageSize, cancellationToken));
         }
 
         [HttpGet("{id:Guid}")]

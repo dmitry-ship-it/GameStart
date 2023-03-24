@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace GameStart.CatalogService.Data.Repositories
 {
-    public class VideoGameRepository : RepositoryBase<VideoGame, CatalogDbContext>
+    public class VideoGameRepository : RepositoryBase<VideoGame, CatalogDbContext>, ISelectorByPage<VideoGame>
     {
         public VideoGameRepository(CatalogDbContext catalogDbContext)
             : base(catalogDbContext)
@@ -21,7 +21,7 @@ namespace GameStart.CatalogService.Data.Repositories
         public override async Task<IEnumerable<VideoGame>> FindAllAsync(bool includeGraph = true, CancellationToken cancellationToken = default)
         {
             return includeGraph
-                ? await GetVideoGames().AsNoTracking().ToListAsync(cancellationToken)
+                ? await GetVideoGames().ToListAsync(cancellationToken)
                 : await Context.VideoGames.AsNoTracking().ToListAsync(cancellationToken);
         }
 
@@ -30,7 +30,7 @@ namespace GameStart.CatalogService.Data.Repositories
             CancellationToken cancellationToken = default)
         {
             return await GetVideoGames().Where(expression)
-                .AsNoTracking().ToListAsync(cancellationToken);
+                .ToListAsync(cancellationToken);
         }
 
         public override async Task DeleteAsync(VideoGame entity, CancellationToken cancellationToken = default)
@@ -48,6 +48,13 @@ namespace GameStart.CatalogService.Data.Repositories
             await Context.SaveChangesAsync(cancellationToken);
         }
 
+        public async Task<IEnumerable<VideoGame>> GetByPageAsync(int pageNumber, int pageSize, CancellationToken cancellationToken = default)
+        {
+            return await GetVideoGames().Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync(cancellationToken);
+        }
+
         private IQueryable<VideoGame> GetVideoGames()
         {
             return Context.VideoGames
@@ -58,7 +65,8 @@ namespace GameStart.CatalogService.Data.Repositories
                     .ThenInclude(entity => entity.Language)
                 .Include(entity => entity.SystemRequirements)
                     .ThenInclude(requirements => requirements.Platform)
-                .AsSplitQuery();
+                .AsSplitQuery()
+                .AsNoTracking();
         }
     }
 }

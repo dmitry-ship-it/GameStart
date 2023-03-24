@@ -18,5 +18,14 @@ namespace GameStart.Shared.Extensions
                     ServerCertificateCustomValidationCallback = delegate { return true; }
                 };
             });
+
+        public static IServiceCollection AddAllowingEverythingCors(this IServiceCollection services) =>
+            services.AddCors(setup => setup.AddDefaultPolicy(policy =>
+            {
+                policy.SetIsOriginAllowed(_ => true);
+                policy.AllowAnyMethod();
+                policy.AllowAnyHeader();
+                policy.AllowCredentials();
+            }));
     }
 }

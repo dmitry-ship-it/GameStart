@@ -15,6 +15,8 @@ import GamePage from "./app/game/game-page";
 import { CartItemWrapper, VideoGame } from "./app/util/types";
 import AccountVerificationPage from "./app/account/account-verification-page";
 import CartPage from "./app/cart/cart-page";
+import CartCheckoutPage from "./app/cart/cart-checkout-page";
+import AccountOrderStatus from "./app/account/account-order-status";
 
 export const store = createStore();
 store.persist({
@@ -63,8 +65,10 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/account" element={<AccountPage />} />
-        <Route path="/account/cart" element={<CartPage />} />
         <Route path="/account/verifyEmail" element={<AccountVerificationPage />} />
+        <Route path="/account/cart" element={<CartPage />} />
+        <Route path="/account/cart/checkout" element={<CartCheckoutPage />} />
+        <Route path="/account/order/:orderId" element={<AccountOrderStatus />} />
         <Route path="/game/:gameId" element={<GamePage />} />
       </Routes>
       <Footer />

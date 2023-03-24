@@ -110,6 +110,8 @@ services:
       dockerfile: GameStart.OrderingService/GameStart.OrderingService.Api/Dockerfile
     networks:
       - backend
+    ports:
+      - 6010:443
     depends_on:
       - gamestart.gateway
       - messagebus
@@ -120,6 +122,7 @@ services:
       - ORDERS_DB_DATABASE=Orders
       - ORDERS_DB_USERNAME=root
       - ORDERS_DB_PASSWORD=4mG3SSUqkF7rX
+      - REDIS_CACHE_URL=redis.cache:6379
       - IDENTITY_AUTHORITY=https://gamestart.identityservice.api
   ordersdb:
     container_name: ordering-service-db

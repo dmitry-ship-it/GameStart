@@ -23,13 +23,21 @@ namespace GameStart.OrderingService.Api.Controllers
             return Ok(await orderService.GetByUserIdAsync(HttpContext.User.Claims, cancellationToken));
         }
 
+        [HttpGet("{id:Guid}")]
+        public async Task<IActionResult> GetByIdAsync([FromRoute] Guid id, CancellationToken cancellationToken = default)
+        {
+            var order = await orderService.GetByIdAsync(id, HttpContext.User.Claims, cancellationToken);
+
+            return order is null ? NotFound() : Ok(order);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateAsync([FromBody] OrderDto order,
             CancellationToken cancellationToken = default)
         {
-            await orderService.CreateAsync(order, HttpContext.User.Claims, cancellationToken);
+            var createdId = await orderService.CreateAsync(order, HttpContext.User.Claims, cancellationToken);
 
-            return Accepted();
+            return Accepted(createdId);
         }
     }
 }

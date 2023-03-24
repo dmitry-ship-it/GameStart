@@ -1,28 +1,22 @@
-﻿using GameStart.CatalogService.Data.EntityConfigurations.ValueConverters;
+﻿using GameStart.CatalogService.Common.Services;
 using Microsoft.Extensions.Caching.Distributed;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace GameStart.CatalogService.Common.Caching
 {
     public class RedisCacheService : IRedisCacheService
     {
         private readonly DistributedCacheEntryOptions cacheOptions = new DistributedCacheEntryOptions()
-            .SetSlidingExpiration(TimeSpan.FromMinutes(10))
-            .SetAbsoluteExpiration(TimeSpan.FromMinutes(120));
-
-        private readonly JsonSerializerOptions jsonOptions;
+            .SetSlidingExpiration(TimeSpan.FromMinutes(5))
+            .SetAbsoluteExpiration(TimeSpan.FromMinutes(5));
 
         private readonly IDistributedCache cache;
+        private readonly IJsonSafeOptionsProvider jsonOptionsProvider;
 
-        public RedisCacheService(IDistributedCache cache)
+        public RedisCacheService(IDistributedCache cache, IJsonSafeOptionsProvider jsonOptionsProvider)
         {
-            ArgumentNullException.ThrowIfNull(cache);
             this.cache = cache;
-
-            jsonOptions = new();
-            jsonOptions.Converters.Add(new DateOnlyJsonConverter());
-            jsonOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+            this.jsonOptionsProvider = jsonOptionsProvider;
         }
 
         public async Task DeleteAsync(string key, CancellationToken cancellationToken = default)
@@ -36,12 +30,12 @@ namespace GameStart.CatalogService.Common.Caching
 
             return string.IsNullOrEmpty(cached)
                 ? default
-                : JsonSerializer.Deserialize<T>(cached, jsonOptions);
+                : JsonSerializer.Deserialize<T>(cached, jsonOptionsProvider.JsonSerializerOptions);
         }
 
         public async Task SetAsync<T>(string key, T value, CancellationToken cancellationToken = default)
         {
-            var serialized = JsonSerializer.Serialize(value, jsonOptions);
+            var serialized = JsonSerializer.Serialize(value, jsonOptionsProvider.JsonSerializerOptions);
             await cache.SetStringAsync(key, serialized, cacheOptions, cancellationToken);
         }
     }
