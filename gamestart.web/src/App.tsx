@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import "./App.css";
+import "./App.scss";
 import Header from "./header/header";
 import Footer from "./footer/footer";
 import Main from "./app/main";
@@ -17,6 +17,8 @@ import AccountVerificationPage from "./app/account/account-verification-page";
 import CartPage from "./app/cart/cart-page";
 import CartCheckoutPage from "./app/cart/cart-checkout-page";
 import AccountOrderStatus from "./app/account/account-order-status";
+import AccountInventoryPage from "./app/account/account-inventory-page";
+import Cookies from "js-cookie";
 
 export const store = createStore();
 store.persist({
@@ -40,22 +42,21 @@ const initialCart: CartItemWrapper[] = [];
 store.setState("cart", initialCart, { persist: true });
 
 export default function App() {
-  const [cookies] = useCookies(["Authorization"]);
   const [isLoggedIn, setIsLoggedIn] = store.useState<boolean>("isLoggedIn");
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const cookie = cookies.Authorization;
+      const cookie = Cookies.get("Authorization");
       let loggedIn = false;
-      if (cookie !== undefined && cookie !== null) {
+      if (cookie !== undefined) {
         const jwt = jwtDecode<any>(cookie);
         loggedIn = Date.now() < (jwt.exp as number) * 1000;
         if (loggedIn !== isLoggedIn) setIsLoggedIn(loggedIn);
       }
-    }, 200);
+    }, 2000);
 
     return () => clearInterval(interval);
-  }, [cookies.Authorization, isLoggedIn, setIsLoggedIn]);
+  }, [isLoggedIn, setIsLoggedIn]);
 
   return (
     <div className="App">
@@ -66,6 +67,7 @@ export default function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/account" element={<AccountPage />} />
         <Route path="/account/verifyEmail" element={<AccountVerificationPage />} />
+        <Route path="/account/inventory" element={<AccountInventoryPage />} />
         <Route path="/account/cart" element={<CartPage />} />
         <Route path="/account/cart/checkout" element={<CartCheckoutPage />} />
         <Route path="/account/order/:orderId" element={<AccountOrderStatus />} />

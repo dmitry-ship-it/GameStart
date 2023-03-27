@@ -8,9 +8,11 @@ namespace GameStart.IdentityService.Data.Models
 
         public Guid GameId { get; set; }
 
+        public string Title { get; set; }
+
         public string GameKey { get; set; }
 
-        public DateTime PurchaseDateTime { get; set; }
+        public DateTimeOffset PurchaseDateTime { get; set; }
 
         [JsonIgnore]
         public virtual User User { get; set; }

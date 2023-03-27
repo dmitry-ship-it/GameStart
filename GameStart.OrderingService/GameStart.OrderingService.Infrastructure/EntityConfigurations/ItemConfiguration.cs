@@ -13,6 +13,11 @@ namespace GameStart.OrderingService.Infrastructure.EntityConfigurations
             builder.Property(item => item.GameId)
                 .IsRequired(true);
 
+            builder.Property(item => item.Title)
+                .HasMaxLength(256)
+                .IsUnicode(true)
+                .IsRequired(false);
+
             builder.Property(item => item.IsPhysicalCopy)
                 .HasDefaultValue(false);
         }

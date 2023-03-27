@@ -20,7 +20,8 @@ namespace GameStart.OrderingService.Application.Services
         private readonly IMapper mapper;
         private readonly IValidator<OrderDto> validator;
         private readonly IHubContext<OrderStatusHub> hubContext;
-        private readonly IClock clock;
+        private readonly IDateTimeProvider dateTimeProvider;
+        private readonly IGuidProvider guidProvider;
 
         public OrderService(
             IOrderRepository repository,
@@ -28,14 +29,16 @@ namespace GameStart.OrderingService.Application.Services
             IMapper mapper,
             IValidator<OrderDto> validator,
             IHubContext<OrderStatusHub> hubContext,
-            IClock clock)
+            IDateTimeProvider dateTimeProvider,
+            IGuidProvider guidProvider)
         {
             this.repository = repository;
             this.orderMessagePublisher = orderMessagePublisher;
             this.mapper = mapper;
             this.validator = validator;
             this.hubContext = hubContext;
-            this.clock = clock;
+            this.dateTimeProvider = dateTimeProvider;
+            this.guidProvider = guidProvider;
         }
 
         public async Task<Guid> CreateAsync(OrderDto order, IEnumerable<Claim> claims,
@@ -80,8 +83,8 @@ namespace GameStart.OrderingService.Application.Services
 
         private void SeedMissingData(Order order, IEnumerable<Claim> claims)
         {
-            order.Id = Guid.NewGuid();
-            order.DateTime = clock.Now;
+            order.Id = guidProvider.New;
+            order.DateTime = dateTimeProvider.Now;
 
             var userId = claims.GetUserId();
             order.UserId = userId;

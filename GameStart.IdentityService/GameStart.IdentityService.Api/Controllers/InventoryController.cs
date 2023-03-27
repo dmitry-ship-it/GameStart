@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GameStart.IdentityService.Api.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class InventoryController : ControllerBase
@@ -16,6 +15,7 @@ namespace GameStart.IdentityService.Api.Controllers
             this.manager = manager;
         }
 
+        [Authorize]
         [HttpGet("{gameId:Guid}")]
         public async Task<IActionResult> GetItemAsync([FromRoute] Guid gameId,
             CancellationToken cancellationToken = default)
@@ -26,12 +26,14 @@ namespace GameStart.IdentityService.Api.Controllers
             return result is null ? NotFound() : Ok(result);
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken = default)
         {
             return Ok(await manager.GetAllAsync(HttpContext.User.Claims, cancellationToken));
         }
 
+        [Authorize]
         [HttpDelete("{gameId:Guid}")]
         public async Task<IActionResult> DeleteAsync([FromRoute] Guid gameId,
             CancellationToken cancellationToken = default)

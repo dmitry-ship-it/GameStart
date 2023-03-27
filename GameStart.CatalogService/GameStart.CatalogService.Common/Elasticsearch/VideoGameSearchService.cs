@@ -9,9 +9,9 @@ namespace GameStart.CatalogService.Common.Elasticsearch
     public class VideoGameSearchService : IElasticsearchService<VideoGame, VideoGameSearchRequest>
     {
         private readonly IElasticClient elasticClient;
-        private readonly IClock clock;
+        private readonly IDateTimeProvider clock;
 
-        public VideoGameSearchService(IElasticClient elasticClient, IClock clock)
+        public VideoGameSearchService(IElasticClient elasticClient, IDateTimeProvider clock)
         {
             this.elasticClient = elasticClient;
             this.clock = clock;
@@ -78,8 +78,8 @@ namespace GameStart.CatalogService.Common.Elasticsearch
                             ),
                             query => query.DateRange(dateRange => dateRange
                                 .Field(field => field.ReleaseDate)
-                                .GreaterThanOrEquals(DateMath.Anchored(request.ReleasedFrom))
-                                .LessThanOrEquals(DateMath.Anchored(request.ReleasedTo ?? clock.Now))
+                                .GreaterThanOrEquals(DateMath.Anchored(request.ReleasedFrom.UtcDateTime))
+                                .LessThanOrEquals(DateMath.Anchored(request.ReleasedTo?.UtcDateTime ?? clock.Now.UtcDateTime))
                             ),
                             query => query.Range(range => range
                                 .Field(field => field.Price)

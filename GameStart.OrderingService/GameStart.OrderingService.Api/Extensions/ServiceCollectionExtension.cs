@@ -49,7 +49,8 @@ namespace GameStart.OrderingService.Api.Extensions
             services.AddScoped<IAddressService, AddressService>();
             services.AddScoped<IMessagePublisher<Order>, OrderCreatedPublisher>();
 
-            services.AddSingleton<IClock, Clock>();
+            services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
+            services.AddSingleton<IGuidProvider, GuidProvider>();
 
             return services;
         }

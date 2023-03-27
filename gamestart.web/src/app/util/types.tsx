@@ -109,3 +109,11 @@ export interface Order {
   items: Item[];
   address: Address;
 }
+
+export interface InventoryItem {
+  id: string;
+  gameId: string;
+  title: string;
+  gameKey: string;
+  purchaseDateTime: Date;
+}

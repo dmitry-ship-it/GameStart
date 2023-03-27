@@ -4,9 +4,9 @@
     {
         public string Title { get; set; }
 
-        public DateTime ReleasedFrom { get; set; }
+        public DateTimeOffset ReleasedFrom { get; set; }
 
-        public DateTime? ReleasedTo { get; set; }
+        public DateTimeOffset? ReleasedTo { get; set; }
 
         public decimal PriceFrom { get; set; }
 

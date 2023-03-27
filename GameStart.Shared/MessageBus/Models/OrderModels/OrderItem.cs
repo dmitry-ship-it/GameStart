@@ -4,8 +4,10 @@
     {
         public Guid GameId { get; set; }
 
+        public string Title { get; set; }
+
         public string GameKey { get; set; }
 
-        public DateTime PurchaseDateTime { get; set; }
+        public DateTimeOffset PurchaseDateTime { get; set; }
     }
 }

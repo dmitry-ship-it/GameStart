@@ -4,31 +4,38 @@ import { decodeJwt } from "../util/helpers";
 import AccountUnauthorized from "./account-unauthorized";
 import AccountAddress from "./account-address";
 import ApiRouter from "../util/ApiRouter";
-import { Address } from "../util/types";
+import { Address, Order } from "../util/types";
 import { useEffect, useState } from "react";
 import AccountAddAddress from "./account-add-address";
+import AccountOrdersGroup from "./account-orders-group";
 
 export default function AccountPage() {
   const isLoggedIn = store.getState("isLoggedIn").getValue<boolean>();
   const user = decodeJwt();
 
   const [addresses, setAddresses] = useState<Address[]>([]);
+  const [orders, setOrders] = useState<Order[]>([]);
 
   useEffect(() => {
     const loadAddresses = async () => {
       const response = await ApiRouter.address.get<Address[]>("", false);
-      if (response.status === 200) {
-        setAddresses(response.data);
-      }
+      setAddresses(response.data);
     };
-    loadAddresses();
-  }, []);
+    const loadOrders = async () => {
+      const response = await ApiRouter.order.get<Order[]>("", false);
+      setOrders(response.data);
+    };
+
+    if (addresses.length === 0) loadAddresses();
+    if (orders.length === 0) loadOrders();
+  }, [addresses.length, orders.length]);
 
   return !isLoggedIn ? (
     <AccountUnauthorized />
   ) : (
     <div className="account-page">
       <div className="account-info-group">
+        {orders.length === 0 ? <></> : <AccountOrdersGroup orders={orders} />}
         <div className="account-info-box">
           <table className="account-summary">
             <caption className="account-summary-title">Profile summary</caption>
@@ -59,6 +66,9 @@ export default function AccountPage() {
               </tr>
             </tbody>
           </table>
+          <NavLink className="account-inventory-link" to="/account/inventory">
+            Inventory
+          </NavLink>
         </div>
         <div className="account-add-address-group">
           <span className="account-add-address-title">Shipping addresses</span>

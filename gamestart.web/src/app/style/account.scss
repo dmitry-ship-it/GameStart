@@ -289,3 +289,92 @@ button:hover {
   place-self: center;
   font-size: 15px;
 }
+
+.account-order-table {
+  @extend .account-box;
+  border-collapse: collapse;
+  padding: 1em 2em 2em 2em;
+  place-self: center;
+}
+
+.account-order-table-row {
+  border-bottom: 1px solid black;
+}
+
+.account-order-table-row-title {
+  text-align: start;
+  padding-right: 1em;
+  font-weight: bolder;
+}
+
+.account-order-table-row-value {
+  text-align: end;
+  padding-left: 1em;
+  font-weight: bolder;
+  color: #666666;
+}
+
+.account-orders-box {
+  @extend .account-box;
+  padding: 10px 20px 20px 20px;
+  margin-right: 20px;
+  height: fit-content;
+}
+
+.account-orders-box-title {
+  font-size: 20px;
+  font-weight: 600;
+  padding: 10px;
+}
+
+.account-orders-box-item {
+  text-decoration: none;
+  text-align: start;
+  font-size: 16px;
+  font-weight: bolder;
+  margin: 10px 0px 10px 0px;
+}
+
+.account-inventory-page {
+  @extend .account-page;
+}
+
+.account-inventory-table {
+  @extend .account-box;
+  margin-top: 2em;
+  padding: 20px;
+  border-collapse: collapse;
+}
+
+.account-inventory-table-row {
+  border-bottom: 1px solid black;
+}
+
+.account-inventory-table-row-title {
+  text-align: left;
+  padding-right: 2em;
+  font-weight: bolder;
+}
+
+.account-inventory-table-row-value {
+  text-align: right;
+  padding-left: 2em;
+  font-weight: bolder;
+  color: navy;
+}
+
+.account-inventory-table-link {
+  @extend .account-inventory-link;
+}
+
+.account-inventory-link {
+  font-size: 20px;
+  border-radius: 10px;
+  padding: 0.2em 0.8em 0.2em 0.8em;
+  width: fit-content;
+  place-self: center;
+  text-decoration: none;
+  margin-top: 0.8em;
+  background-image: linear-gradient(to top right, #7c3aed, #a21caf);
+  color: white;
+}

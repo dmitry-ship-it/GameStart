@@ -9,6 +9,8 @@ namespace GameStart.OrderingService.Core.Entities
 
         public Guid GameId { get; set; }
 
+        public string Title { get; set; }
+
         public bool IsPhysicalCopy { get; set; }
 
         [JsonIgnore]

@@ -36,28 +36,29 @@ export default function AccountOrderStatus() {
       connection.off("OrderStatusUpdated", handleOrderStatusUpdated);
       connection.stop();
     };
-  }, []);
+  }, [orderId]);
 
   if (!order) return <h3>Not found</h3>;
 
   return (
-    <table key={order.id}>
+    <table className="account-order-table" key={order.id}>
+      <h3>Order status</h3>
       <tbody>
-        <tr>
-          <td>Order date</td>
-          <td>{order.dateTime.toString()}</td>
+        <tr className="account-order-table-row">
+          <td className="account-order-table-row-title">Order date</td>
+          <td className="account-order-table-row-value">{new Date(order.dateTime).toLocaleString()}</td>
         </tr>
-        <tr>
-          <td>Total price</td>
-          <td>{order.totalPrice.toFixed(2)}</td>
+        <tr className="account-order-table-row">
+          <td className="account-order-table-row-title">Total price</td>
+          <td className="account-order-table-row-value">{order.totalPrice.toFixed(2)}</td>
         </tr>
-        <tr>
-          <td>State</td>
-          <td>{order.state}</td>
+        <tr className="account-order-table-row">
+          <td className="account-order-table-row-title">State</td>
+          <td className="account-order-table-row-value">{order.state}</td>
         </tr>
-        <tr>
-          <td>Bought items</td>
-          <td>{order.items.length}</td>
+        <tr className="account-order-table-row">
+          <td className="account-order-table-row-title">Items to buy</td>
+          <td className="account-order-table-row-value">{order.items.length}</td>
         </tr>
       </tbody>
     </table>

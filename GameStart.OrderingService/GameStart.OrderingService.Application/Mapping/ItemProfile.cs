@@ -8,7 +8,7 @@ namespace GameStart.OrderingService.Application.Mapping
     {
         public ItemProfile()
         {
-            CreateMap<ItemDto, Item>();
+            CreateMap<ItemDto, Item>().ReverseMap();
         }
     }
 }

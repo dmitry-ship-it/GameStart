@@ -8,7 +8,7 @@ namespace GameStart.OrderingService.Core.Entities
 
         public Guid UserId { get; set; }
 
-        public DateTime DateTime { get; set; }
+        public DateTimeOffset DateTime { get; set; }
 
         public decimal TotalPrice { get; set; }
 

@@ -48,7 +48,7 @@ namespace GameStart.OrderingService.Infrastructure.Repositories
         public virtual async Task UpdateAsync(T entity,
             CancellationToken cancellationToken = default)
         {
-            Context.Set<T>().Update(entity);
+            Context.Set<T>().Attach(entity).State = EntityState.Modified;
             await Context.SaveChangesAsync(cancellationToken);
         }
     }

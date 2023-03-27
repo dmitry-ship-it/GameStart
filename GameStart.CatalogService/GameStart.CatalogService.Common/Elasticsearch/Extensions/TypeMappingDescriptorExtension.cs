@@ -3,7 +3,7 @@ using Nest;
 
 namespace GameStart.CatalogService.Common.Elasticsearch.Extensions
 {
-    public static class CreateIndexDescriptorExtension
+    public static class TypeMappingDescriptorExtension
     {
         public static TypeMappingDescriptor<VideoGame> MapVideoGameGraph(this TypeMappingDescriptor<VideoGame> descriptor)
         {

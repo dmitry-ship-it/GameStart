@@ -10,7 +10,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 export default function CartCheckoutPage() {
   const navigate = useNavigate();
   const [addresses, setAddresses] = useState<Address[]>([]);
-  const cartItems = store.getState("cart").getValue() as CartItemWrapper[];
+  const [cartItems, setCartItems] = store.useState<CartItemWrapper[]>("cart");
 
   useEffect(() => {
     const loadAddresses = async () => {
@@ -41,6 +41,7 @@ export default function CartCheckoutPage() {
     const response = await ApiRouter.order.post("", body, false);
 
     if (response.status === 202) {
+      setCartItems([]);
       navigate(`/account/order/${response.data as any}`);
     }
   };

@@ -76,7 +76,6 @@ namespace GameStart.CatalogService.Common
             var videoGame = mapper.Map<VideoGame>(viewModel);
 
             await repository.VideoGames.CreateAsync(videoGame, cancellationToken);
-            await cache.DeleteAsync(AllVideoGamesCacheKey, cancellationToken);
 
             CutCycles(videoGame);
 
@@ -95,7 +94,6 @@ namespace GameStart.CatalogService.Common
             }
 
             await cache.DeleteAsync(id.ToString(), cancellationToken);
-            await cache.DeleteAsync(AllVideoGamesCacheKey, cancellationToken);
 
             await repository.VideoGames.DeleteAsync(videoGame, cancellationToken);
             await elasticsearch.DeleteByIdAsync(videoGame, cancellationToken);
@@ -119,7 +117,6 @@ namespace GameStart.CatalogService.Common
             await elasticsearch.UpdateAsync(videoGame, cancellationToken);
 
             await cache.SetAsync(id.ToString(), videoGame, cancellationToken);
-            await cache.DeleteAsync(AllVideoGamesCacheKey, cancellationToken);
 
             return true;
         }
