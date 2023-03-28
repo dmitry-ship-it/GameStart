@@ -35,7 +35,7 @@ export default function AccountInventoryPage() {
               <td className="account-inventory-table-row-value">{item.gameKey}</td>
             </tr>
           </tbody>
-          <NavLink className="account-inventory-table-link" to={`/game/${item.id}`}>
+          <NavLink className="account-inventory-table-link" to={`/game/${item.gameId}`}>
             Go to shop page
           </NavLink>
         </table>

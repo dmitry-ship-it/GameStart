@@ -32,6 +32,7 @@ namespace GameStart.CatalogService.Api.Extensions
 
             services.AddScoped<IRepositoryWrapper, CatalogRepositoryWrapper>();
             services.AddScoped<ISelectorByPage<VideoGame>, VideoGameRepository>();
+            services.AddScoped<IGameCounter, VideoGameRepository>();
 
             return services;
         }

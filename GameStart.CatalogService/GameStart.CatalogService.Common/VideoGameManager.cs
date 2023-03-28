@@ -15,6 +15,7 @@ namespace GameStart.CatalogService.Common
 
         private readonly IRepositoryWrapper repository;
         private readonly ISelectorByPage<VideoGame> selectorByPage;
+        private readonly IGameCounter gameCounter;
         private readonly IMapper mapper;
         private readonly IRedisCacheService cache;
         private readonly IElasticsearchService<VideoGame, VideoGameSearchRequest> elasticsearch;
@@ -22,12 +23,14 @@ namespace GameStart.CatalogService.Common
         public VideoGameManager(
             IRepositoryWrapper repository,
             ISelectorByPage<VideoGame> selectorByPage,
+            IGameCounter gameCounter,
             IMapper mapper,
             IRedisCacheService cache,
             IElasticsearchService<VideoGame, VideoGameSearchRequest> elasticsearch)
         {
             this.repository = repository;
             this.selectorByPage = selectorByPage;
+            this.gameCounter = gameCounter;
             this.mapper = mapper;
             this.cache = cache;
             this.elasticsearch = elasticsearch;
@@ -146,6 +149,11 @@ namespace GameStart.CatalogService.Common
         public async Task<IEnumerable<Platform>> GetPlatformsAsync(CancellationToken cancellationToken = default)
         {
             return await repository.Platforms.FindAllAsync(false, cancellationToken);
+        }
+
+        public async Task<int> GetGamesCountAsync(CancellationToken cancellationToken = default)
+        {
+            return await gameCounter.CountAsync(cancellationToken);
         }
 
         private static void CheckPageAndItsSize(int page, int pageSize)

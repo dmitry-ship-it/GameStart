@@ -117,6 +117,7 @@ namespace GameStart.IdentityService.Common
                 return false;
             }
 
+            await signInManager.SignInAsync(user, true);
             await GenerateJwtAsync(user, httpContext, cancellationToken);
 
             return true;

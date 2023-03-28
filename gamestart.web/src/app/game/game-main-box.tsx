@@ -1,10 +1,11 @@
+import ApiRouter from "../util/ApiRouter";
 import { VideoGame } from "../util/types";
 import GameSpecificationsBlock from "./game-specifications-block";
 
 export default function GameMainBox(ctx: { game: VideoGame }) {
   return (
     <div className="game-main-box">
-      <iframe className="game-video" src="https://youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1" title={ctx.game.title}></iframe>
+      <video className="game-video" autoPlay controls muted src={ApiRouter.getMediaSource(`${ctx.game.id}.mp4`)} title={ctx.game.title}></video>
       <span className="game-description">{ctx.game.description}</span>
       <GameSpecificationsBlock game={ctx.game} />
     </div>

@@ -179,6 +179,21 @@ services:
       retries: 10
       start_period: 10s
 
+  # Files service
+  gamestart.filesservice.api:
+    container_name: files-service
+    image: ${DOCKER_REGISTRY-}filesservice
+    build:
+      context: .
+      dockerfile: GameStart.FilesService/GameStart.FilesService.Api/Dockerfile
+    networks:
+      - backend
+    depends_on:
+      - gamestart.identityservice.api
+      - gamestart.gateway
+    environment: 
+      - IDENTITY_AUTHORITY=https://gamestart.identityservice.api
+
   # Message Bus
   messagebus:
     container_name: messagebus
@@ -251,3 +266,4 @@ services:
   #    - elk.elasticsearch
   #  volumes:
   #    - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+

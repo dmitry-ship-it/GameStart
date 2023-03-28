@@ -145,6 +145,22 @@
       ],
       "DownstreamPathTemplate": "/api/address/{id}",
       "DangerousAcceptAnyServerCertificateValidator": true
+    },
+
+    // Files service
+    {
+      "UpstreamPathTemplate": "/api/files/{fileName}",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "gamestart.filesservice.api",
+          "Port": 443
+        }
+      ],
+      "DownstreamPathTemplate": "/api/files/{fileName}",
+      "DangerousAcceptAnyServerCertificateValidator": true
     }
   ],
   "GlobalConfiguration": {

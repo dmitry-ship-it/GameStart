@@ -180,8 +180,8 @@ input:focus-visible {
 }
 
 .search-item-platform {
-  height: 40px;
-  width: 40px;
+  height: 1.5em;
+  width: 1.5em;
 }
 
 .search-item-middle {
@@ -202,4 +202,32 @@ input:focus-visible {
 .search-item-left-group {
   display: flex;
   flex-direction: row;
+}
+
+.search-nav {
+  position: absolute;
+  z-index: 1;
+  bottom: 5em;
+  background-color: #d9d9d9;
+  border-radius: 1em;
+  padding: 0.5em;
+  width: fit-content;
+  place-self: center;
+  justify-self: start;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.search-nav-middle {
+  display: flex;
+  flex-direction: row;
+  gap: 0.2em;
+  margin: 0em 2em 0em 2em;
+}
+
+.search-nav-button {
+  background-color: transparent;
+  border: 0;
+  margin: 0em 0.2em 0em 0.2em;
 }

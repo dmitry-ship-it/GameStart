@@ -18,14 +18,13 @@
 .game-video-and-info {
   display: flex;
   flex-direction: row;
-  height: max-content;
+  width: 80dvw;
+  place-content: center;
 }
 
 .game-video {
   border: 0px;
-  min-width: 60rem;
-  min-height: 33.75rem;
-  width: max-content;
+  max-width: 100%;
 }
 
 .game-main-box {
@@ -67,9 +66,8 @@
 }
 
 .game-side-box-image {
-  border: 1px solid red;
   border-radius: 10px;
-  max-width: 100px;
+  width: 10em;
   place-self: center;
 }
 

@@ -1,6 +1,7 @@
 import { VideoGame } from "../util/types";
 import logo from "../../logo.svg";
 import "../style/game.scss";
+import ApiRouter from "../util/ApiRouter";
 
 export default function GameSideBoxTable(ctx: { game: VideoGame }) {
   return (
@@ -25,7 +26,12 @@ export default function GameSideBoxTable(ctx: { game: VideoGame }) {
         <td className="game-side-box-table-label">Platforms</td>
         <td className="game-side-box-table-value">
           {ctx.game.systemRequirements.map(({ platform }) => (
-            <img className="game-side-box-table-platform" src={logo} alt={platform.name} key={platform.id} />
+            <img
+              className="game-side-box-table-platform"
+              src={ApiRouter.getMediaSource(`${platform.name}.png`)}
+              alt={platform.name}
+              key={platform.id}
+            />
           ))}
         </td>
       </tr>

@@ -15,6 +15,10 @@ export default class ApiRouter {
     return new HubConnector(this.baseUrl, hubRoute).connection;
   }
 
+  public static getMediaSource(fileName: string) {
+    return this.baseUrl + "/files/" + fileName;
+  }
+
   private constructor(urlPart: string | null = null) {
     if (urlPart !== null) this.route += "/" + urlPart;
   }

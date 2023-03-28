@@ -34,7 +34,7 @@ export default function Register() {
       setError("Register error");
     } else {
       setIsLoggedIn(true);
-      navigate("/");
+      navigate("/account/verifyEmail");
     }
   };
 

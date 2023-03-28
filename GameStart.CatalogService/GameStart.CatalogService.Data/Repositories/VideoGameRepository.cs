@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace GameStart.CatalogService.Data.Repositories
 {
-    public class VideoGameRepository : RepositoryBase<VideoGame, CatalogDbContext>, ISelectorByPage<VideoGame>
+    public class VideoGameRepository : RepositoryBase<VideoGame, CatalogDbContext>, ISelectorByPage<VideoGame>, IGameCounter
     {
         public VideoGameRepository(CatalogDbContext catalogDbContext)
             : base(catalogDbContext)
@@ -53,6 +53,11 @@ namespace GameStart.CatalogService.Data.Repositories
             return await GetVideoGames().Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync(cancellationToken);
+        }
+
+        public async Task<int> CountAsync(CancellationToken cancellationToken = default)
+        {
+            return await Context.VideoGames.CountAsync(cancellationToken);
         }
 
         private IQueryable<VideoGame> GetVideoGames()

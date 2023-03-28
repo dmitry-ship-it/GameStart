@@ -18,7 +18,7 @@ namespace GameStart.CatalogService.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllAsync(
+        public async Task<IActionResult> GetByPageAsync(
             [FromQuery] int page,
             [FromQuery] int pageSize,
             CancellationToken cancellationToken = default)
@@ -95,6 +95,12 @@ namespace GameStart.CatalogService.Api.Controllers
         public async Task<IActionResult> GetPlatformsAsync(CancellationToken cancellationToken = default)
         {
             return Ok(await manager.GetPlatformsAsync(cancellationToken));
+        }
+
+        [HttpGet("count")]
+        public async Task<IActionResult> GetGamesCountAsync(CancellationToken cancellationToken = default)
+        {
+            return Ok(await manager.GetGamesCountAsync(cancellationToken));
         }
     }
 }
