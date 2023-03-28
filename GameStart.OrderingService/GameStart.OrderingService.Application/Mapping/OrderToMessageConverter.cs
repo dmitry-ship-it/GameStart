@@ -18,6 +18,7 @@ namespace GameStart.OrderingService.Application.Mapping
             {
                 orderItems.Add(new OrderItem
                 {
+                    Id = item.Id,
                     GameId = item.GameId,
                     Title = item.Title,
                     PurchaseDateTime = source.DateTime

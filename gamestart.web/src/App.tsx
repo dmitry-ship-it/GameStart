@@ -45,17 +45,13 @@ export default function App() {
   const [isLoggedIn, setIsLoggedIn] = store.useState<boolean>("isLoggedIn");
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      const cookie = Cookies.get("Authorization");
-      let loggedIn = false;
-      if (cookie !== undefined) {
-        const jwt = jwtDecode<any>(cookie);
-        loggedIn = Date.now() < (jwt.exp as number) * 1000;
-        if (loggedIn !== isLoggedIn) setIsLoggedIn(loggedIn);
-      }
-    }, 2000);
-
-    return () => clearInterval(interval);
+    const cookie = Cookies.get("Authorization");
+    let loggedIn = false;
+    if (cookie !== undefined) {
+      const jwt = jwtDecode<any>(cookie);
+      loggedIn = Date.now() < (jwt.exp as number) * 1000;
+      if (loggedIn !== isLoggedIn) setIsLoggedIn(loggedIn);
+    }
   }, [isLoggedIn, setIsLoggedIn]);
 
   return (
