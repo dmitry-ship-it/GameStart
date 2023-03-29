@@ -39,7 +39,7 @@ namespace GameStart.CatalogService.Api.Extensions
 
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
-            services.AddScoped<VideoGameManager>();
+            services.AddScoped<IVideoGameManager, VideoGameManager>();
             services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
             services.AddSingleton<IJsonSafeOptionsProvider, JsonSafeOptionsProvider>();
 

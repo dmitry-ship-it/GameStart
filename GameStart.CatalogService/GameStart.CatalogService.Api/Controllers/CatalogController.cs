@@ -10,9 +10,9 @@ namespace GameStart.CatalogService.Api.Controllers
     [Route("api/[controller]")]
     public class CatalogController : ControllerBase
     {
-        private readonly VideoGameManager manager;
+        private readonly IVideoGameManager manager;
 
-        public CatalogController(VideoGameManager manager)
+        public CatalogController(IVideoGameManager manager)
         {
             this.manager = manager;
         }

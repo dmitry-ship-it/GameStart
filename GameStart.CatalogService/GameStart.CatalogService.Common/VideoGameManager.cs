@@ -9,7 +9,7 @@ using GameStart.Shared;
 
 namespace GameStart.CatalogService.Common
 {
-    public class VideoGameManager
+    public class VideoGameManager : IVideoGameManager
     {
         private readonly string AllVideoGamesCacheKey = typeof(VideoGame).Name;
 
