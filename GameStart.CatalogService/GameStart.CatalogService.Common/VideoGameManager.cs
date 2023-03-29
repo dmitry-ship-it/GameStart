@@ -82,8 +82,7 @@ namespace GameStart.CatalogService.Common
 
             CutCycles(videoGame);
 
-            // TODO: Uncomment
-            // await elasticsearch.InsertAsync(videoGame, cancellationToken);
+            await elasticsearch.InsertAsync(videoGame, cancellationToken);
             await cache.SetAsync(videoGame.Id.ToString(), videoGame, cancellationToken);
         }
 
@@ -124,7 +123,6 @@ namespace GameStart.CatalogService.Common
             return true;
         }
 
-        // TODO: Add selection by page and page size
         public async Task<IEnumerable<VideoGame>> SearchAsync(VideoGameSearchRequest request,
             CancellationToken cancellationToken = default)
         {

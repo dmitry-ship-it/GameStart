@@ -33,7 +33,7 @@ services:
       - gamestart.identityservice.api
       - messagebus
       - redis.cache
-      #- elk.elasticsearch
+      - elk.elasticsearch
       - catalogdb
     environment:
       - CATALOG_DB_HOST=catalogdb
@@ -226,44 +226,43 @@ services:
       - ALLOW_EMPTY_PASSWORD=yes
 
   # ELK
-  #elk.elasticsearch:
-  #  container_name: elasticsearch
-  #  image: elasticsearch:8.6.1
-  #  ports:
-  #    - 9200:9200
-  #    - 9300:9300
-  #  networks:
-  #    - backend
-  #  environment:
-  #    - discovery.type=single-node
-  #    - xpack.security.enabled=false
-  #    - ELASTIC_PASSWORD=6BFjT9QJ3hpcp
-  #  healthcheck:
-  #    test: curl -u elastic:elastic -s -f elasticsearch:9200/_cat/health >/dev/null || exit 1
-  #    interval: 10s
-  #    timeout: 10s
-  #    retries: 10
-  #    start_period: 10s
-  #elk.kibana:
-  #  container_name: kibana
-  #  image: kibana:8.6.1
-  #  ports:
-  #    - 5601:5601
-  #  networks:
-  #    - backend
-  #  depends_on:
-  #    - elk.elasticsearch
-  #  environment:
-  #    - ELASTICSEARCH_HOSTS=http://elk.elasticsearch:9200
-  #elk.logstash:
-  #  container_name: logstash
-  #  image: logstash:8.6.1
-  #  ports:
-  #    - 5044:5044
-  #  networks:
-  #    - backend
-  #  depends_on:
-  #    - elk.elasticsearch
-  #  volumes:
-  #    - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
-
+  elk.elasticsearch:
+    container_name: elasticsearch
+    image: elasticsearch:8.6.1
+    ports:
+      - 9200:9200
+      - 9300:9300
+    networks:
+      - backend
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - ELASTIC_PASSWORD=6BFjT9QJ3hpcp
+    healthcheck:
+      test: curl -u elastic:elastic -s -f elasticsearch:9200/_cat/health >/dev/null || exit 1
+      interval: 10s
+      timeout: 10s
+      retries: 10
+      start_period: 10s
+  elk.kibana:
+    container_name: kibana
+    image: kibana:8.6.1
+    ports:
+      - 5601:5601
+    networks:
+      - backend
+    depends_on:
+      - elk.elasticsearch
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elk.elasticsearch:9200
+  elk.logstash:
+    container_name: logstash
+    image: logstash:8.6.1
+    ports:
+      - 5044:5044
+    networks:
+      - backend
+    depends_on:
+      - elk.elasticsearch
+    volumes:
+      - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
