@@ -39,11 +39,12 @@ To use this feature you should create OIDC credentials and provide them in proje
 
 Media files should be named using following patterns:
 
-|      File type     |            Pattern           |
-| ------------------ | ---------------------------- |
-| Platform pictures  | [platform_name].png          |
-| Video game logo    | [video_game_object_uuid].jpg |
-| Video game trailer | [video_game_object_uuid].mp4 |
+|      File type      |            Pattern           |
+| ------------------- | ---------------------------- |
+| External login logo | [scheme_name].png            |
+| Platform pictures   | [platform_name].png          |
+| Video game logo     | [video_game_object_uuid].jpg |
+| Video game trailer  | [video_game_object_uuid].mp4 |
 
 
 ### Startup

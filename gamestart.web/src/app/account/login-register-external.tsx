@@ -1,4 +1,3 @@
-import logo from "../../logo.svg";
 import ApiRouter from "../util/ApiRouter";
 
 export default function LoginRegisterExternal(ctx: { schemes: string[]; label: string }) {
@@ -13,7 +12,7 @@ export default function LoginRegisterExternal(ctx: { schemes: string[]; label: s
       <span className="account-external-text">{ctx.label} </span>
       {ctx.schemes.map((scheme) => (
         <button className="account-external-button" type="button" key={scheme} onClick={(e) => handleExternalLogin(e, scheme)}>
-          <img className="account-external-picture" src={logo} alt={scheme} title={scheme} />
+          <img className="account-external-picture" src={ApiRouter.getMediaSource(`${scheme}.png`)} alt={scheme} title={scheme} />
         </button>
       ))}
     </div>
