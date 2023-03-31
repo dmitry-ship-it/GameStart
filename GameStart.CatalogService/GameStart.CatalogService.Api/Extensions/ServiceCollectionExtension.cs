@@ -18,6 +18,7 @@ using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Nest;
+using System.Reflection;
 using System.Text.Json.Serialization;
 
 namespace GameStart.CatalogService.Api.Extensions
@@ -98,7 +99,7 @@ namespace GameStart.CatalogService.Api.Extensions
             services.AddStackExchangeRedisCache(options =>
             {
                 options.Configuration = Environment.GetEnvironmentVariable("REDIS_CACHE_URL");
-                options.InstanceName = typeof(Program).Namespace;
+                options.InstanceName = Assembly.GetAssembly(typeof(ServiceCollectionExtension))!.GetName().Name;
             });
 
             services.AddScoped<IRedisCacheService, RedisCacheService>();

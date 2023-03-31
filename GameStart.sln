@@ -49,7 +49,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStart.FilesService.Api"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStart.FilesService.Common", "GameStart.FilesService\GameStart.FilesService.Common\GameStart.FilesService.Common.csproj", "{21CD4A39-F883-4BFE-BAC9-06CEF3E6CF2D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStart.CatalogService.Api.Tests", "GameStart.CatalogService\GameStart.CatalogService.Api.Tests\GameStart.CatalogService.Api.Tests.csproj", "{5A0437E1-DB34-40E8-8C12-53C802F0933D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStart.CatalogService.Api.Tests", "GameStart.CatalogService\GameStart.CatalogService.Api.Tests\GameStart.CatalogService.Api.Tests.csproj", "{5A0437E1-DB34-40E8-8C12-53C802F0933D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStart.CatalogService.Common.Tests", "GameStart.CatalogService\GameStart.CatalogService.Common.Tests\GameStart.CatalogService.Common.Tests.csproj", "{5C08C52A-F01B-48B9-89FD-BADEF6BFB57C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -135,6 +137,10 @@ Global
 		{5A0437E1-DB34-40E8-8C12-53C802F0933D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A0437E1-DB34-40E8-8C12-53C802F0933D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A0437E1-DB34-40E8-8C12-53C802F0933D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C08C52A-F01B-48B9-89FD-BADEF6BFB57C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C08C52A-F01B-48B9-89FD-BADEF6BFB57C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C08C52A-F01B-48B9-89FD-BADEF6BFB57C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C08C52A-F01B-48B9-89FD-BADEF6BFB57C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -155,6 +161,7 @@ Global
 		{8B81EF7A-2F69-498C-84AA-E2CC94322A11} = {8C2EFADD-8897-4977-AB97-E77BD8EA2C64}
 		{21CD4A39-F883-4BFE-BAC9-06CEF3E6CF2D} = {8C2EFADD-8897-4977-AB97-E77BD8EA2C64}
 		{5A0437E1-DB34-40E8-8C12-53C802F0933D} = {EA2E0FF1-8C38-4D0A-8CB3-28E3AE59B700}
+		{5C08C52A-F01B-48B9-89FD-BADEF6BFB57C} = {EA2E0FF1-8C38-4D0A-8CB3-28E3AE59B700}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A95021B1-7C40-4506-BDBC-D03797A88526}

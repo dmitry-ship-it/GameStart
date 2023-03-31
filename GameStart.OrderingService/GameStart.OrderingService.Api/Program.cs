@@ -1,13 +1,10 @@
 using FluentValidation;
 using GameStart.OrderingService.Api.Extensions;
-using GameStart.OrderingService.Application.Hubs;
 using GameStart.OrderingService.Application.Mapping;
 using GameStart.OrderingService.Application.Validators;
 using GameStart.OrderingService.Infrastructure;
-using GameStart.Shared;
 using GameStart.Shared.Extensions;
 using GameStart.Shared.Middlewares;
-using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
