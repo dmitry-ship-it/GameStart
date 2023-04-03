@@ -2,7 +2,7 @@
 {
     public class GuidProvider : IGuidProvider
     {
-        public Guid New => Guid.NewGuid();
+        public Guid NewGuid => Guid.NewGuid();
 
         public Guid Empty => Guid.Empty;
     }

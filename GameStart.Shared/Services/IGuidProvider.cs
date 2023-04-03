@@ -2,7 +2,7 @@
 {
     public interface IGuidProvider
     {
-        Guid New { get; }
+        Guid NewGuid { get; }
 
         Guid Empty { get; }
     }

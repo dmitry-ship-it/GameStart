@@ -83,7 +83,7 @@ namespace GameStart.OrderingService.Application.Services
 
         private void SeedMissingData(Order order, IEnumerable<Claim> claims)
         {
-            order.Id = guidProvider.New;
+            order.Id = guidProvider.NewGuid;
             order.DateTime = dateTimeProvider.Now;
 
             var userId = claims.GetUserId();

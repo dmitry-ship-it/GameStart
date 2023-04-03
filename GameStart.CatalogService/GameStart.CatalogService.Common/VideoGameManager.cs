@@ -116,8 +116,10 @@ namespace GameStart.CatalogService.Common
             mapper.Map(model, videoGame);
 
             await repository.VideoGames.UpdateAsync(videoGame, cancellationToken);
-            await elasticsearch.UpdateAsync(videoGame, cancellationToken);
 
+            CutCycles(videoGame);
+
+            await elasticsearch.UpdateAsync(videoGame, cancellationToken);
             await cache.SetAsync(id.ToString(), videoGame, cancellationToken);
 
             return true;
@@ -169,28 +171,39 @@ namespace GameStart.CatalogService.Common
         /// </summary>
         private static void CutCycles(VideoGame videoGame)
         {
-            videoGame.Publisher.VideoGames = null;
+            if (videoGame.Publisher?.VideoGames is not null)
+            {
+                videoGame.Publisher.VideoGames = null;
+            }
 
-            foreach (var developer in videoGame.Developers)
+            foreach (var developer in videoGame.Developers ?? Array.Empty<Developer>())
             {
                 developer.VideoGames = null;
             }
 
-            foreach (var genre in videoGame.Genres)
+            foreach (var genre in videoGame.Genres ?? Array.Empty<Genre>())
             {
                 genre.VideoGames = null;
             }
 
-            foreach (var availabilities in videoGame.LanguageAvailabilities)
+            foreach (var availabilities in videoGame.LanguageAvailabilities ?? Array.Empty<LanguageAvailability>())
             {
                 availabilities.VideoGames = null;
-                availabilities.Language.LanguageAvailabilities = null;
+
+                if (availabilities.Language?.LanguageAvailabilities is not null)
+                {
+                    availabilities.Language.LanguageAvailabilities = null;
+                }
             }
 
-            foreach (var requirements in videoGame.SystemRequirements)
+            foreach (var requirements in videoGame.SystemRequirements ?? Array.Empty<SystemRequirements>())
             {
                 requirements.VideoGame = null;
-                requirements.Platform.SystemRequirements = null;
+
+                if (requirements.Platform?.SystemRequirements is not null)
+                {
+                    requirements.Platform.SystemRequirements = null;
+                }
             }
         }
     }

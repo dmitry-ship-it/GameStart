@@ -46,6 +46,7 @@ namespace GameStart.CatalogService.Data.Repositories
         {
             Context.Attach(entity).State = EntityState.Modified;
             await Context.SaveChangesAsync(cancellationToken);
+            Context.ChangeTracker.Clear();
         }
 
         public async Task<IEnumerable<VideoGame>> GetByPageAsync(int pageNumber, int pageSize, CancellationToken cancellationToken = default)
