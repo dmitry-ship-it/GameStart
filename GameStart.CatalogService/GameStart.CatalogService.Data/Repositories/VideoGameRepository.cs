@@ -58,7 +58,7 @@ namespace GameStart.CatalogService.Data.Repositories
 
         public async Task<int> CountAsync(CancellationToken cancellationToken = default)
         {
-            return await Context.VideoGames.CountAsync(cancellationToken);
+            return await Context.VideoGames.AsNoTracking().CountAsync(cancellationToken);
         }
 
         private IQueryable<VideoGame> GetVideoGames()

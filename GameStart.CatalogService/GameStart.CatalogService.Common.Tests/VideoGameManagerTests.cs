@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using GameStart.CatalogService.Common.Caching;
-using GameStart.CatalogService.Common.Elasticsearch.Search;
 using GameStart.CatalogService.Common.Elasticsearch;
+using GameStart.CatalogService.Common.Elasticsearch.Search;
+using GameStart.CatalogService.Common.ViewModels;
 using GameStart.CatalogService.Data.Models;
 using GameStart.CatalogService.Data.Repositories;
-using System.Linq.Expressions;
-using GameStart.CatalogService.Common.ViewModels;
 using NSubstitute.ReceivedExtensions;
+using System.Linq.Expressions;
 
 namespace GameStart.CatalogService.Common.Tests
 {
