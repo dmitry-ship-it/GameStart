@@ -10,6 +10,7 @@ namespace GameStart.FilesService.Api.Extensions
         public static IServiceCollection AddCustomServices(this IServiceCollection services)
         {
             services.AddSingleton<IFileStorageDirectoryProvider, FileStorageDirectoryProvider>();
+            services.AddSingleton<IFileStorage, FileStorage>();
             services.AddSingleton<IFileService, FileService>();
 
             return services;

@@ -12,5 +12,10 @@
         }
 
         public string Directory { get; }
+
+        public void CreateRootDirectoryIfNotExists()
+        {
+            System.IO.Directory.CreateDirectory(Directory);
+        }
     }
 }
