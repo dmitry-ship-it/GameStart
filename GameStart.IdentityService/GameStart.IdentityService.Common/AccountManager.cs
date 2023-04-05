@@ -41,7 +41,8 @@ namespace GameStart.IdentityService.Common
             var user = await userManager.FindByNameAsync(model.Username)
                 ?? throw new ArgumentException(Constants.IdentityService.ExceptionMessages.UserNotFound);
 
-            var checkResult = await signInManager.CheckPasswordSignInAsync(user, model.Password, false);
+            var checkResult = await signInManager.CheckPasswordSignInAsync(
+                user, model.Password, false);
 
             if (!checkResult.Succeeded)
             {
@@ -76,11 +77,11 @@ namespace GameStart.IdentityService.Common
         }
 
         public virtual async Task SendEmailVerificationRequestAsync(
-            ClaimsPrincipal principal,
+            HttpContext httpContext,
             CancellationToken cancellationToken = default)
         {
-            var user = await userManager.FindByNameAsync(principal.Identity?.Name)
-                ?? throw new ArgumentNullException(nameof(principal));
+            var user = await userManager.FindByNameAsync(httpContext.User.Identity?.Name)
+                ?? throw new ArgumentNullException(nameof(httpContext));
 
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -110,7 +111,8 @@ namespace GameStart.IdentityService.Common
 
             cancellationToken.ThrowIfCancellationRequested();
 
-            var result = await userManager.ConfirmEmailAsync(user, token.Replace(' ', '+'));
+            var result = await userManager.ConfirmEmailAsync(
+                user, token.Replace(' ', '+'));
 
             if (!result.Succeeded)
             {
@@ -208,12 +210,14 @@ namespace GameStart.IdentityService.Common
         ///     Generate JSON Web Token from identity which stored inside cookies,
         ///     and write it to target cookie of the response.
         /// </summary>
-        public async Task GenerateJwtAsync(User user,
+        private async Task GenerateJwtAsync(User user,
             HttpContext httpContext,
             CancellationToken cancellationToken = default)
         {
             httpContext.User = await signInManager.ClaimsFactory.CreateAsync(user);
-            var token = await tools.IssueJwtAsync(Constants.IdentityService.TokenLifetimeSeconds, httpContext.User.Claims);
+            var token = await tools.IssueJwtAsync(
+                Constants.IdentityService.TokenLifetimeSeconds,
+                httpContext.User.Claims);
 
             cancellationToken.ThrowIfCancellationRequested();
 

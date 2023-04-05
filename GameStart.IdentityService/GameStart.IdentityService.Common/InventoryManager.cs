@@ -14,7 +14,7 @@ namespace GameStart.IdentityService.Common
             this.repository = repository;
         }
 
-        public async Task<IEnumerable<InventoryItem>> GetAllAsync(
+        public virtual async Task<IEnumerable<InventoryItem>> GetAllAsync(
             IEnumerable<Claim> claims,
             CancellationToken cancellationToken = default)
         {
@@ -23,7 +23,7 @@ namespace GameStart.IdentityService.Common
             return await repository.FindByConditionAsync(entity => entity.User.Id == userId, cancellationToken);
         }
 
-        public async Task<InventoryItem> GetByGameIdAsync(Guid gameId,
+        public virtual async Task<InventoryItem> GetByGameIdAsync(Guid gameId,
             IEnumerable<Claim> claims,
             CancellationToken cancellationToken = default)
         {
@@ -34,7 +34,7 @@ namespace GameStart.IdentityService.Common
                 cancellationToken)).FirstOrDefault();
         }
 
-        public async Task<bool> DeleteGameByUser(Guid gameId,
+        public virtual async Task<bool> DeleteGameByUserAsync(Guid gameId,
             IEnumerable<Claim> claims,
             CancellationToken cancellationToken = default)
         {

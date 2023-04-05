@@ -21,6 +21,7 @@ namespace GameStart.OrderingService.Application.Mapping
                     Id = item.Id,
                     GameId = item.GameId,
                     Title = item.Title,
+                    IsPhysicalCopy = item.IsPhysicalCopy,
                     PurchaseDateTime = source.DateTime
                 });
             }

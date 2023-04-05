@@ -1,5 +1,6 @@
 ﻿using GameStart.IdentityService.Common;
 using GameStart.IdentityService.Common.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameStart.IdentityService.Api.Controllers
@@ -16,36 +17,46 @@ namespace GameStart.IdentityService.Api.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> LoginAsync([FromBody] LoginViewModel loginViewModel,
+        public async Task<IActionResult> LoginAsync(
+            [FromBody] LoginViewModel loginViewModel,
             CancellationToken cancellationToken = default)
         {
-            await accountManager.LoginAsync(loginViewModel, HttpContext, cancellationToken);
+            await accountManager.LoginAsync(
+                loginViewModel, HttpContext, cancellationToken);
 
             return Ok();
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> RegisterAsync([FromBody] RegisterViewModel registerViewModel,
+        public async Task<IActionResult> RegisterAsync(
+            [FromBody] RegisterViewModel registerViewModel,
             CancellationToken cancellationToken = default)
         {
-            await accountManager.RegisterAsync(registerViewModel, HttpContext, cancellationToken);
+            await accountManager.RegisterAsync(
+                registerViewModel, HttpContext, cancellationToken);
 
             return Ok();
         }
 
+        [Authorize]
         [HttpGet("send-verification-email")]
-        public async Task<IActionResult> SendVerificationEmailAsync(CancellationToken cancellationToken = default)
+        public async Task<IActionResult> SendVerificationEmailAsync(
+            CancellationToken cancellationToken = default)
         {
             await accountManager.SendEmailVerificationRequestAsync(
-                HttpContext.User, cancellationToken);
+                HttpContext, cancellationToken);
 
             return Accepted();
         }
 
+        [Authorize]
         [HttpGet("verifyEmail")]
-        public async Task<IActionResult> VerifyEmailAsync([FromQuery] string token, CancellationToken cancellationToken = default)
+        public async Task<IActionResult> VerifyEmailAsync(
+            [FromQuery] string token,
+            CancellationToken cancellationToken = default)
         {
-            var isSuccess = await accountManager.VerifyEmailAsync(token, HttpContext, cancellationToken);
+            var isSuccess = await accountManager.VerifyEmailAsync(
+                token, HttpContext, cancellationToken);
 
             return isSuccess ? Ok() : BadRequest();
         }

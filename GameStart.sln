@@ -55,9 +55,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStart.CatalogService.Co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStart.CatalogService.Data.Tests", "GameStart.CatalogService\GameStart.CatalogService.Data.Tests\GameStart.CatalogService.Data.Tests.csproj", "{5C7AADE2-C6F7-4093-98EF-95B1035AA5A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStart.FilesService.Api.Tests", "GameStart.FilesService\GameStart.FilesService.Api.Tests\GameStart.FilesService.Api.Tests.csproj", "{48C4D393-1E8E-4D99-8B05-79CA51465271}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStart.FilesService.Api.Tests", "GameStart.FilesService\GameStart.FilesService.Api.Tests\GameStart.FilesService.Api.Tests.csproj", "{48C4D393-1E8E-4D99-8B05-79CA51465271}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStart.FilesService.Common.Tests", "GameStart.FilesService\GameStart.FilesService.Common.Tests\GameStart.FilesService.Common.Tests.csproj", "{576FCB5F-46C0-499B-B8A4-C348F92DE63C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStart.FilesService.Common.Tests", "GameStart.FilesService\GameStart.FilesService.Common.Tests\GameStart.FilesService.Common.Tests.csproj", "{576FCB5F-46C0-499B-B8A4-C348F92DE63C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStart.IdentityService.Api.Tests", "GameStart.IdentityService\GameStart.IdentityService.Api.Tests\GameStart.IdentityService.Api.Tests.csproj", "{40E3FE1F-CB66-4F29-A934-A414086E793E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStart.IdentityService.Common.Tests", "GameStart.IdentityService\GameStart.IdentityService.Common.Tests\GameStart.IdentityService.Common.Tests.csproj", "{4E9826E0-2F40-45F6-9D93-4278DD09EA5A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -159,6 +163,14 @@ Global
 		{576FCB5F-46C0-499B-B8A4-C348F92DE63C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{576FCB5F-46C0-499B-B8A4-C348F92DE63C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{576FCB5F-46C0-499B-B8A4-C348F92DE63C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40E3FE1F-CB66-4F29-A934-A414086E793E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40E3FE1F-CB66-4F29-A934-A414086E793E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40E3FE1F-CB66-4F29-A934-A414086E793E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40E3FE1F-CB66-4F29-A934-A414086E793E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E9826E0-2F40-45F6-9D93-4278DD09EA5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E9826E0-2F40-45F6-9D93-4278DD09EA5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E9826E0-2F40-45F6-9D93-4278DD09EA5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E9826E0-2F40-45F6-9D93-4278DD09EA5A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -183,6 +195,8 @@ Global
 		{5C7AADE2-C6F7-4093-98EF-95B1035AA5A3} = {EA2E0FF1-8C38-4D0A-8CB3-28E3AE59B700}
 		{48C4D393-1E8E-4D99-8B05-79CA51465271} = {8C2EFADD-8897-4977-AB97-E77BD8EA2C64}
 		{576FCB5F-46C0-499B-B8A4-C348F92DE63C} = {8C2EFADD-8897-4977-AB97-E77BD8EA2C64}
+		{40E3FE1F-CB66-4F29-A934-A414086E793E} = {862A5883-3F50-4FF7-842D-FD73F3866819}
+		{4E9826E0-2F40-45F6-9D93-4278DD09EA5A} = {862A5883-3F50-4FF7-842D-FD73F3866819}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A95021B1-7C40-4506-BDBC-D03797A88526}

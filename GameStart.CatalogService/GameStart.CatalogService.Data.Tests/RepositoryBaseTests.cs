@@ -107,7 +107,7 @@ namespace GameStart.CatalogService.Data.Tests
             await sut.UpdateAsync(newEntity, cancellationToken);
 
             // Assert
-            dbSet.Contains(newEntity);
+            dbSet.Received().Update(newEntity);
             await dbContextMock.Received().SaveChangesAsync(cancellationToken);
         }
 

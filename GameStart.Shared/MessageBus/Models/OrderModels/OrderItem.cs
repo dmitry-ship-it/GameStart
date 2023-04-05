@@ -10,6 +10,8 @@
 
         public string GameKey { get; set; }
 
+        public bool IsPhysicalCopy { get; set; }
+
         public DateTimeOffset PurchaseDateTime { get; set; }
     }
 }

@@ -26,12 +26,15 @@ namespace GameStart.IdentityService.Common.Consumers
         public async Task Consume(ConsumeContext<OrderAccepted> context)
         {
             var message = context.Message;
+            var digitalCopies = message.OrderItems.Where(item => !item.IsPhysicalCopy);
 
             var user = await userManager.FindByIdAsync(message.UserId.ToString());
 
-            // if user does not exist or already own any of order items
-            if (user is null || (await inventoryRepository.FindByConditionAsync(entity => entity.User.Id == user.Id))
-                .Any(owned => message.OrderItems.Any(orderItem => orderItem.GameId == owned.GameId)))
+            // if user does not exist or already own any of digital copies of order
+            if (user is null || (await inventoryRepository
+                .FindByConditionAsync(entity => entity.User.Id == user.Id))
+                .Any(owned => digitalCopies
+                    .Any(orderItem => orderItem.GameId == owned.GameId)))
             {
                 await context.Publish<OrderFaulted>(new
                 {
@@ -41,7 +44,7 @@ namespace GameStart.IdentityService.Common.Consumers
             }
             else
             {
-                var inventoryItems = mapper.Map<IEnumerable<InventoryItem>>(message.OrderItems)
+                var inventoryItems = mapper.Map<IEnumerable<InventoryItem>>(digitalCopies)
                     .DistinctBy(item => item.GameId)
                     .Select(item =>
                     {
