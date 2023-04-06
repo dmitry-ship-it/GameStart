@@ -6,7 +6,6 @@ using IdentityModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using System.Threading;
 
 namespace GameStart.IdentityService.Api.Tests
 {
@@ -76,7 +75,7 @@ namespace GameStart.IdentityService.Api.Tests
                 new() { Title = "Test item 2" }
             };
 
-            inventoryManagerMock.GetAllAsync(Arg.Any<IEnumerable<Claim>>(), cancellationToken)
+            inventoryManagerMock.GetByUserClaimsAsync(Arg.Any<IEnumerable<Claim>>(), cancellationToken)
                 .Returns(Task.FromResult<IEnumerable<InventoryItem>>(items));
 
             // Act
@@ -94,7 +93,7 @@ namespace GameStart.IdentityService.Api.Tests
             var gameId = Guid.NewGuid();
             var cancellationToken = CancellationToken.None;
 
-            inventoryManagerMock.DeleteGameByUserAsync(gameId, Arg.Any<IEnumerable<Claim>>(), cancellationToken)
+            inventoryManagerMock.DeleteGameByUserClaimsAsync(gameId, Arg.Any<IEnumerable<Claim>>(), cancellationToken)
                 .Returns(true);
 
             //Act
@@ -111,7 +110,7 @@ namespace GameStart.IdentityService.Api.Tests
             var gameId = Guid.NewGuid();
             var cancellationToken = CancellationToken.None;
 
-            inventoryManagerMock.DeleteGameByUserAsync(gameId, Arg.Any<IEnumerable<Claim>>(), cancellationToken)
+            inventoryManagerMock.DeleteGameByUserClaimsAsync(gameId, Arg.Any<IEnumerable<Claim>>(), cancellationToken)
                 .Returns(false);
 
             //Act

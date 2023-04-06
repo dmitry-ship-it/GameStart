@@ -13,36 +13,42 @@ namespace GameStart.IdentityService.Data.Repositories
             Context = context;
         }
 
-        public async Task CreateAsync(T entity, CancellationToken cancellationToken = default)
+        public virtual async Task CreateAsync(T entity, CancellationToken cancellationToken = default)
         {
-            Context.Set<T>().Add(entity);
+            await Context.Set<T>().AddAsync(entity, cancellationToken);
             await Context.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task DeleteAsync(T entity, CancellationToken cancellationToken = default)
+        public virtual async Task DeleteAsync(T entity, CancellationToken cancellationToken = default)
         {
             Context.Set<T>().Remove(entity);
             await Context.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<T>> FindAllAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<IEnumerable<T>> FindAllAsync(CancellationToken cancellationToken = default)
         {
-            return await Context.Set<T>().AsNoTracking().ToListAsync(cancellationToken);
+            return await Context.Set<T>()
+                .AsNoTracking()
+                .ToListAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<T>> FindByConditionAsync(Expression<Func<T, bool>> expression,
+        public virtual async Task<IEnumerable<T>> FindByConditionAsync(Expression<Func<T, bool>> expression,
             CancellationToken cancellationToken = default)
         {
-            return await Context.Set<T>().Where(expression).AsNoTracking().ToListAsync(cancellationToken);
+            return await Context.Set<T>()
+                .Where(expression)
+                .AsNoTracking()
+                .ToListAsync(cancellationToken);
         }
 
-        public async Task UpdateAsync(T entity, CancellationToken cancellationToken = default)
+        public virtual async Task UpdateAsync(T entity, CancellationToken cancellationToken = default)
         {
             Context.Set<T>().Update(entity);
             await Context.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task CreateRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default)
+        public virtual async Task CreateRangeAsync(IEnumerable<T> entities,
+            CancellationToken cancellationToken = default)
         {
             await Context.Set<T>().AddRangeAsync(entities, cancellationToken);
             await Context.SaveChangesAsync(cancellationToken);

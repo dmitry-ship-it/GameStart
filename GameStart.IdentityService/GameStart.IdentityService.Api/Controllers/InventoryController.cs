@@ -30,7 +30,7 @@ namespace GameStart.IdentityService.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            return Ok(await manager.GetAllAsync(HttpContext.User.Claims, cancellationToken));
+            return Ok(await manager.GetByUserClaimsAsync(HttpContext.User.Claims, cancellationToken));
         }
 
         [Authorize]
@@ -38,7 +38,7 @@ namespace GameStart.IdentityService.Api.Controllers
         public async Task<IActionResult> DeleteAsync([FromRoute] Guid gameId,
             CancellationToken cancellationToken = default)
         {
-            var isDeleted = await manager.DeleteGameByUserAsync(gameId, HttpContext.User.Claims, cancellationToken);
+            var isDeleted = await manager.DeleteGameByUserClaimsAsync(gameId, HttpContext.User.Claims, cancellationToken);
 
             return isDeleted ? NoContent() : NotFound();
         }

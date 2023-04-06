@@ -73,7 +73,8 @@ namespace GameStart.IdentityService.Api.Extensions
         {
             return services.AddSingleton<ICorsPolicyService>(provider =>
             {
-                var logger = provider.GetRequiredService<ILogger<DefaultCorsPolicyService>>();
+                var logger = provider
+                    .GetRequiredService<ILogger<DefaultCorsPolicyService>>();
 
                 return new DefaultCorsPolicyService(logger)
                 {

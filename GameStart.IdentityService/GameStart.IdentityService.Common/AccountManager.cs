@@ -150,12 +150,12 @@ namespace GameStart.IdentityService.Common
             var result = await httpContext.AuthenticateAsync(
                 IdentityConstants.ExternalScheme);
 
-            if (result?.Succeeded != true)
+            if (!result.Succeeded)
             {
                 throw new ArgumentException(Constants.IdentityService.ExceptionMessages.ExternalAuthenticationError);
             }
 
-            await CreateUserAsync(result.Principal, httpContext, cancellationToken);
+            await CreateExternalUserAsync(result.Principal, httpContext, cancellationToken);
 
             return new Uri(result.Properties?.Items["returnUrl"]);
         }
@@ -174,10 +174,10 @@ namespace GameStart.IdentityService.Common
         /// <summary>
         ///     This method is used after external authentication (Google).
         ///     All required claims are mapping into <see cref="User"/> object.
-        ///     If user with given email does not exist then will be created new user
+        ///     If user with given email does not exist than will be created new user
         ///     without password, and with email as username.
         /// </summary>
-        private async Task CreateUserAsync(
+        private async Task CreateExternalUserAsync(
             ClaimsPrincipal principal,
             HttpContext httpContext,
             CancellationToken cancellationToken = default)
