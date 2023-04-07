@@ -10,7 +10,7 @@ namespace GameStart.CatalogService.Api.Tests
     public class CatalogControllerTests
     {
         [Fact]
-        public async Task GetByPageAsync_ShouldReturnOkWithData_WhenManagerGetsByPageAsync()
+        public async Task GetByPageAsync_WhenManagerGetsByPage_ShouldReturnOkWithData()
         {
             // Arrange
             const int page = 1;
@@ -32,7 +32,7 @@ namespace GameStart.CatalogService.Api.Tests
         }
 
         [Fact]
-        public async Task GetByIdAsync_ShouldReturnOkWithData_WhenManagerGetsByIdAsync()
+        public async Task GetByIdAsync_WhenManagerGetsById_ShouldReturnOkWithData()
         {
             // Arrange
             var id = Guid.NewGuid();
@@ -53,7 +53,7 @@ namespace GameStart.CatalogService.Api.Tests
         }
 
         [Fact]
-        public async Task GetByIdAsync_ShouldReturnNotFound_WhenManagerReturnsNull()
+        public async Task GetByIdAsync_WhenManagerReturnsNull_ShouldReturnNotFound()
         {
             // Arrange
             var id = Guid.NewGuid();
@@ -71,7 +71,7 @@ namespace GameStart.CatalogService.Api.Tests
         }
 
         [Fact]
-        public async Task CreateAsync_ShouldReturnOk_WhenManagerAddsAsync()
+        public async Task CreateAsync_WhenManagerAddsVideoGame_ShouldReturnOk()
         {
             // Arrange
             var model = new VideoGameViewModel();
@@ -88,7 +88,7 @@ namespace GameStart.CatalogService.Api.Tests
         }
 
         [Fact]
-        public async Task UpdateAsync_ShouldReturnOk_WhenManagerUpdatesAsync()
+        public async Task UpdateAsync_WhenManagerReturnsTrue_ShouldReturnOk()
         {
             // Arrange
             var id = Guid.NewGuid();
@@ -107,7 +107,7 @@ namespace GameStart.CatalogService.Api.Tests
         }
 
         [Fact]
-        public async Task UpdateAsync_ShouldReturnNotFound_WhenManagerReturnsFalse()
+        public async Task UpdateAsync_WhenManagerReturnsFalse_ShouldReturnNotFound()
         {
             // Arrange
             var id = Guid.NewGuid();
@@ -126,7 +126,7 @@ namespace GameStart.CatalogService.Api.Tests
         }
 
         [Fact]
-        public async Task DeleteAsync_ShouldReturnNoContent_WhenManagerDeletesAsync()
+        public async Task DeleteAsync_WhenManagerDeletesVideoGame_ShouldReturnNoContent()
         {
             // Arrange
             var id = Guid.NewGuid();
@@ -144,7 +144,7 @@ namespace GameStart.CatalogService.Api.Tests
         }
 
         [Fact]
-        public async Task DeleteAsync_ShouldReturnNotFound_WhenManagerFailsToDeleteAsync()
+        public async Task DeleteAsync_WhenManagerFailsToDelete_ShouldReturnNotFound()
         {
             // Arrange
             var id = Guid.NewGuid();
@@ -162,7 +162,7 @@ namespace GameStart.CatalogService.Api.Tests
         }
 
         [Fact]
-        public async Task SearchAsync_ShouldReturnOkWithData_WhenManagerSearchesAsync()
+        public async Task SearchAsync_ShouldReturnOkObjectResult()
         {
             // Arrange
             var request = new VideoGameSearchRequest();
@@ -182,7 +182,7 @@ namespace GameStart.CatalogService.Api.Tests
         }
 
         [Fact]
-        public async Task GetDevelopersAsync_ShouldReturnOk_WhenManagerGetsDevelopersAsync()
+        public async Task GetDevelopersAsync_ShouldReturnOkObjectResult()
         {
             // Arrange
             var cancellationToken = CancellationToken.None;
@@ -202,7 +202,7 @@ namespace GameStart.CatalogService.Api.Tests
         }
 
         [Fact]
-        public async Task GetGenresAsync_ShouldReturnOk_WhenManagerGetsGenresAsync()
+        public async Task GetGenresAsync_ShouldReturnOkObjectResult()
         {
             // Arrange
             var cancellationToken = CancellationToken.None;
@@ -222,7 +222,7 @@ namespace GameStart.CatalogService.Api.Tests
         }
 
         [Fact]
-        public async Task GetLanguagesAsync_ShouldReturnOk_WhenManagerGetsLanguagesAsync()
+        public async Task GetLanguagesAsync_ShouldReturnOkObjectResult()
         {
             // Arrange
             var cancellationToken = CancellationToken.None;
@@ -242,7 +242,7 @@ namespace GameStart.CatalogService.Api.Tests
         }
 
         [Fact]
-        public async Task GetPlatformsAsync_ShouldReturnOk_WhenManagerGetsPlatformsAsync()
+        public async Task GetPlatformsAsync_ShouldReturnOkObjectResult()
         {
             // Arrange
             var cancellationToken = CancellationToken.None;
@@ -262,7 +262,7 @@ namespace GameStart.CatalogService.Api.Tests
         }
 
         [Fact]
-        public async Task GetGamesCountAsync_ShouldReturnOk_WhenManagerGetsGamesCountAsync()
+        public async Task GetGamesCountAsync_ShouldReturnOkObjectResult()
         {
             // Arrange
             var cancellationToken = CancellationToken.None;

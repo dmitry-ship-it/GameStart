@@ -21,7 +21,7 @@ namespace GameStart.CatalogService.Common.Tests
         }
 
         [Fact]
-        public void Convert_ShouldReturnNewVideoGame_WhenDestinationIsNull()
+        public void Convert_WhenDestinationIsNull_ShouldReturnNewVideoGame()
         {
             // Arrange
             var source = new VideoGameViewModel { Title = "Test Game" };
@@ -35,7 +35,7 @@ namespace GameStart.CatalogService.Common.Tests
         }
 
         [Fact]
-        public void Convert_ShouldUpdateTitle_WhenSourceTitleIsNotNull()
+        public void Convert_WhenSourceTitleIsNotNull_ShouldUpdateTitle()
         {
             // Arrange
             var source = new VideoGameViewModel { Title = "New Title" };
@@ -49,7 +49,7 @@ namespace GameStart.CatalogService.Common.Tests
         }
 
         [Fact]
-        public void Convert_ShouldNotUpdateTitle_WhenSourceTitleIsNull()
+        public void Convert_WhenSourceTitleIsNull_ShouldNotUpdateTitle()
         {
             // Arrange
             var source = new VideoGameViewModel { Title = null };
@@ -63,7 +63,7 @@ namespace GameStart.CatalogService.Common.Tests
         }
 
         [Fact]
-        public void Convert_ShouldUpdateDescription_WhenSourceDescriptionIsNotNull()
+        public void Convert_WhenSourceDescriptionIsNotNull_ShouldUpdateDescription()
         {
             // Arrange
             var source = new VideoGameViewModel { Description = "New Description" };
@@ -77,7 +77,7 @@ namespace GameStart.CatalogService.Common.Tests
         }
 
         [Fact]
-        public void Convert_ShouldNotUpdateDescription_WhenSourceDescriptionIsNull()
+        public void Convert_WhenSourceDescriptionIsNull_ShouldNotUpdateDescription()
         {
             // Arrange
             var source = new VideoGameViewModel { Description = null };
@@ -91,7 +91,7 @@ namespace GameStart.CatalogService.Common.Tests
         }
 
         [Fact]
-        public void Convert_ShouldUpdateCopyright_WhenSourceCopyrightIsNotNull()
+        public void Convert_WhenSourceCopyrightIsNotNull_ShouldUpdateCopyright()
         {
             // Arrange
             var source = new VideoGameViewModel { Copyright = "New Copyright" };
@@ -105,7 +105,7 @@ namespace GameStart.CatalogService.Common.Tests
         }
 
         [Fact]
-        public void Convert_ShouldNotUpdateCopyright_WhenSourceCopyrightIsNull()
+        public void Convert_WhenSourceCopyrightIsNull_ShouldNotUpdateCopyright()
         {
             // Arrange
             var source = new VideoGameViewModel { Copyright = null };
@@ -119,7 +119,7 @@ namespace GameStart.CatalogService.Common.Tests
         }
 
         [Fact]
-        public void Convert_ShouldUpdateReleaseDate_WhenSourceReleaseDateIsNotNull()
+        public void Convert_WhenSourceReleaseDateIsNotNull_ShouldUpdateReleaseDate()
         {
             // Arrange
             var source = new VideoGameViewModel { ReleaseDate = new DateTime(2022, 1, 1) };
@@ -133,7 +133,7 @@ namespace GameStart.CatalogService.Common.Tests
         }
 
         [Fact]
-        public void Convert_ShouldNotUpdateReleaseDate_WhenSourceReleaseDateIsNull()
+        public void Convert_WhenSourceReleaseDateIsNull_ShouldNotUpdateReleaseDate()
         {
             // Arrange
             var source = new VideoGameViewModel { ReleaseDate = null };
@@ -147,7 +147,7 @@ namespace GameStart.CatalogService.Common.Tests
         }
 
         [Fact]
-        public void Convert_ShouldUpdatePrice_WhenSourcePriceIsNotNull()
+        public void Convert_WhenSourcePriceIsNotNull_ShouldUpdatePrice()
         {
             // Arrange
             var source = new VideoGameViewModel { Price = 49.99M };
@@ -161,7 +161,7 @@ namespace GameStart.CatalogService.Common.Tests
         }
 
         [Fact]
-        public void Convert_ShouldNotUpdatePrice_WhenSourcePriceIsNull()
+        public void Convert_WhenSourcePriceIsNull_ShouldNotUpdatePrice()
         {
             // Arrange
             var source = new VideoGameViewModel() { Price = null };
@@ -175,7 +175,7 @@ namespace GameStart.CatalogService.Common.Tests
         }
 
         [Fact]
-        public void Convert_ShouldNotMapSystemRequirements_WhenSourceSystemRequirementsIsNull()
+        public void Convert_WhenSourceSystemRequirementsIsNull_ShouldNotMapSystemRequirements()
         {
             // Arrange
             var source = new VideoGameViewModel { SystemRequirements = null };
@@ -189,7 +189,7 @@ namespace GameStart.CatalogService.Common.Tests
         }
 
         [Fact]
-        public void Convert_ShouldMapPublisher_WhenSourcePublisherIsNotNull()
+        public void Convert_WhenSourcePublisherIsNotNull_ShouldMapPublisher()
         {
             // Arrange
             var source = new VideoGameViewModel { Publisher = "Test Publisher" };
@@ -207,7 +207,7 @@ namespace GameStart.CatalogService.Common.Tests
         }
 
         [Fact]
-        public void Convert_ShouldCreateNewPublisher_WhenSourcePublisherIsNotInDatabase()
+        public void Convert_WhenSourcePublisherIsNotInDatabase_ShouldCreateNewPublisher()
         {
             // Arrange
             var source = new VideoGameViewModel { Publisher = "New Publisher" };
@@ -224,7 +224,7 @@ namespace GameStart.CatalogService.Common.Tests
         }
 
         [Fact]
-        public void Convert_ShouldNotMapDevelopers_WhenSourceDevelopersIsNull()
+        public void Convert_WhenSourceDevelopersIsNull_ShouldNotMapDevelopers()
         {
             // Arrange
             var source = new VideoGameViewModel { Developers = null };
@@ -238,7 +238,7 @@ namespace GameStart.CatalogService.Common.Tests
         }
 
         [Fact]
-        public void Convert_ShouldNotMapGenres_WhenSourceGenresIsNull()
+        public void Convert_WhenSourceGenresIsNull_ShouldNotMapGenres()
         {
             // Arrange
             var source = new VideoGameViewModel { Genres = null };
@@ -252,7 +252,7 @@ namespace GameStart.CatalogService.Common.Tests
         }
 
         [Fact]
-        public void Convert_ShouldNotMapLanguageAvailabilities_WhenSourceLanguagesIsNull()
+        public void Convert_WhenSourceLanguagesIsNull_ShouldNotMapLanguageAvailabilities()
         {
             // Arrange
             var source = new VideoGameViewModel { Languages = null };

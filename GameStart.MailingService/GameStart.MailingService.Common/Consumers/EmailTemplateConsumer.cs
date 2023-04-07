@@ -5,12 +5,12 @@ using MassTransit;
 
 namespace GameStart.MailingService.Common.Consumers
 {
-    public class EmailVerificationConsumer : IConsumer<EmailTemplate>
+    public class EmailTemplateConsumer : IConsumer<EmailTemplate>
     {
         private readonly IBackgroundJobClient backgroundJob;
         private readonly IEmailService emailService;
 
-        public EmailVerificationConsumer(
+        public EmailTemplateConsumer(
             IBackgroundJobClient backgroundJob,
             IEmailService emailService)
         {

@@ -86,7 +86,7 @@ namespace GameStart.IdentityService.Api.Tests
         }
 
         [Fact]
-        public async Task VerifyEmailAsync_ShouldReturnOkResult_WhenEmailVerifiedSuccessfully()
+        public async Task VerifyEmailAsync_WhenEmailVerifiedSuccessfully_ShouldReturnOkResult()
         {
             // Arrange
             const string token = "test token";
@@ -104,7 +104,7 @@ namespace GameStart.IdentityService.Api.Tests
         }
 
         [Fact]
-        public async Task VerifyEmailAsync_ShouldReturnBadRequestResult_WhenEmailVerificationFailed()
+        public async Task VerifyEmailAsync_WhenEmailVerificationFailed_ShouldReturnBadRequestResult()
         {
             // Arrange
             const string token = "test token";

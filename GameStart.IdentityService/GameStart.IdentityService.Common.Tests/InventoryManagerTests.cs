@@ -93,7 +93,7 @@ namespace GameStart.IdentityService.Common.Tests
         }
 
         [Fact]
-        public async Task DeleteGameByUserClaimsAsync_ShouldReturnTrue_WhenItemContainsInInventory()
+        public async Task DeleteGameByUserClaimsAsync_WhenItemContainsInInventory_ShouldReturnTrue()
         {
             // Arrange
             var userId = Guid.NewGuid();
@@ -118,7 +118,7 @@ namespace GameStart.IdentityService.Common.Tests
         }
 
         [Fact]
-        public async Task DeleteGameByUserClaimsAsync_ShouldReturnFalse_WhenItemNotFound()
+        public async Task DeleteGameByUserClaimsAsync_WhenItemNotFound_ShouldReturnFalse()
         {
             // Arrange
             var userId = Guid.NewGuid();

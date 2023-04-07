@@ -10,25 +10,25 @@ namespace GameStart.MailingService.Common.Services
     public class EmailService : IEmailService
     {
         private readonly MailSettings settings;
+        private readonly SmtpClient smtpClient;
 
-        public EmailService(IOptions<MailSettings> settings)
+        public EmailService(IOptions<MailSettings> settings, SmtpClient smtpClient)
         {
             this.settings = settings.Value;
+            this.smtpClient = smtpClient;
         }
 
         public async Task SendMailAsync(EmailTemplate data, CancellationToken cancellationToken = default)
         {
-            using var smtp = new SmtpClient();
-
-            await smtp.ConnectAsync(
+            await smtpClient.ConnectAsync(
                 host: settings.Host,
                 port: settings.Port,
                 options: ChooseSslOptions(),
                 cancellationToken: cancellationToken);
 
-            await smtp.AuthenticateAsync(settings.UserName, settings.Password, cancellationToken);
-            await smtp.SendAsync(CreateMessageFromTemplate(data), cancellationToken);
-            await smtp.DisconnectAsync(true, cancellationToken);
+            await smtpClient.AuthenticateAsync(settings.UserName, settings.Password, cancellationToken);
+            await smtpClient.SendAsync(CreateMessageFromTemplate(data), cancellationToken);
+            await smtpClient.DisconnectAsync(true, cancellationToken);
         }
 
         private MimeMessage CreateMessageFromTemplate(EmailTemplate data)
@@ -54,18 +54,12 @@ namespace GameStart.MailingService.Common.Services
 
         private SecureSocketOptions ChooseSslOptions()
         {
-            if (settings.UseSSL)
+            return settings switch
             {
-                return SecureSocketOptions.SslOnConnect;
-            }
-            else if (settings.UseStartTls)
-            {
-                return SecureSocketOptions.StartTls;
-            }
-            else
-            {
-                return SecureSocketOptions.StartTlsWhenAvailable;
-            }
+                { UseSSL: true, UseStartTls: false } => SecureSocketOptions.SslOnConnect,
+                { UseSSL: false, UseStartTls: true } => SecureSocketOptions.StartTls,
+                _ => SecureSocketOptions.StartTlsWhenAvailable
+            };
         }
     }
 }

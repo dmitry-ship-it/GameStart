@@ -36,7 +36,7 @@ namespace GameStart.CatalogService.Common.Tests
         }
 
         [Fact]
-        public async Task Consume_ShouldAcceptOrder_WhenAllGamesExist()
+        public async Task Consume_WhenAllGamesExist_ShouldAcceptOrder()
         {
             // Arrange
             var cancellationToken = CancellationToken.None;
@@ -64,7 +64,7 @@ namespace GameStart.CatalogService.Common.Tests
         }
 
         [Fact]
-        public async Task Consume_ShouldAcceptOrder_WhenMessageContainsLessItemsThenInRepository()
+        public async Task Consume_WhenMessageContainsLessItemsThenInRepository_ShouldAcceptOrder()
         {
             // Arrange
             var cancellationToken = CancellationToken.None;
@@ -92,7 +92,7 @@ namespace GameStart.CatalogService.Common.Tests
         }
 
         [Fact]
-        public async Task Consume_ShouldFaultOrder_WhenGameIsMissingInRepository()
+        public async Task Consume_WhenGameIsMissingInRepository_ShouldFaultOrder()
         {
             // Arrange
             var cancellationToken = CancellationToken.None;

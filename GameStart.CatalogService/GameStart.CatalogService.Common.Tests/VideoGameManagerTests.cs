@@ -39,7 +39,7 @@ namespace GameStart.CatalogService.Common.Tests
         }
 
         [Fact]
-        public async Task GetByIdAsync_ShouldReturnCachedVideoGame_WhenCachedExists()
+        public async Task GetByIdAsync_WhenCachedExists_ShouldReturnCachedVideoGame()
         {
             // Arrange
             var id = Guid.NewGuid();
@@ -61,7 +61,7 @@ namespace GameStart.CatalogService.Common.Tests
         }
 
         [Fact]
-        public async Task GetByIdAsync_ShouldReturnVideoGame_WhenNotFoundInCacheButFoundInRepository()
+        public async Task GetByIdAsync_WhenNotFoundInCacheButFoundInRepository_ShouldReturnVideoGame()
         {
             // Arrange
             var id = Guid.NewGuid();
@@ -84,7 +84,7 @@ namespace GameStart.CatalogService.Common.Tests
         }
 
         [Fact]
-        public async Task GetByIdAsync_ShouldReturnNull_WhenNotFoundInRepository()
+        public async Task GetByIdAsync_WhenNotFoundInRepository_ShouldReturnNull()
         {
             // Arrange
             var id = Guid.NewGuid();
@@ -107,7 +107,7 @@ namespace GameStart.CatalogService.Common.Tests
         }
 
         [Fact]
-        public async Task GetByPageAsync_ShouldReturnCachedVideoGames_WhenCachedExists()
+        public async Task GetByPageAsync_WhenCachedExists_ShouldReturnCachedVideoGames()
         {
             // Arrange
             const int page = 1;
@@ -133,7 +133,7 @@ namespace GameStart.CatalogService.Common.Tests
         }
 
         [Fact]
-        public async Task GetByPageAsync_ShouldReturnVideoGames_WhenNotCached()
+        public async Task GetByPageAsync_WhenNotCached_ShouldReturnVideoGames()
         {
             // Arrange
             const int page = 1;
@@ -156,7 +156,7 @@ namespace GameStart.CatalogService.Common.Tests
         }
 
         [Fact]
-        public async Task GetByPageAsync_ShouldThrowArgumentOutOfRangeException_WhenPageIsLessThanOne()
+        public async Task GetByPageAsync_WhenPageIsLessThanOne_ShouldThrowArgumentOutOfRangeException()
         {
             // Arrange
             const int page = 0;
@@ -171,7 +171,7 @@ namespace GameStart.CatalogService.Common.Tests
         }
 
         [Fact]
-        public async Task GetByPageAsync_ShouldThrowArgumentOutOfRangeException_WhenPageSizeIsLessThanOne()
+        public async Task GetByPageAsync_WhenPageSizeIsLessThanOne_ShouldThrowArgumentOutOfRangeException()
         {
             // Arrange
             const int page = 1;
@@ -186,7 +186,7 @@ namespace GameStart.CatalogService.Common.Tests
         }
 
         [Fact]
-        public async Task AddAsync_ShouldAddVideoGame_WhenViewModelIsValid()
+        public async Task AddAsync_WhenViewModelIsValid_ShouldAddVideoGame()
         {
             // Arrange
             var cancellationToken = CancellationToken.None;
@@ -216,7 +216,7 @@ namespace GameStart.CatalogService.Common.Tests
         }
 
         [Fact]
-        public async Task UpdateAsync_ShouldUpdateVideoGame_WhenIdExistsAndModelIsValid()
+        public async Task UpdateAsync_WhenIdExistsAndModelIsValid_ShouldUpdateVideoGame()
         {
             // Arrange
             var id = Guid.NewGuid();
@@ -240,7 +240,7 @@ namespace GameStart.CatalogService.Common.Tests
         }
 
         [Fact]
-        public async Task UpdateAsync_ShouldReturnFalse_WhenIdDoesNotExist()
+        public async Task UpdateAsync_WhenIdDoesNotExist_ShouldReturnFalse()
         {
             // Arrange
             var id = Guid.NewGuid();

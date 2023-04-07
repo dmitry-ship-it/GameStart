@@ -33,7 +33,7 @@ namespace GameStart.IdentityService.Common.Tests
         }
 
         [Fact]
-        public async Task Consume_ShouldPublishOrderFaulted_WhenUserDoesNotExist()
+        public async Task Consume_WhenUserDoesNotExist_ShouldPublishOrderFaulted()
         {
             // Arrange
             var messageId = Guid.NewGuid();
@@ -60,7 +60,7 @@ namespace GameStart.IdentityService.Common.Tests
         }
 
         [Fact]
-        public async Task Consume_ShouldPublishOrderFaulted_WhenUserAlreadyOwnsAnyOfDigitalCopies()
+        public async Task Consume_WhenUserAlreadyOwnsAnyOfDigitalCopies_ShouldPublishOrderFaulted()
         {
             // Arrange
             var messageId = Guid.NewGuid();
@@ -94,7 +94,7 @@ namespace GameStart.IdentityService.Common.Tests
         }
 
         [Fact]
-        public async Task Consume_ShouldNotAddOnlyDigitalCopiesToInventoryButPublishAllOfThem_WhenItsContainsInOrderAndOrderIsValid()
+        public async Task Consume_WhenItsContainsInOrderAndOrderIsValid_ShouldNotAddOnlyDigitalCopiesToInventoryButPublishAllOfThem()
         {
             // Arrange
             var messageId = Guid.NewGuid();

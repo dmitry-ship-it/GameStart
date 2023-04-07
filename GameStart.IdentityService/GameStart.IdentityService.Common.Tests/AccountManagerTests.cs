@@ -54,7 +54,7 @@ namespace GameStart.IdentityService.Common.Tests
         }
 
         [Fact]
-        public async Task LoginAsync_ShouldSignInUser_WhenValidCredentials()
+        public async Task LoginAsync_WhenValidCredentials_ShouldSignInUser()
         {
             // Arrange
             var cancellationToken = CancellationToken.None;
@@ -79,7 +79,7 @@ namespace GameStart.IdentityService.Common.Tests
         }
 
         [Fact]
-        public async Task LoginAsync_ShouldThrowArgumentException_WhenUserNotFound()
+        public async Task LoginAsync_WhenUserNotFound_ShouldThrowArgumentException()
         {
             // Arrange
             var cancellationToken = CancellationToken.None;
@@ -97,11 +97,11 @@ namespace GameStart.IdentityService.Common.Tests
 
             // Assert
             await act.Should().ThrowAsync<ArgumentException>()
-                    .WithMessage(Constants.IdentityService.ExceptionMessages.UserNotFound);
+                .WithMessage(Constants.IdentityService.ExceptionMessages.UserNotFound);
         }
 
         [Fact]
-        public async Task LoginAsync_ShouldThrowArgumentException_WhenInvalidCredentials()
+        public async Task LoginAsync_WhenInvalidCredentials_ShouldThrowArgumentException()
         {
             // Arrange
             var cancellationToken = CancellationToken.None;
@@ -127,7 +127,7 @@ namespace GameStart.IdentityService.Common.Tests
         }
 
         [Fact]
-        public async Task LoginAsync_ShouldWriteJwtToCookie_WhenLoggedInSuccessfully()
+        public async Task LoginAsync_WhenLoggedInSuccessfully_ShouldWriteJwtToCookie()
         {
             // Arrange
             var cancellationToken = CancellationToken.None;
@@ -191,7 +191,7 @@ namespace GameStart.IdentityService.Common.Tests
         }
 
         [Fact]
-        public async Task RegisterAsync_ShouldAddUserToRole_WhenValidModel()
+        public async Task RegisterAsync_WhenValidModel_ShouldAddUserToRole()
         {
             // Arrange
             var cancellationToken = CancellationToken.None;
@@ -252,7 +252,7 @@ namespace GameStart.IdentityService.Common.Tests
         }
 
         [Fact]
-        public async Task RegisterAsync_ShouldThrowOperationCanceledException_WhenCanceled()
+        public async Task RegisterAsync_WhenCancelled_ShouldThrowOperationCanceledException()
         {
             // Arrange
             var cancellationToken = new CancellationToken(true);
@@ -271,7 +271,7 @@ namespace GameStart.IdentityService.Common.Tests
         }
 
         [Fact]
-        public async Task SendEmailVerificationRequestAsync_ShouldSendEmail_WhenUserExists()
+        public async Task SendEmailVerificationRequestAsync_WhenUserExists_ShouldSendEmail()
         {
             // Arrange
             var cancellationToken = CancellationToken.None;
@@ -294,7 +294,7 @@ namespace GameStart.IdentityService.Common.Tests
         }
 
         [Fact]
-        public async Task SendEmailVerificationRequestAsync_ShouldThrowArgumentNullException_WhenHttpContextUserIsNull()
+        public async Task SendEmailVerificationRequestAsync_WhenHttpContextUserIsNull_ShouldThrowArgumentNullException()
         {
             // Arrange
             var cancellationToken = CancellationToken.None;
@@ -308,7 +308,7 @@ namespace GameStart.IdentityService.Common.Tests
         }
 
         [Fact]
-        public async Task SendEmailVerificationRequestAsync_ShouldThrowOperationCanceledException_WhenCanceled()
+        public async Task SendEmailVerificationRequestAsync_WhenCancelled_ShouldThrowOperationCanceledException()
         {
             // Arrange
             var cancellationToken = new CancellationToken(true);
@@ -327,7 +327,7 @@ namespace GameStart.IdentityService.Common.Tests
         }
 
         [Fact]
-        public async Task VerifyEmailAsync_ShouldReturnFalse_WhenUserIsNotLoggedIn()
+        public async Task VerifyEmailAsync_WhenUserIsNotLoggedIn_ShouldReturnFalse()
         {
             // Arrange
             var cancellationToken = CancellationToken.None;
@@ -342,7 +342,7 @@ namespace GameStart.IdentityService.Common.Tests
         }
 
         [Fact]
-        public async Task VerifyEmailAsync_ShouldReturnFalse_WhenTokenIsInvalid()
+        public async Task VerifyEmailAsync_WhenTokenIsInvalid_ShouldReturnFalse()
         {
             // Arrange
             var cancellationToken = CancellationToken.None;
@@ -361,7 +361,7 @@ namespace GameStart.IdentityService.Common.Tests
         }
 
         [Fact]
-        public async Task VerifyEmailAsync_ShouldWriteJwtToCookieAndReturnTrue_WhenEmailVerifiedSuccessfully()
+        public async Task VerifyEmailAsync_WhenEmailVerifiedSuccessfully_ShouldWriteJwtToCookieAndReturnTrue()
         {
             // Arrange
             var cancellationToken = CancellationToken.None;
@@ -399,7 +399,7 @@ namespace GameStart.IdentityService.Common.Tests
         }
 
         [Fact]
-        public async Task ExternalAuthenticateAsync_ShouldThrowArgumentException_WhenAuthenticationFails()
+        public async Task ExternalAuthenticateAsync_WhenAuthenticationFails_ShouldThrowArgumentException()
         {
             // Arrange
             var cancellationToken = CancellationToken.None;
@@ -418,7 +418,7 @@ namespace GameStart.IdentityService.Common.Tests
         }
 
         [Fact]
-        public async Task ExternalAuthenticateAsync_ShouldCreateExternalUser_WhenAuthenticationSucceed()
+        public async Task ExternalAuthenticateAsync_WhenAuthenticationSucceed_ShouldCreateExternalUser()
         {
             // Arrange
             var cancellationToken = CancellationToken.None;

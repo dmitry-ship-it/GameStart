@@ -18,7 +18,7 @@ namespace GameStart.FilesService.Api.Tests
         }
 
         [Fact]
-        public async Task GetFileAsync_ReturnsFile_WhenFileFound()
+        public async Task GetFileAsync_WhenFileFound_ShouldReturnFile()
         {
             // Arrange
             const string fileName = "ExistingFile.png";
@@ -38,7 +38,7 @@ namespace GameStart.FilesService.Api.Tests
         }
 
         [Fact]
-        public async Task GetFileAsync_ReturnsNotFound_WhenFileNotFound()
+        public async Task GetFileAsync_WhenFileNotFound_ShouldReturnNotFound()
         {
             // Arrange
             const string fileName = "NonexistentFile.png";
@@ -53,7 +53,7 @@ namespace GameStart.FilesService.Api.Tests
         }
 
         [Fact]
-        public async Task SaveFileAsync_ReturnsOk_WhenFileSaved()
+        public async Task SaveFileAsync_WhenFileSaved_ShouldReturnOkResult()
         {
             // Arrange
             const string fileName = "NewFile.txt";

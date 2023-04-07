@@ -11,7 +11,7 @@ namespace GameStart.CatalogService.Common.Tests
     public class RedisCacheServiceTests
     {
         [Fact]
-        public async Task DeleteAsync_ShouldRemoveItemFromDistributedCache_WhenKeyContainsInCache()
+        public async Task DeleteAsync_WhenKeyContainsInCache_ShouldRemoveItemFromDistributedCache()
         {
             // Arrange
             const string key = "test key";
@@ -32,7 +32,7 @@ namespace GameStart.CatalogService.Common.Tests
         }
 
         [Fact]
-        public async Task DeleteAsync_ShouldDoNothing_WhenKeyIsWrong()
+        public async Task DeleteAsync_WhenKeyIsWrong_ShouldDoNothing()
         {
             // Arrange
             const string key = "test key";
@@ -53,7 +53,7 @@ namespace GameStart.CatalogService.Common.Tests
         }
 
         [Fact]
-        public async Task DeleteAsync_ShouldNotThrow_WhenKeyIsMissing()
+        public async Task DeleteAsync_WhenKeyIsMissing_ShouldNotThrow()
         {
             // Arrange
             const string key = "test key";
@@ -88,7 +88,7 @@ namespace GameStart.CatalogService.Common.Tests
         }
 
         [Fact]
-        public async Task GetAsync_ShouldReturnNull_WhenCacheIsEmptyAndValueIsInHeap()
+        public async Task GetAsync_WhenCacheIsEmptyAndValueIsInHeap_ShouldReturnNull()
         {
             // Arrange
             const string key = "test key";
@@ -105,7 +105,7 @@ namespace GameStart.CatalogService.Common.Tests
         }
 
         [Fact]
-        public async Task GetAsync_ShouldReturnDefault_WhenCacheIsEmptyAndValueIsInStack()
+        public async Task GetAsync_WhenCacheIsEmptyAndValueIsInStack_ShouldReturnDefault()
         {
             // Arrange
             const string key = "test key";
@@ -122,7 +122,7 @@ namespace GameStart.CatalogService.Common.Tests
         }
 
         [Fact]
-        public async Task GetAsync_ShouldReturnDeserializedValue_WhenCacheIsNotEmpty()
+        public async Task GetAsync_WhenCacheIsNotEmpty_ShouldReturnDeserializedValue()
         {
             // Arrange
             const string key = "test key";

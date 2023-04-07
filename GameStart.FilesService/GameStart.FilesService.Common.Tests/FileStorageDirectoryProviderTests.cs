@@ -13,7 +13,7 @@ namespace GameStart.FilesService.Common.Tests
         }
 
         [Fact]
-        public void Constructor_ShouldSetDirectoryToCorrectValue_WhenRunningOnUnixOrMacOSX()
+        public void Constructor_WhenRunningOnUnixOrMacOSX_ShouldSetDirectoryToCorrectValue()
         {
             // Arrange
             var operatingSystem = new OperatingSystem(
@@ -29,7 +29,7 @@ namespace GameStart.FilesService.Common.Tests
         }
 
         [Fact]
-        public void Constructor_ShouldSetDirectoryToCorrectValue_WhenRunningOnWindows()
+        public void Constructor_WhenRunningOnWindows_ShouldSetDirectoryToCorrectValue()
         {
             // Arrange
             var operatingSystem = new OperatingSystem(

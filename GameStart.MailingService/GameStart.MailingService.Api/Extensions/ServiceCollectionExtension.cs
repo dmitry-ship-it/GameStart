@@ -6,6 +6,7 @@ using Hangfire;
 using Hangfire.Mongo;
 using Hangfire.Mongo.Migration.Strategies;
 using Hangfire.Mongo.Migration.Strategies.Backup;
+using MailKit.Net.Smtp;
 using MassTransit;
 
 namespace GameStart.MailingService.Api.Extensions
@@ -14,7 +15,8 @@ namespace GameStart.MailingService.Api.Extensions
     {
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
-            return services.AddSingleton<IEmailService, EmailService>();
+            return services.AddSingleton<IEmailService, EmailService>()
+                .AddScoped<SmtpClient>();
         }
 
         public static IServiceCollection AddPreconfiguredHangfire(this IServiceCollection services)
@@ -50,7 +52,7 @@ namespace GameStart.MailingService.Api.Extensions
         {
             return services.AddMassTransit(options =>
             {
-                options.AddConsumer<EmailVerificationConsumer>();
+                options.AddConsumer<EmailTemplateConsumer>();
 
                 options.UsingRabbitMq((context, configurator) =>
                 {

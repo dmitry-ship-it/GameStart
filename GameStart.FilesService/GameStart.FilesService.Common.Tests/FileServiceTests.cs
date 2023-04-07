@@ -19,7 +19,7 @@ namespace GameStart.FilesService.Common.Tests
         }
 
         [Fact]
-        public async Task GetFileAsync_ShouldReturnFileContent_WhenFileExists()
+        public async Task GetFileAsync_WhenFileExists_ShouldReturnFileContent()
         {
             // Arrange
             const string fileName = "test.txt";
@@ -37,7 +37,7 @@ namespace GameStart.FilesService.Common.Tests
         }
 
         [Fact]
-        public async Task GetFileAsync_ShouldReturnNull_WhenFileDoesNotExist()
+        public async Task GetFileAsync_WhenFileDoesNotExist_ShouldReturnNull()
         {
             // Arrange
             const string fileName = "test.txt";

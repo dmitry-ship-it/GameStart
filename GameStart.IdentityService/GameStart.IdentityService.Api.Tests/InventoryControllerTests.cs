@@ -31,7 +31,7 @@ namespace GameStart.IdentityService.Api.Tests
         }
 
         [Fact]
-        public async Task GetItemAsync_ShouldReturnNotFound_WhenResultIsNull()
+        public async Task GetItemAsync_WhenResultIsNull_ShouldReturnNotFound()
         {
             // Arrange
             var gameId = Guid.NewGuid();
@@ -47,7 +47,7 @@ namespace GameStart.IdentityService.Api.Tests
         }
 
         [Fact]
-        public async Task GetItemAsync_ShouldReturnOkObjectResult_WhenResultIsNotNull()
+        public async Task GetItemAsync_WhenResultIsNotNull_ShouldReturnOkObjectResult()
         {
             // Arrange
             var gameId = Guid.NewGuid();
@@ -87,7 +87,7 @@ namespace GameStart.IdentityService.Api.Tests
         }
 
         [Fact]
-        public async Task DeleteAsync_ShouldReturnNoContentResult_WhenDeletedSuccessfully()
+        public async Task DeleteAsync_WhenDeletedSuccessfully_ShouldReturnNoContentResult()
         {
             //Arrange
             var gameId = Guid.NewGuid();
@@ -104,7 +104,7 @@ namespace GameStart.IdentityService.Api.Tests
         }
 
         [Fact]
-        public async Task DeleteAsync_ShouldReturnNotFoundResult_WhenDeletedSuccessfully()
+        public async Task DeleteAsync_WhenDeletedSuccessfully_ShouldReturnNotFoundResult()
         {
             //Arrange
             var gameId = Guid.NewGuid();
