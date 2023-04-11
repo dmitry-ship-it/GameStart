@@ -65,7 +65,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStart.IdentityService.C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStart.MailingService.Common.Tests", "GameStart.MailingService\GameStart.MailingService.Common.Tests\GameStart.MailingService.Common.Tests.csproj", "{1430F2BC-E499-45D8-8B81-7E6692B84EAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStart.IdentityService.Data.Tests", "GameStart.IdentityService\GameStart.IdentityService.Data.Tests\GameStart.IdentityService.Data.Tests.csproj", "{EB183CE8-DBAD-4B36-977B-43C267FEBBA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStart.IdentityService.Data.Tests", "GameStart.IdentityService\GameStart.IdentityService.Data.Tests\GameStart.IdentityService.Data.Tests.csproj", "{EB183CE8-DBAD-4B36-977B-43C267FEBBA3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStart.OrderingService.Api.Tests", "GameStart.OrderingService\GameStart.OrderingService.Api.Tests\GameStart.OrderingService.Api.Tests.csproj", "{9196DCD5-FFED-47C3-9967-F14D272F0C71}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameStart.OrderingService.Application.Tests", "GameStart.OrderingService\GameStart.OrderingService.Application.Tests\GameStart.OrderingService.Application.Tests.csproj", "{91ED4334-E6AA-4AF5-83D6-0CAC7AB2472B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameStart.OrderingService.Infrastructure.Tests", "GameStart.OrderingService\GameStart.OrderingService.Infrastructure.Tests\GameStart.OrderingService.Infrastructure.Tests.csproj", "{599CF85E-4A18-43D4-9538-B6EEDEF7296A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -183,6 +189,18 @@ Global
 		{EB183CE8-DBAD-4B36-977B-43C267FEBBA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB183CE8-DBAD-4B36-977B-43C267FEBBA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB183CE8-DBAD-4B36-977B-43C267FEBBA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9196DCD5-FFED-47C3-9967-F14D272F0C71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9196DCD5-FFED-47C3-9967-F14D272F0C71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9196DCD5-FFED-47C3-9967-F14D272F0C71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9196DCD5-FFED-47C3-9967-F14D272F0C71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91ED4334-E6AA-4AF5-83D6-0CAC7AB2472B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91ED4334-E6AA-4AF5-83D6-0CAC7AB2472B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91ED4334-E6AA-4AF5-83D6-0CAC7AB2472B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91ED4334-E6AA-4AF5-83D6-0CAC7AB2472B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{599CF85E-4A18-43D4-9538-B6EEDEF7296A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{599CF85E-4A18-43D4-9538-B6EEDEF7296A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{599CF85E-4A18-43D4-9538-B6EEDEF7296A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{599CF85E-4A18-43D4-9538-B6EEDEF7296A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -211,6 +229,9 @@ Global
 		{4E9826E0-2F40-45F6-9D93-4278DD09EA5A} = {862A5883-3F50-4FF7-842D-FD73F3866819}
 		{1430F2BC-E499-45D8-8B81-7E6692B84EAC} = {2A501125-27D0-49FF-A1BC-15FC55020CFB}
 		{EB183CE8-DBAD-4B36-977B-43C267FEBBA3} = {862A5883-3F50-4FF7-842D-FD73F3866819}
+		{9196DCD5-FFED-47C3-9967-F14D272F0C71} = {C044D447-4089-4514-9C2F-5B9AD6B0CAAA}
+		{91ED4334-E6AA-4AF5-83D6-0CAC7AB2472B} = {C044D447-4089-4514-9C2F-5B9AD6B0CAAA}
+		{599CF85E-4A18-43D4-9538-B6EEDEF7296A} = {C044D447-4089-4514-9C2F-5B9AD6B0CAAA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A95021B1-7C40-4506-BDBC-D03797A88526}

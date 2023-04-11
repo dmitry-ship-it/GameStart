@@ -41,7 +41,9 @@ namespace GameStart.OrderingService.Application.Services
             this.guidProvider = guidProvider;
         }
 
-        public async Task<Guid> CreateAsync(OrderDto order, IEnumerable<Claim> claims,
+        public async Task<Guid> CreateAsync(
+            OrderDto order,
+            IEnumerable<Claim> claims,
             CancellationToken cancellationToken = default)
         {
             validator.ValidateAndThrow(order);
@@ -70,7 +72,9 @@ namespace GameStart.OrderingService.Application.Services
                 entity => entity.UserId == userId, cancellationToken);
         }
 
-        public async Task<Order> GetByIdAsync(Guid orderId, IEnumerable<Claim> claims,
+        public async Task<Order> GetByIdAsync(
+            Guid orderId,
+            IEnumerable<Claim> claims,
             CancellationToken cancellationToken = default)
         {
             var userId = claims.GetUserId();
